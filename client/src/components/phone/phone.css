@@ -1,0 +1,12 @@
+.phone-wrapper {
+    grid-column: 1/8;
+    margin: 0 auto;
+}
+
+.phone {
+    width: 400px;
+    height: 600px;
+    margin-top: 2em;
+    background-color: lightgray;    
+
+}
