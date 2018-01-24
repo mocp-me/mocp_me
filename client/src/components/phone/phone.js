@@ -8,15 +8,22 @@ import './phone.css';
 class Phone extends Component {
     constructor(props){
         super(props);
-        this.state = {clicked: false}
+        this.state = {hovered: false}
+    }
+
+    handleOnMouseOver = () => {
+        this.setState({hovered:true})
+    }
+    handleOnMouseLeave = () => {
+        this.setState({hovered:false})
     }
 
     render() {
         return (
-            //probably a better way to do this, and onhover should work about the same, but basically if clicked is false, set to true and rerender n vice versa
-            <div className='phone-wrapper'  onClick={()=>this.state.clicked ? this.setState({clicked: false}) : this.setState({clicked: true})}>                
+            //probably a better way to do this, and onhover should work about the same, but basically if hovered is false, set to true and rerender n vice versa
+            <div className='phone-wrapper'  onMouseOver={this.handleOnMouseOver} onMouseLeave={this.handleOnMouseLeave}>                
                 {/* determine what to render based on state */}
-                {!this.state.clicked ? <div className="phone">The phone will go here</div> : <About /> }
+                {!this.state.hovered ? <div className="phone">Tag the Collection with machine learning & computer vision</div> : <About /> }
             </div>
         )
     }
