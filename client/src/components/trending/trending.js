@@ -5,7 +5,7 @@ class Trending extends Component {
     constructor(props){
         super(props);
         //state will be an array of strings for trending tags
-        this.state = {trendingTags : ['tag1', 'tag2']}
+        this.state = {trendingTags : ['tag1', 'tag2','tag3', 'tag4','tag5', 'tag6']}
     }
 
     componentWillMount () {
@@ -14,17 +14,19 @@ class Trending extends Component {
 
     render() {
         //pending ajax response
-        if (this.state.trendingTags.length == 0) {
+        if (this.state.trendingTags.length === 0) {
             return (
                 <div>Loading..</div>
             )
         }
         return (
             <div className='trending-wrapper'>
-                <h3>Trending Tags : </h3>
-                <ul>
-                    {this.state.trendingTags.map(tag => <li key={tag}>{tag}</li>)}
-                </ul>
+                <div>
+                    <h3>Trending Tags : </h3>
+                    <ul>
+                        {this.state.trendingTags.map(tag => <li key={tag}>{tag}</li>)}
+                    </ul>
+                </div>
             </div>
         )
     }

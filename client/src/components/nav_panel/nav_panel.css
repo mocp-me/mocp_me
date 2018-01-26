@@ -1,6 +1,4 @@
 .panel-wrapper {
-    grid-column: 8/13;
-    grid-row: 1/3;
     display: grid;
     justify-items: center;
     height: 50vh;
@@ -8,6 +6,6 @@
     background-color: orange;
 }
 
-.panel-wrapper ~ .panel-wrapper {
+/* .panel-wrapper ~ .panel-wrapper {
     grid-row: 3/5;
-}
+} */

@@ -2,9 +2,10 @@ import React, { Component } from 'react';
 import { BrowserRouter as Router, Route, Switch } from 'react-router-dom';
 
 
-import DesktopLanding from './pages/desktop_landing/desktop_landing';
-import MobileLanding from './pages/mobile_landing/mobile_landing';
-import DesktopExplore from './pages/explore_desktop/explore_desktop';
+import Landing from './pages/landing/landing';
+import ExploreSearch from './pages/explore_search/explore_search';
+import SearchResultsDesktop from './pages/search_results_desktop/search_results_desktop';
+import SearchResultsMobile from './pages/search_results_mobile/search_results_mobile';
 
 //there are packages available that will instead detact device type, instead of rendering base on window width.. make be worth looking into 
 class App extends Component {
@@ -14,6 +15,7 @@ class App extends Component {
 			width: window.innerWidth
 		};
 	}
+
 	componentWillMount() {
 		window.addEventListener('resize', this.handleSizeChange);
 	};
@@ -28,32 +30,22 @@ class App extends Component {
 	};
 
 	render() {
+
 		const { width } = this.state;
 		const isMobile = width <= 500;
 
-		if(isMobile) {
-			return (
-				<div>
-					<Router>
-						<Switch>
-							<Route path="/" component={MobileLanding} />
-						</Switch>
-					</Router>
-				</div>
-			);
-		} else {
-			return (
-				<div>
-					<Router>
-						<Switch>
-							<Route path="/explore" component={DesktopExplore} />
-							<Route path="/" component={DesktopLanding} />
-						</Switch>
-					</Router>
-				</div>
-			);
-		}
+		return (
+			<div>
+				<Router>
+					<Switch>
+						<Route path="/search/:term" component={isMobile ? SearchResultsMobile : SearchResultsDesktop} />
+						<Route path="/explore" component={ExploreSearch} />
+						<Route path="/" component={Landing} />
+					</Switch>
+				</Router>
+			</div>
+		);
 	}
-} 
+}
 
 export default App;

@@ -4,9 +4,9 @@ import Logo from '../../components/logo/logo';
 import Phone from '../../components/phone/phone';
 import NavPanel from '../../components/nav_panel/nav_panel';
 
-import './desktop_landing.css';
+import './landing.css';
 
-const  DesktopLanding = () => 
+const  Landing = () => 
     <div className="landing-wrapper">
         <Logo />
         <Phone />
@@ -26,4 +26,4 @@ const  DesktopLanding = () =>
     </div>
 
 
-export default DesktopLanding;
+export default Landing;

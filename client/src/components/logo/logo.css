@@ -1,11 +1,4 @@
-.logo-wrapper {
-    grid-column: 1/8;
-    display: flex;
-    justify-content: center;
-}
-
 .logo {
-    grid-row: 1/2;
     width: 600px;
 }
 
