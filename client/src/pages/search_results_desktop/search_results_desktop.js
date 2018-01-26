@@ -1,4 +1,4 @@
-import React, { Component } from 'react';
+import React, { Component, Fragment } from 'react';
 import axios from 'axios';
 
 import Image from '../../components/returned_images/returned_images';
@@ -42,11 +42,10 @@ class SearchResultsDesktop extends Component {
         }
         return(
             //also 'this' isn't recognized unless you wrap everything in the outer div.. weird!
-            <div>
+            <Fragment>
                 {this.state.results.map(thing =>{
-                    //not sure why this has to be wrapper in a return here, but it doesnt work otherwise
                     return(
-                        <div>
+                        <Fragment>
                             <Image source={thing.images.original.url} />
                             <Info
                             title={thing.title}
@@ -54,10 +53,10 @@ class SearchResultsDesktop extends Component {
                             link={thing.source}
                             tags={['this', 'would', 'be', 'an', 'array', 'of', 'tags', '???']} 
                             />
-                        </div>
+                        </Fragment>
                     ) 
                 })}    
-            </div>
+            </Fragment>
         )
     }
 }
