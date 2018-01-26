@@ -5,6 +5,8 @@ import TagSearch from '../../components/tag_search/tag_search';
 import Trending from '../../components/trending/trending';
 
 class ExploreSearch extends Component {
+
+    
     render() {
     
         //I guess this actually doesnt work until you reload the page :(
