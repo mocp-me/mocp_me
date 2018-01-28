@@ -1,12 +1,22 @@
 import React from 'react';
 
-import './about.css';
+// import './about.css';
+
+const aboutWrapper ={
+    marginLeft:'7px',
+    marginRight:'7px',
+    width:'258px',
+    height:'475px',
+    borderRadius:'4px',
+    background:'black',
+    color:'white'
+}
 
 const About = () => 
-    <div className="about-wrapper">
+    <div style={aboutWrapper}>
         <h1>About</h1>
-        <p>Dolore reprehenderit mollit est tempor. Proident cillum in dolor enim sunt do in Lorem anim duis. Excepteur irure laborum sit exercitation non aute incididunt excepteur. Veniam culpa enim non cupidatat aute cupidatat consequat adipisicing.</p>
-        <p>Veniam commodo deserunt nostrud laboris. Consequat eiusmod eiusmod irure id deserunt laboris laborum consectetur sint laboris irure consequat amet. Anim minim non laborum exercitation exercitation ea nisi cupidatat ut incididunt adipisicing aute mollit et. Occaecat tempor anim exercitation cillum aliquip aliquip. Non id nulla cillum voluptate Lorem elit minim.</p>
+        <p>In 1980, the Museum of Contemporary Photography established a permanent collection and it is through this collection that the museum has been able to provide an invaluable research and educational resource to the general public and thousands of students. In 2009, the growing collection was digitized and made available online for free to the general public. </p>
+		<p>MoCP.me is a web application using computer vision and machine learning as a way to interact with the MoCP collection on user-generated terms.</p>
     </div>
 
 export default About;
