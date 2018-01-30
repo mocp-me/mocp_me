@@ -7,14 +7,14 @@
     "server": "node-dev server.js",
     "client": "node startup-scripts/start-client.js",
     "start": "concurrently \"node server.js\" \"npm run client\"",
-    "build": "node startup-scripts/build.js",
+    "build": "node scripts/build.js",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "devDependencies": {
     "concurrently": "^3.5.0",
     "node-dev": "^3.1.3"
   },
-  "repository": "https://github.com/laneelliott/mocp_me_app",
+  "repository": "https://github.com/mocp-me/mocp_me",
   "license": "MIT",
   "dependencies": {
     "body-parser": "^1.18.2",
