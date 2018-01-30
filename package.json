@@ -8,7 +8,7 @@
     "client": "node startup-scripts/start-client.js",
     "build": "node startup-scripts/build.js",
     "test": "echo \"Error: no test specified\" && exit 1",
-    "start": "node index.js",
+    "start": "concurrently \"node server.js\" \"npm run client\"",
     "heroku-postbuild": "cd client && npm install --only=dev && npm install && npm run build"
   },
   "devDependencies": {
