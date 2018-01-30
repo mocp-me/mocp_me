@@ -5,18 +5,17 @@ process.stdout.write('\033c');
 const express = require ("express");
 const bodyParser = require ("body-parser");
 const routes = require ("./routes");
-const db = require ("./models/index")
+// const db = require ("./models/index")
 
 // -----------------------------------------------
 // -------- Sequelize Test Functions -------------
 // -----------------------------------------------
 
 // const Photos = require ("./models/photos")
-console.log(db)
 
-db.tags.findAll().then(photos => {
-	console.log(photos)
-})
+// db.tags.findAll().then(photos => {
+// 	console.log(photos)
+// })
 
 // -----------------------------------------------
 // ------ End Sequelize Test Functions -----------
