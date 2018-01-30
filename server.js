@@ -5,6 +5,22 @@ process.stdout.write('\033c');
 const express = require ("express");
 const bodyParser = require ("body-parser");
 const routes = require ("./routes");
+const db = require ("./models/index.js")
+
+// -----------------------------------------------
+// -------- Sequelize Test Functions -------------
+// -----------------------------------------------
+
+// const Photos = require ("./models/photos.js")
+
+
+db.Photos.findAll().then(photos => {
+	console.log(photos)
+})
+
+// -----------------------------------------------
+// ------ End Sequelize Test Functions -----------
+// -----------------------------------------------
 
 // Set Port number to environmental variable -or- Port 3001
 const PORT = process.env.PORT || 3001;
@@ -23,5 +39,5 @@ app.use("/", routes);
 // Activate express server
 app.listen(PORT, function(){
 	console.log(`
-🤫 Please, pay no attention to the 🆒 app listening on port ${PORT}. 👓`);
+🤫 Please, pay no attention to the express app listening on port ${PORT}.`);
 });
