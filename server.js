@@ -19,7 +19,7 @@ app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({extended: false}));
 
 // Routes
-app.use('/static', express.static(path.join(__dirname, 'client/build')));
+app.use(express.static("client/build"));
 app.use("/", routes);
 
 // Activate express server
