@@ -5,21 +5,7 @@ process.stdout.write('\033c');
 const express = require ("express");
 const bodyParser = require ("body-parser");
 const routes = require ("./routes");
-// const db = require ("./models/index")
 
-// -----------------------------------------------
-// -------- Sequelize Test Functions -------------
-// -----------------------------------------------
-
-// const Photos = require ("./models/photos")
-
-// db.tags.findAll().then(photos => {
-// 	console.log(photos)
-// })
-
-// -----------------------------------------------
-// ------ End Sequelize Test Functions -----------
-// -----------------------------------------------
 
 // Set Port number to environmental variable -or- Port 3001
 const PORT = process.env.PORT || 3001;
