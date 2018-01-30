@@ -20,7 +20,7 @@ app.use(bodyParser.urlencoded({extended: false}));
 
 // Routes
 app.use(express.static("client/build"));
-app.use("/", routes);
+app.use(routes);
 
 // Activate express server
 app.listen(PORT, function(){

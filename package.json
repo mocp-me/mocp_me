@@ -22,7 +22,6 @@
     "express": "^4.16.2",
     "fs": "^0.0.1-security",
     "mysql2": "^1.5.1",
-    "path": "^0.12.7",
     "react-router": "^4.2.0",
     "sequelize": "^4.32.2"
   }
