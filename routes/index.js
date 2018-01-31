@@ -16,6 +16,7 @@ const routes = (function(){
 	router.use("/api", apiRoutes);
 
 	router.use("/test", function (req, res) {
+		console.log("Test Route Hit");
 		res.json({express: "YES it worked!"});
 	});
 
