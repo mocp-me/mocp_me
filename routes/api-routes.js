@@ -22,6 +22,12 @@ const apiRoutes = (function(){
 		})
 	});
 
+	router.get("/all-tags", (req, res) => {
+		db.tags.findAll().then(tags => {
+			res.json(tags);
+		})
+	});
+
 	// Catch-all route
 	router.get("*", (req, res) => res.json({answer: 42}));
 
