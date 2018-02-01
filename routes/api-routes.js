@@ -4,7 +4,7 @@ const apiRoutes = (function(){
 	const path = require("path");
 	const bodyParser = require("body-parser");
 	// Passes the db object to the routes
-	const db = require("./../models/index");
+	//const db = require("./../models/index");
 
 	// Instantiate express router
 	const router = require("express").Router();
