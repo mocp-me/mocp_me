@@ -22,11 +22,11 @@ const apiRoutes = (function(){
 		})
 	});
 
-	// router.get("/all-tags", (req, res) => {
-	// 	db.tags.findAll().then(tags => {
-	// 		res.json(tags);
-	// 	})
-	// });
+	router.get("/all-tags", (req, res) => {
+		db.Tags.findAll().then(Tags => {
+			res.json(Tags);
+		})
+	});
 
 	// Catch-all route
 	router.get("*", (req, res) => res.json({answer: 42}));
