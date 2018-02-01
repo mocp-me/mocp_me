@@ -16,11 +16,11 @@ const apiRoutes = (function(){
 	// API Routes go here
 
 	// Test DB get route
-	// router.get("/test", (req, res) => {
-	// 	db.photos.findAll().then(photos => {
-	// 		res.json(photos);
-	// 	})
-	// });
+	router.get("/all-photos", (req, res) => {
+		db.photos.findAll().then(photos => {
+			res.json(photos);
+		})
+	});
 
 	// Catch-all route
 	router.get("*", (req, res) => res.json({answer: 42}));
