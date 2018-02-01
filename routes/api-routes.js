@@ -17,8 +17,8 @@ const apiRoutes = (function(){
 
 	// Test DB get route
 	router.get("/all-photos", (req, res) => {
-		db.photos.findAll().then(photos => {
-			res.json(photos);
+		db.Photos.findAll().then(Photos => {
+			res.json(Photos);
 		})
 	});
 
