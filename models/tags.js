@@ -6,7 +6,7 @@ const sequelize = require("../config/connection_config.js");
 
 // Creates a "Photo" model that matches up with DB
 module.exports = function (sequelize, DataTypes) {
-    const Tags = sequelize.define("Tags", {
+    const Tags = sequelize.define("tags", {
         // the tag's id gets saved as an integer
         id: {
             type: Sequelize.INTEGER,
