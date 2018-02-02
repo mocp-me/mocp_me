@@ -10,7 +10,7 @@ const phoneWrapper = {
     borderRadius:'25px',
     background:'gray',
     paddingTop: '40px',
-    marginLeft: '20vw',
+    marginLeft: '15vw',
     marginBottom:'7vh'
 }
 const phone ={
@@ -20,7 +20,12 @@ const phone ={
     height:'475px',
     borderRadius:'4px',
     background:'black',
-    color:'white'
+    color:'white',
+    padding:'40px',
+    paddingLeft:'25px',
+    fontSize: '35px',
+    font:'avenir',
+    lineHeight:'1.25'
 }
 
 //   .speaker-circle{
@@ -51,7 +56,7 @@ class Phone extends Component {
         return (
             <div style={phoneWrapper}  onMouseOver={this.handleOnMouseOver} onMouseLeave={this.handleOnMouseLeave}>                
                 {/* determine what to render based on state */}
-                {!this.state.hovered ? <div style={phone}>Tag the Collection with machine learning & computer vision</div> : <About /> }
+                {!this.state.hovered ? <div style={phone}>Tag the collection with machine learning & computer vision</div> : <About /> }
             </div>
         )
     }

@@ -4,16 +4,30 @@ import {Grid, Row, Col, Container} from 'react-grid-system';
 
 const panelStyle={
 	alignContent:'center',
-	textAlign:'center'
+	textAlign:'center',
+	height:'50vh',
+	paddingTop:'2vh',
+}
+const imageStyle={
+	marginBottom:'2vh'
+}
+const textStyle={
+	font:"avenir",
+	marginBottom:'1px',
+	fontSize:'20px',
+	padding:'none',
+	lineHeight:'1.25'
 }
 
-const NavPanel = ({imgSrc, text, route, onClick, btnText, backgroundColor}) => 
-    <Row>
+const NavPanel = ({imgSrc, text1, text2, text3, route, onClick, btnText, style, buttonStyleProp}) => 
+    <Row style={style}>
     	<Col xs={12} style={panelStyle}>
-	        <img src={imgSrc}/>
-	        <p>{text}</p>
+	        <img style={imageStyle} src={imgSrc}/>
+	        <p style={textStyle}><b>{text1}</b></p>
+	        <p style={textStyle}><b>{text2}</b></p>
+	        <p style={textStyle}><b>{text3}</b></p>
 	        <Link to={route}>
-	            <button onClick={onClick}>{btnText}</button>
+	            <button style={buttonStyleProp} onClick={onClick}><b>{btnText}</b></button>
 	        </Link>
 	    </Col>
     </Row>

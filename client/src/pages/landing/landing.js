@@ -10,9 +10,42 @@ import {Grid, Row, Col, Container, Clearfix} from 'react-grid-system';
 // import './landing.css';
 
 const landingWrapper = {
-    background:'black'
+    background:'black',
+    height:'100vh',
+    overflowY:'none'
 }
-
+const navPanel_1 = {
+    backgroundColor: '#FFDC65',
+    color:'#E5B616',
+}
+const navPanel_2 = {
+    backgroundColor: '#E5B616',
+    color:'#FFDC65',
+}
+const butt_1 = {
+    background:'none',
+    borderColor:'#E5B616',
+    color:'#E5B616',
+    borderRadius:'25px',
+    borderWidth:'1.5px',
+    paddingLeft:'20px',
+    paddingRight:'18px',
+    paddingTop:'10px',
+    paddingBottom:'10px',
+    marginTop:'10px'
+}
+const butt_2 = {
+    background:'none',
+    borderColor:'#FFDC65',
+    color:'#FFDC65',
+    borderRadius:'25px',
+    borderWidth:'1.5px',
+    paddingLeft:'20px',
+    paddingRight:'18px',
+    paddingTop:'10px',
+    paddingBottom:'10px',
+    marginTop:'10px'
+}
 
 const Landing = () => 
     <div style={landingWrapper}>
@@ -23,20 +56,26 @@ const Landing = () =>
                 <Phone />
             </Col>
             <Col xs={12} sm={4} md={5}>
-                <NavPanel
-                    imgSrc="https://picsum.photos/300/300?random"
-                    text="Upload your image to connect to the collection."
+                <NavPanel style={navPanel_1}
+                    imgSrc="https://picsum.photos/190/190?random"
+                    text1="Upload your image"
+                    text2="to connect to"
+                    text3="the collection."
                     //route will eventually be passed to a Link to="{route}" in nav_panel
                     route="/add"
                     btnText='add image'
-                    backgroundColor='#FFDC65'
+                    style={ navPanel_1 }
+                    buttonStyleProp = { butt_1 }
                 />
                 <NavPanel
-                    imgSrc="https://picsum.photos/300/301?random"
-                    text="Search our tags & add some more on the go!"
+                    imgSrc="https://picsum.photos/190/190?random"
+                    text1="Search our tags"
+                    text2="& add some more"
+                    text3="on the go!"
                     route="/explore"
                     btnText='explore'
-                    backgroundColor='#E5B616'
+                    style={navPanel_2}
+                    buttonStyleProp = { butt_2 }
                 />
             </Col>
         </Row>

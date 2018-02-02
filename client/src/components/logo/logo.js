@@ -4,7 +4,7 @@ import logo from './logo.png'
 // import './logo.css';
 const logoStyle = {
 	width:'272px',
-	marginLeft: '20vw',
+	marginLeft: '15vw',
 	marginTop:'7vh',
 	marginBottom:'5vh'
 }
