@@ -1,7 +1,7 @@
 import history from "../history";
 import auth0 from "auth0-js";
 
-export default class Auth {
+class Auth {
 	constructor (){
 		this.REACT_APP_AUTH0_CLIENT_ID = process.env.REACT_APP_AUTH0_CLIENT_ID;
 		this.REACT_APP_AUTH0_AUDIENCE = process.env.REACT_APP_AUTH0_AUDIENCE;
@@ -11,7 +11,7 @@ export default class Auth {
 	    this.logout = this.logout.bind(this);
 	    this.handleAuthentication = this.handleAuthentication.bind(this);
 	    this.isAuthenticated = this.isAuthenticated.bind(this);
-
+	    this.history = history;
 		this.auth0 = new auth0.WebAuth({
 			domain: "mocp-me.auth0.com",
 			clientID: this.REACT_APP_AUTH0_CLIENT_ID,
@@ -25,9 +25,9 @@ export default class Auth {
 		this.auth0.parseHash((err, authResult) => {
 			if (authResult && authResult.accessToken && authResult.idToken) {
 				this.setSession(authResult);
-				history.replace('/home');
+				this.history.replace('/admin');
 			} else if (err) {
-				history.replace('/home');
+				this.history.replace('/');
 				console.log(err);
 			}
 		});
@@ -40,7 +40,7 @@ export default class Auth {
 		localStorage.setItem('id_token', authResult.idToken);
 		localStorage.setItem('expires_at', expiresAt);
 		// navigate to the home route
-		history.replace('/home');
+		history.replace('/admin');
 	}
 
 	logout() {
@@ -56,6 +56,7 @@ export default class Auth {
 		// Check whether the current time is past the 
 		// access token's expiry time
 		let expiresAt = JSON.parse(localStorage.getItem('expires_at'));
+		console.log('expiresAt', expiresAt);
 		return new Date().getTime() < expiresAt;
 	}
 	
@@ -64,6 +65,5 @@ export default class Auth {
 	}
 }
 
-
-
+export {Auth, history}
 

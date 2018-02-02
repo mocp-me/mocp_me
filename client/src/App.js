@@ -1,11 +1,16 @@
 import React, { Component, Fragment } from 'react';
-import { BrowserRouter as Router, Route, Switch } from 'react-router-dom';
+import { Router, Route, Switch } from 'react-router-dom';
 
+import {Auth, history} from "./Auth/Auth";
+// import history from "./history";
 
 import Landing from './pages/landing/landing';
 import ExploreSearch from './pages/explore_search/explore_search';
 import SearchResultsDesktop from './pages/search_results_desktop/search_results_desktop';
 import SearchResultsMobile from './pages/search_results_mobile/search_results_mobile';
+import Admin from "./pages/admin/admin";
+import Callback from "./components/callback/callback";
+
 
 //there are packages available that will instead detact device type, instead of rendering base on window width.. make be worth looking into 
 class App extends Component {
@@ -14,6 +19,16 @@ class App extends Component {
 		this.state = {
 			width: window.innerWidth
 		};
+		
+	}
+
+	auth = new Auth();
+	history = history;
+
+	handleAuthentication ({location}) {
+		if (/access_token|id_token|error/.test(location.hash)) {
+		this.auth.handleAuthentication();
+		}
 	}
 
 	componentWillMount() {
@@ -30,7 +45,6 @@ class App extends Component {
 	};
 
 	render() {
-
 		const { width } = this.state;
 		const isMobile = width <= 500;
 
@@ -38,10 +52,15 @@ class App extends Component {
 			//Fragments can be used instead of nesting 6 trillion divs.. hopefully this will also make
 			// styling easier!
 			<div>
-				<Router>
+				<Router history={history}>
 					<Switch>
 						<Route path="/search/:term" component={isMobile ? SearchResultsMobile : SearchResultsDesktop} />
 						<Route path="/explore" component={ExploreSearch} />
+						<Route path="/admin" render={(props) => <Admin auth={this.auth} {...props} />} />
+						<Route path="/callback" render={(props) => {
+							this.handleAuthentication(props);
+							return <Callback {...props} /> 
+							}}/>
 						<Route path="/" component={Landing} />
 					</Switch>
 				</Router>
