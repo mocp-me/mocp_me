@@ -14,8 +14,24 @@ const apiRoutes = (function(){
 	router.use(bodyParser.json());
 
 	// API Routes go here
+	// Get the images of a particular keyword
+	router.get("/search-tags/:tag_name", function (req, res) {
+		db.Tags.findAll({
+			where: {
+				tag_name: req.params.tag_name
+			}
+		}).then(function (dbTags) {
+			db.Photos.findAll({
+				where: {
+					id: dbTags[0].photo_id
+				}
+			}).then(function (photoId) {
+				res.json(photoId);
+			});
+		});
+	});
 
-	// Test DB get route
+	// Test DB get routes
 	router.get("/all-photos", (req, res) => {
 		db.Photos.findAll().then(Photos => {
 			res.json(Photos);
