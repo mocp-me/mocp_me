@@ -1,5 +1,6 @@
 import React, { Component, Fragment } from 'react';
 import axios from 'axios';
+import Slider from 'react-slick';
 
 import Image from '../../components/returned_images/returned_images';
 import Info from '../../components/returned_info/returned_info';
@@ -34,6 +35,14 @@ class SearchResultsDesktop extends Component {
         })
     }
     render() {
+        const settings = {
+            dots: true,
+            infinite: true,
+            speed: 500,
+            slidesToShow: 1,
+            slidesToScroll: 1,
+        }
+
         if (this.state.results.length === 0) {
             return (
                 //insert dope loading animation here..
@@ -41,23 +50,35 @@ class SearchResultsDesktop extends Component {
             )
         }
         return(
-            //also 'this' isn't recognized unless you wrap everything in the outer div.. weird!
-            <Fragment>
-                {this.state.results.map(thing =>{
-                    return(
-                        <Fragment>
-                            <Image source={thing.images.original.url} />
-                            <Info
-                            title={thing.title}
-                            artist={thing.type}
-                            link={thing.source}
-                            tags={['this', 'would', 'be', 'an', 'array', 'of', 'tags', '???']} 
-                            />
-                        </Fragment>
-                    ) 
-                })}    
-            </Fragment>
+            <div>
+                <Slider {...settings}>
+                    {this.state.results.map(thing => {
+                        return (
+                            <div>
+                                <Image source={thing.images.original.url} />
+                                <Info
+                                title={thing.title}
+                                artist={thing.type}
+                                link={thing.source}
+                                tags={['an', 'array', 'of', 'tags']} 
+                                />
+                            </div>
+                        ) 
+                    })}    
+                </Slider>
+            </div>
         )
+        // return (
+        //     <div>
+        //       <h2> Lazy Load</h2>
+        //       <Slider {...settings}>
+        //         <div><img src={this.state.results[0].images.original.url} /></div>
+        //         <div><img src={this.state.results[1].images.original.url} /></div>
+        //         <div><img src={this.state.results[2].images.original.url} /></div>
+        //         <div><img src={this.state.results[3].images.original.url} /></div>
+        //       </Slider>
+        //     </div>
+        //   );
     }
 }
 

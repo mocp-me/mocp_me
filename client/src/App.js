@@ -1,7 +1,7 @@
 import React, { Component, Fragment } from 'react';
 import { BrowserRouter as Router, Route, Switch } from 'react-router-dom';
 // Normalizes CSS defaults in varying browsers
-import { Normalize } from 'normalize-css';
+// import { Normalize } from 'normalize-css';
 
 
 import Landing from './pages/landing/landing';
@@ -38,9 +38,7 @@ class App extends Component {
 		const isMobile = width <= 500;
 
 		return (
-			//Fragments can be used instead of nesting 6 trillion divs.. hopefully this will also make
-			// styling easier!
-			<div style={Normalize}>
+			<div>
 				<Router>
 					<Switch>
 						<Route path="/search/:term" component={isMobile ? SearchResultsMobile : SearchResultsDesktop} />

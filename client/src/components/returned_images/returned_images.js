@@ -1,13 +1,11 @@
-import React, { Component } from 'react';
+import React from 'react';
 
-class Image extends Component {
-    render() {
-        return (
-            <div className="image-wrapper">
-                <img src={this.props.source}/>
-            </div>
-        )
-    }
+const Image = (props) => {
+    return (
+        <div className="image-wrapper">
+            <img src={props.source}  style={{height: '100vh', width:'90vw', margin: '0 auto'}}/>
+        </div>
+    );
 }
 
 export default Image;

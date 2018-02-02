@@ -1,17 +1,15 @@
-import React, { Component } from 'react';
+import React from 'react';
 
-class Info extends Component {
-    render() {
-        return (
-            <div className="info-wrapper">
-                <h3>{this.props.title}</h3>
-                <h4>{this.props.artist}</h4>
-                <a href={this.props.link}>more info</a>
-                <hr />
-                {this.props.tags.map(tag => <p>{`#${tag}`}</p>)}
-            </div>
-        )
-    }
+const Info = (props) => {
+    return (
+        <div className="info-wrapper"  style={{height: '100vh', backgroundColor: 'black', color: 'white'}}>
+            <h3>{props.title}</h3>
+            <h4>{props.artist}</h4>
+            <a href={props.link}>more info</a>
+            <hr />
+            {props.tags.map(tag => <p>{`#${tag}`}</p>)}
+        </div>
+    );
 }
 
 export default Info;
