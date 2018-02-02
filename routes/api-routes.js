@@ -15,15 +15,15 @@ const apiRoutes = (function(){
 
 	// API Routes go here
 	// Get the images of a particular keyword
-	router.get("/search-tags/:tag_name", function (req, res) {
+	router.get("/search-tags/:tag_name", (req, res) => {
 		db.Tags.findAll({
 			where: {
 				tag_name: req.params.tag_name
 			}
-		}).then(function (dbTags) {
+		}).then(function (tags) {
 			db.Photos.findAll({
 				where: {
-					id: dbTags[0].photo_id
+					id: tags[0].photo_id
 				}
 			}).then(function (photoId) {
 				res.json(photoId);
