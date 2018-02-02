@@ -14,8 +14,9 @@ const landingWrapper = {
 }
 
 
-const  Landing = () => 
+const Landing = () => 
     <div style={landingWrapper}>
+
         <Row>
             <Col xs={12} sm={8} md={7}>
                 <Logo />
@@ -28,14 +29,14 @@ const  Landing = () =>
                     //route will eventually be passed to a Link to="{route}" in nav_panel
                     route="/add"
                     btnText='add image'
-                    backgroundColor='lightYellow'
+                    backgroundColor='#FFDC65'
                 />
                 <NavPanel
                     imgSrc="https://picsum.photos/300/301?random"
                     text="Search our tags & add some more on the go!"
                     route="/explore"
                     btnText='explore'
-                    backgroundColor='darkYellow'
+                    backgroundColor='#E5B616'
                 />
             </Col>
         </Row>

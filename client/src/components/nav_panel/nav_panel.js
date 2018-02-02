@@ -7,7 +7,7 @@ const panelStyle={
 	textAlign:'center'
 }
 
-const NavPanel = ({imgSrc, text, route, onClick, btnText}) => 
+const NavPanel = ({imgSrc, text, route, onClick, btnText, backgroundColor}) => 
     <Row>
     	<Col xs={12} style={panelStyle}>
 	        <img src={imgSrc}/>

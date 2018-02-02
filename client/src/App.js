@@ -1,11 +1,14 @@
 import React, { Component, Fragment } from 'react';
 import { BrowserRouter as Router, Route, Switch } from 'react-router-dom';
+// Normalizes CSS defaults in varying browsers
+import { Normalize } from 'normalize-css';
 
 
 import Landing from './pages/landing/landing';
 import ExploreSearch from './pages/explore_search/explore_search';
 import SearchResultsDesktop from './pages/search_results_desktop/search_results_desktop';
 import SearchResultsMobile from './pages/search_results_mobile/search_results_mobile';
+
 
 //there are packages available that will instead detact device type, instead of rendering base on window width.. make be worth looking into 
 class App extends Component {
@@ -37,7 +40,7 @@ class App extends Component {
 		return (
 			//Fragments can be used instead of nesting 6 trillion divs.. hopefully this will also make
 			// styling easier!
-			<div>
+			<div style={Normalize}>
 				<Router>
 					<Switch>
 						<Route path="/search/:term" component={isMobile ? SearchResultsMobile : SearchResultsDesktop} />

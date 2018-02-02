@@ -3,9 +3,6 @@ import About from '../about/about';
 import {Grid, Row, Col, Container} from 'react-grid-system';
 // import './phone.css';
 
-const moduleWrapper ={
-    background:'blue',
-}
 const phoneWrapper = {
     marginTop:'0',
     width:'272px',
@@ -13,7 +10,8 @@ const phoneWrapper = {
     borderRadius:'25px',
     background:'gray',
     paddingTop: '40px',
-    marginLeft: '15vw'
+    marginLeft: '20vw',
+    marginBottom:'7vh'
 }
 const phone ={
     marginLeft:'7px',
