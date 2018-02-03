@@ -1,4 +1,4 @@
-import React, { Component, Fragment } from 'react';
+import React, { Component } from 'react';
 import axios from 'axios';
 import Slider from 'react-slick';
 
@@ -21,16 +21,16 @@ class SearchResultsMobile extends Component {
 
     componentWillMount() {
         const { term } = this.props.match.params
-        const someStuff = [];
+        const searchResults = [];
         
         //////////more testing. eventually this should be the call to our db for image results
 
         axios.get(`${ROOT_URL}${term}${API_KEY}`)
         .then(response => {
             console.log(response)
-            response.data.data.map(result => someStuff.push(result));
+            response.data.data.map(result => searchResults.push(result));
             this.setState({
-                results: someStuff
+                results: searchResults
             })           
         })
     }
@@ -52,14 +52,14 @@ class SearchResultsMobile extends Component {
         return(
             <div>
                 <Slider {...settings}>
-                    {this.state.results.map(thing => {
+                    {this.state.results.map(result => {
                         return (
                             <div>
-                                <Image source={thing.images.original.url} />
+                                <Image source={result.images.original.url} />
                                 <Info
-                                title={thing.title}
-                                artist={thing.type}
-                                link={thing.source}
+                                title={result.title}
+                                artist={result.type}
+                                link={result.source}
                                 tags={['an', 'array', 'of', 'tags']} 
                                 />
                             </div>
