@@ -12,14 +12,17 @@ class Admin extends Component {
 	}
 
 	isAuthenticated() {
-		this.props.auth.isAuthenticated();
+		console.log('isAuthenticated() called =', this.props.auth.isAuthenticated());
+		return this.props.auth.isAuthenticated();
 	}
 
 	componentWillMount() {
-		if (! this.isAuthenticated()){
-			return this.login();
+		console.log('componentWillMount()called');
+		console.log("(!this.isAuthenticated())", (!this.isAuthenticated()));
+		if (!this.isAuthenticated()){
+			this.login();
 		} else {
-			result = (<AdminPanel />)
+			result = (<AdminPanel auth={this.props.auth}/>)
 		}
 	}
 
@@ -34,37 +37,3 @@ class Admin extends Component {
 }
 
 export default Admin;
-
-// class Home extends Component {
-//   login() {
-// 	this.props.auth.login();
-//   }
-//   render() {
-// 	const { isAuthenticated } = this.props.auth;
-// 	return (
-// 	  <div className="container">
-// 		{
-// 		  isAuthenticated() && (
-// 			  <h4>
-// 				You are logged in!
-// 			  </h4>
-// 			)
-// 		}
-// 		{
-// 		  !isAuthenticated() && (
-// 			  <h4>
-// 				You are not logged in! Please{' '}
-// 				<a
-// 				  style={{ cursor: 'pointer' }}
-// 				  onClick={this.login.bind(this)}
-// 				>
-// 				  Log In
-// 				</a>
-// 				{' '}to continue.
-// 			  </h4>
-// 			)
-// 		}
-// 	  </div>
-// 	);
-//   }
-// }

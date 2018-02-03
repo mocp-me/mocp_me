@@ -2,25 +2,27 @@ import history from "../history";
 import auth0 from "auth0-js";
 
 class Auth {
-	constructor (){
-		this.REACT_APP_AUTH0_CLIENT_ID = process.env.REACT_APP_AUTH0_CLIENT_ID;
-		this.REACT_APP_AUTH0_AUDIENCE = process.env.REACT_APP_AUTH0_AUDIENCE;
-		this.REACT_APP_AUTH0_REDIRECT_URL = process.env.REACT_APP_AUTH0_REDIRECT_URL;
+	auth0 = new auth0.WebAuth({
+			domain: process.env.REACT_APP_AUTH0_CLIENT_DOMAIN,
+			clientID: process.env.REACT_APP_AUTH0_CLIENT_ID,
+			redirectUri: process.env.REACT_APP_AUTH0_REDIRECT_URL,
+			audience: process.env.REACT_APP_AUTH0_AUDIENCE,
+			responseType: "token id_token",
+			scope: "openid"
+		});
 
+	constructor (){
 	    this.login = this.login.bind(this);
 	    this.logout = this.logout.bind(this);
 	    this.handleAuthentication = this.handleAuthentication.bind(this);
 	    this.isAuthenticated = this.isAuthenticated.bind(this);
 	    this.history = history;
-		this.auth0 = new auth0.WebAuth({
-			domain: "mocp-me.auth0.com",
-			clientID: this.REACT_APP_AUTH0_CLIENT_ID,
-			redirectUri: this.REACT_APP_AUTH0_REDIRECT_URL,
-			audience: this.REACT_APP_AUTH0_AUDIENCE,
-			responseType: "token id_token",
-			scope: "openid"
-		});
 	}
+
+	login() {
+	    this.auth0.authorize();
+	  }
+
 	handleAuthentication() {
 		this.auth0.parseHash((err, authResult) => {
 			if (authResult && authResult.accessToken && authResult.idToken) {
@@ -60,9 +62,6 @@ class Auth {
 		return new Date().getTime() < expiresAt;
 	}
 	
-	login() {
-		this.auth0.authorize();
-	}
 }
 
 export {Auth, history}
