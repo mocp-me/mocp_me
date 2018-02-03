@@ -1,4 +1,4 @@
-import React, { Component, Fragment } from 'react';
+import React, { Component } from 'react';
 import axios from 'axios';
 import Slider from 'react-slick';
 
@@ -21,16 +21,19 @@ class SearchResultsDesktop extends Component {
 
     componentWillMount() {
         const { term } = this.props.match.params
-        const someStuff = [];
+        const searchResults = [];
         
         //////////more testing. eventually this should be the call to our db for image results
 
         axios.get(`${ROOT_URL}${term}${API_KEY}`)
         .then(response => {
-            console.log(response)
-            response.data.data.map(result => someStuff.push(result));
+            response.data.data.map(result => {
+                searchResults.push(result);
+                searchResults.push(result);
+
+            });
             this.setState({
-                results: someStuff
+                results: searchResults
             })           
         })
     }
@@ -43,6 +46,9 @@ class SearchResultsDesktop extends Component {
             slidesToScroll: 1,
         }
 
+        let toggle = true;
+
+
         if (this.state.results.length === 0) {
             return (
                 //insert dope loading animation here..
@@ -52,33 +58,31 @@ class SearchResultsDesktop extends Component {
         return(
             <div>
                 <Slider {...settings}>
-                    {this.state.results.map(thing => {
+                    {this.state.results.map(result => {
+                        if(toggle){
+                            toggle = !toggle;
                         return (
                             <div>
-                                <Image source={thing.images.original.url} />
-                                <Info
-                                title={thing.title}
-                                artist={thing.type}
-                                link={thing.source}
-                                tags={['an', 'array', 'of', 'tags']} 
-                                />
+                                <Image source={result.images.original.url} />
                             </div>
-                        ) 
+                        )
+                        } else {
+                            toggle = !toggle;
+                            return (
+                                <div>
+                                    <Info
+                                        title={result.title}
+                                        artist={result.type}
+                                        link={result.source}
+                                        tags={['an', 'array', 'of', 'tags']} 
+                                    />
+                                </div>
+                            )
+                        }
                     })}    
                 </Slider>
             </div>
         )
-        // return (
-        //     <div>
-        //       <h2> Lazy Load</h2>
-        //       <Slider {...settings}>
-        //         <div><img src={this.state.results[0].images.original.url} /></div>
-        //         <div><img src={this.state.results[1].images.original.url} /></div>
-        //         <div><img src={this.state.results[2].images.original.url} /></div>
-        //         <div><img src={this.state.results[3].images.original.url} /></div>
-        //       </Slider>
-        //     </div>
-        //   );
     }
 }
 
