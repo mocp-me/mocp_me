@@ -2,8 +2,9 @@ import React, { Component } from 'react';
 import axios from 'axios';
 import Slider from 'react-slick';
 
-import Image from '../../components/returned_images/returned_images';
+import Image from '../../components/image/image';
 import Info from '../../components/returned_info/returned_info';
+import Tags from '../../components/tag_list/tag_list';
 
 const API_KEY = '&api_key=CDrewNwfN9TWDnXhucfwDmCGcZIfoVuy&limit=5';
 const ROOT_URL = 'http://api.giphy.com/v1/gifs/search?q='
@@ -57,11 +58,12 @@ class SearchResultsMobile extends Component {
                             <div>
                                 <Image source={result.images.original.url} />
                                 <Info
-                                title={result.title}
-                                artist={result.type}
-                                link={result.source}
-                                tags={['an', 'array', 'of', 'tags']} 
-                                />
+                                        title={result.title}
+                                        artist={result.type}
+                                        link={result.source}
+                                    >
+                                        <Tags  hash='true'/>
+                                    </Info>
                             </div>
                         ) 
                     })}    

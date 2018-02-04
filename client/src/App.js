@@ -8,6 +8,9 @@ import Landing from './pages/landing/landing';
 import ExploreSearch from './pages/explore_search/explore_search';
 import SearchResultsDesktop from './pages/search_results_desktop/search_results_desktop';
 import SearchResultsMobile from './pages/search_results_mobile/search_results_mobile';
+import VisionResultsDesktop from './pages/vision_results_desktop/vision_results_desktop';
+import VisionResultsMobile from './pages/vision_results_mobile/vision_results_mobile';
+
 
 
 //there are packages available that will instead detact device type, instead of rendering base on window width.. make be worth looking into 
@@ -42,6 +45,7 @@ class App extends Component {
 				<Router>
 					<Switch>
 						<Route path="/search/:term" component={isMobile ? SearchResultsMobile : SearchResultsDesktop} />
+						<Route path="/upload" component={isMobile ? VisionResultsMobile : VisionResultsDesktop} />
 						<Route path="/explore" component={ExploreSearch} />
 						<Route path="/" component={Landing} />
 					</Switch>

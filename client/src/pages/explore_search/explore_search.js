@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 
 import Logo from '../../components/logo/logo';
 import TagSearch from '../../components/tag_search/tag_search';
-import Trending from '../../components/trending/trending';
+import Tags from '../../components/tag_list/tag_list';
 
 class ExploreSearch extends Component {
 
@@ -20,7 +20,9 @@ class ExploreSearch extends Component {
             <div className="explore-wrapper">
                 <Logo />
                 <TagSearch />
-                <Trending />
+                <Tags hash={true}>
+                    <h3>Trending Tags:</h3>
+                </Tags>
             </div>
         )
     }

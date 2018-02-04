@@ -56,13 +56,12 @@ const Landing = () =>
                 <Phone />
             </Col>
             <Col xs={12} sm={4} md={5}>
-                <NavPanel style={navPanel_1}
+                <NavPanel style={ navPanel_1}
                     imgSrc="https://picsum.photos/190/190?random"
                     text1="Upload your image"
                     text2="to connect to"
                     text3="the collection."
-                    //route will eventually be passed to a Link to="{route}" in nav_panel
-                    route="/add"
+                    route="/upload"
                     btnText='add image'
                     style={ navPanel_1 }
                     buttonStyleProp = { butt_1 }

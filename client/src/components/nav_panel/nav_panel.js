@@ -26,9 +26,12 @@ const NavPanel = ({imgSrc, text1, text2, text3, route, onClick, btnText, style, 
 	        <p style={textStyle}><b>{text1}</b></p>
 	        <p style={textStyle}><b>{text2}</b></p>
 	        <p style={textStyle}><b>{text3}</b></p>
-	        <Link to={route}>
+			{ route ?
+				<Link to={route}>
 	            <button style={buttonStyleProp} onClick={onClick}><b>{btnText}</b></button>
-	        </Link>
+	        	</Link> :
+				<input type="file"><button style={buttonStyleProp} onClick={onClick}><b>{btnText}</b></button></input>
+			}
 	    </Col>
     </Row>
 
