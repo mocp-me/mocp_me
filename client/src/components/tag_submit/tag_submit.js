@@ -1,5 +1,4 @@
 import React, { Component } from 'react';
-import { withRouter } from 'react-router-dom';
 
  const formSubmitStyle = {
     borderRadius:'25px',
@@ -12,27 +11,24 @@ import { withRouter } from 'react-router-dom';
     color:'#FFDC65'
  }
 
-class TagSearch extends Component {
-    constructor(props){
-        super(props);
-        //probably wont need this, but imma leave it just in case
-        //we can do some cool stuff by updating state after each letter is entered
-        this.state = {searchTerm : ''}
-    }
+ /* TagSubmit is being used for both search and post, when being used as post we'll pass a reference to the image as props, so when we submit
+    a tag, we're also submitting a reference to the appropriate image */
+
+class TagSubmit extends Component {
 
     handleFormSubmit(event) {
-        //look into react router 'redirect' and push for redirecting after submit
         event.preventDefault();
         const term = event.target.elements.term.value;
-        this.props.history.push(`/search/${term}`)
+        const imageRef = this.props.imageRef;
+        //make a post with these!
+        console.log(term, imageRef)
 
     }
 
     render() {
         return (
             <div className="search-wrapper">
-                <p><b>Search a tag: </b></p>
-                <form onSubmit={this.handleFormSubmit.bind(this)}>
+                <form onSubmit={this.props.handleFormSubmit || this.handleFormSubmit.bind(this)}>
                     <input style={ formSubmitStyle }
                     type="text"
                     name="term"
@@ -43,4 +39,4 @@ class TagSearch extends Component {
     }
 }
 
-export default withRouter(TagSearch);
+export default TagSubmit;

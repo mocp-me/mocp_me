@@ -1,8 +1,10 @@
 import React, { Component } from 'react';
 import {Grid, Row, Col, Container} from 'react-grid-system';
+import { withRouter } from 'react-router-dom';
+
 
 import Logo from '../../components/logo/logo';
-import TagSearch from '../../components/tag_search/tag_search';
+import TagSubmit from '../../components/tag_submit/tag_submit';
 import Tags from '../../components/tag_list/tag_list';
 
 const leftColumn = {
@@ -30,6 +32,11 @@ const pagePadding = {
 
 class ExploreSearch extends Component {
 
+    handleFormSubmit(event) {
+        event.preventDefault();
+        const term = event.target.elements.term.value;
+        this.props.history.push(`/search/${term}`)
+    }
     render() {
         return (
 
@@ -38,7 +45,8 @@ class ExploreSearch extends Component {
                     <div style={ pagePadding }>
                         <Logo />
                         <div style={ tagSearchStyle }>
-                            <TagSearch />
+                            <p><b>Search a tag: </b></p>
+                            <TagSubmit handleFormSubmit ={this.handleFormSubmit.bind(this)}/>
                         </div>
                     </div>
                 </Col>
@@ -54,4 +62,4 @@ class ExploreSearch extends Component {
     }
 }
    
-export default ExploreSearch;
+export default withRouter(ExploreSearch);

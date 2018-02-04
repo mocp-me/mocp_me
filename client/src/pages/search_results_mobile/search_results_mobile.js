@@ -5,6 +5,8 @@ import Slider from 'react-slick';
 import Image from '../../components/image/image';
 import Info from '../../components/returned_info/returned_info';
 import Tags from '../../components/tag_list/tag_list';
+import TagSubmit from '../../components/tag_submit/tag_submit';
+
 
 const API_KEY = '&api_key=CDrewNwfN9TWDnXhucfwDmCGcZIfoVuy&limit=5';
 const ROOT_URL = 'http://api.giphy.com/v1/gifs/search?q='
@@ -63,6 +65,7 @@ class SearchResultsMobile extends Component {
                                         link={result.source}
                                     >
                                         <Tags  hash='true'/>
+                                        <TagSubmit imageRef={result.images.original.url} />
                                     </Info>
                             </div>
                         ) 
