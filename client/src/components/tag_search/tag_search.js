@@ -1,6 +1,17 @@
 import React, { Component } from 'react';
 import { withRouter } from 'react-router-dom';
 
+ const formSubmitStyle = {
+    borderRadius:'25px',
+    padding:'5px',
+    paddingLeft:'15px',
+    paddingRight:'15px',
+    background:'#E5B616',
+    border:'none',
+    width:'272px',
+    color:'#FFDC65'
+ }
+
 class TagSearch extends Component {
     constructor(props){
         super(props);
@@ -20,9 +31,9 @@ class TagSearch extends Component {
     render() {
         return (
             <div className="search-wrapper">
-                <p>Search a tag: </p>
+                <p><b>Search a tag: </b></p>
                 <form onSubmit={this.handleFormSubmit.bind(this)}>
-                    <input
+                    <input style={ formSubmitStyle }
                     type="text"
                     name="term"
                     />
