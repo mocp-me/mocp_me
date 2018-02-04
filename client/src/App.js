@@ -1,11 +1,10 @@
 import React, { Component, Fragment } from 'react';
-<<<<<<< HEAD
-import { BrowserRouter as Router, Route, Switch } from 'react-router-dom';
+import { Router, Route, Switch } from 'react-router-dom';
 // Normalizes CSS defaults in varying browsers
 import { Normalize } from 'normalize-css';
-=======
-import { Router, Route, Switch } from 'react-router-dom';
->>>>>>> auth
+
+
+
 
 import {Auth, history} from "./Auth/Auth";
 // import history from "./history";
