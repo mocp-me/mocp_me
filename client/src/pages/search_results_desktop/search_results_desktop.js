@@ -1,12 +1,34 @@
 import React, { Component } from 'react';
 import axios from 'axios';
 import Slider from 'react-slick';
+import {Grid, Row, Col, Container} from 'react-grid-system';
 
 import Image from '../../components/returned_images/returned_images';
 import Info from '../../components/returned_info/returned_info';
+import styles from './search_results_desktop.css';
 
 const API_KEY = '&api_key=CDrewNwfN9TWDnXhucfwDmCGcZIfoVuy&limit=5';
 const ROOT_URL = 'http://api.giphy.com/v1/gifs/search?q='
+
+const rowStyle={
+    marginTop:'20vh',
+    minHeight:'0px',
+    minWidth:'0px',
+    height:'100vh',
+    overflowY:'none'
+}
+
+const imageStyle={
+    height:'60vh',
+}
+const imageContainer={
+    height:'100%',
+    marginRight:'20px',
+    right:'0'
+}
+const pageContainer={
+    background:'#D0D0D0'
+}
 
 
 class SearchResultsDesktop extends Component {
@@ -41,9 +63,10 @@ class SearchResultsDesktop extends Component {
         const settings = {
             dots: true,
             infinite: true,
-            speed: 500,
+            speed: 250,
             slidesToShow: 1,
-            slidesToScroll: 1,
+            slidesToScroll: 2,
+            dotClass: 'slick-dots'
         }
 
         let toggle = true;
@@ -56,26 +79,42 @@ class SearchResultsDesktop extends Component {
             )
         }
         return(
-            <div>
+            <div style={ pageContainer }>
                 <Slider {...settings}>
                     {this.state.results.map(result => {
                         if(toggle){
                             toggle = !toggle;
                         return (
                             <div>
-                                <Image source={result.images.original.url} />
+                                <Row style={rowStyle}>
+                                    <Col xs={6} style={ imageStyle }>
+                                        <div style={ imageContainer }>
+                                            <Image source={result.images.original.url} />
+                                        </div>
+                                    </Col>
+                                    <Col xs={6}>
+                                        <Info
+                                            title={result.title}
+                                            artist={result.type}
+                                            link={result.source}
+                                            tags={['an', 'array', 'of', 'tags']} 
+                                        />
+                                    </Col>
+                                </Row>
                             </div>
                         )
                         } else {
                             toggle = !toggle;
                             return (
                                 <div>
+                                {/*<Col xs={6}>
                                     <Info
                                         title={result.title}
                                         artist={result.type}
                                         link={result.source}
                                         tags={['an', 'array', 'of', 'tags']} 
                                     />
+                                </Col>*/}
                                 </div>
                             )
                         }
