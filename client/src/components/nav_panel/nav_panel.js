@@ -19,19 +19,14 @@ const textStyle={
 	lineHeight:'1.25'
 }
 
-const NavPanel = ({imgSrc, text1, text2, text3, route, onClick, btnText, style, buttonStyleProp}) => 
+const NavPanel = ({children, imgSrc, text1, text2, text3, route, onClick, btnText, style, buttonStyleProp}) => 
     <Row style={style}>
     	<Col xs={12} style={panelStyle}>
 	        <img style={imageStyle} src={imgSrc}/>
 	        <p style={textStyle}><b>{text1}</b></p>
 	        <p style={textStyle}><b>{text2}</b></p>
 	        <p style={textStyle}><b>{text3}</b></p>
-			{ route ?
-				<Link to={route}>
-	            <button style={buttonStyleProp} onClick={onClick}><b>{btnText}</b></button>
-	        	</Link> :
-				<input type="file"><button style={buttonStyleProp} onClick={onClick}><b>{btnText}</b></button></input>
-			}
+			{children}
 	    </Col>
     </Row>
 
