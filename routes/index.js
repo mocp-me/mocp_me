@@ -17,7 +17,7 @@ const routes = (function(){
 
 	// All other paths return React app
 	router.use("*", function (req, res){
-		res.sendFile(path.join(__dirname, "../client/public/index.html"));
+		res.sendFile(path.join(__dirname, "../client/build/index.html"));
 	});
 
 	return router;
