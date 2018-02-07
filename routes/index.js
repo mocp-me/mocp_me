@@ -15,14 +15,9 @@ const routes = (function(){
 	// API calls are directed here
 	router.use("/api", apiRoutes);
 
-	router.use("/test", function (req, res) {
-		console.log("Test Route Hit");
-		res.json({express: "YES it worked!"});
-	});
-
 	// All other paths return React app
 	router.use("*", function (req, res){
-		res.sendFile(path.join(__dirname, "../client/public/index.html"));
+		res.sendFile(path.join(__dirname, "../client/build/index.html"));
 	});
 
 	return router;

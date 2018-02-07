@@ -6,7 +6,7 @@
 
  // Creates a "Photo" model that matches up with DB
 module.exports = function (sequelize, DataTypes) {
-    const Photos = sequelize.define("photos",
+    const Photos = sequelize.define("Photos",
 
         {
             // the Photo's id gets saved as an integer
