@@ -1,10 +1,7 @@
-
 import React, { Component } from 'react';
 import { BrowserRouter as Router, Route, Switch } from 'react-router-dom';
 // Normalizes CSS defaults in varying browsers
 import { Normalize } from 'normalize-css';
-
-
 
 
 import {Auth, history} from "./Auth/Auth";
@@ -22,9 +19,6 @@ import Admin from "./pages/admin/admin";
 import Callback from "./components/callback/callback";
 
 
-
-
-//there are packages available that will instead detact device type, instead of rendering base on window width.. make be worth looking into 
 class App extends Component {
 	constructor(props) {
 		super(props);

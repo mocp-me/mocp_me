@@ -3,10 +3,6 @@ import Link from 'react-router-dom';
 
 import Tag from '../tag_list_item/tag_list_item';
 
-/* If we want the 'trending tags' on the explore page to be clickable, I'll probably refactor this into something like 'tag-item'   
-    that way we can render a single items at a time and wrap them in a <Link /> in the parent component when needed.  
-*/
-
 
 class Tags extends Component {
     constructor(props){

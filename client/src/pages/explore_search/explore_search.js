@@ -57,7 +57,7 @@ class ExploreSearch extends Component {
                 </Col>
                 <Col sm={5} style={ rightColumn }>
                     <div style={ pagePadding }>
-                    <Tags hash={true}>
+                    <Tags>
                         <h3>Trending Tags:</h3>
                     </Tags>
                     </div>
