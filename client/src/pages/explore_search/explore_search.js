@@ -31,6 +31,11 @@ const pagePadding = {
 }
 
 class ExploreSearch extends Component {
+    constructor(props){
+        super(props);
+
+        this.handleFormSubmit = this.handleFormSubmit.bind(this);
+    }
 
     handleFormSubmit(event) {
         event.preventDefault();
@@ -46,7 +51,7 @@ class ExploreSearch extends Component {
                         <Logo />
                         <div style={ tagSearchStyle }>
                             <p><b>Search a tag: </b></p>
-                            <TagSubmit handleFormSubmit ={this.handleFormSubmit.bind(this)}/>
+                            <TagSubmit handleFormSubmit ={this.handleFormSubmit}/>
                         </div>
                     </div>
                 </Col>
