@@ -1,8 +1,6 @@
 import React, { Component } from 'react';
 import {Router, Route} from "react-router-dom"
 import Logo from '../../components/logo/logo';
-// import TagSearch from '../../components/tag_search/tag_search.js';
-// import Trending from '../../components/trending/trending.js';
 import AdminPanel from "../../components/admin_panel/admin_panel.js";
 
 var result = (<span />); 
