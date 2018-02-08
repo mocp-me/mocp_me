@@ -9,12 +9,13 @@ const panelStyle={
 	paddingTop:'2vh',
 }
 const imageStyle={
-	marginBottom:'2vh'
+	marginBottom:'2vh',
+	height:'25vh'
 }
 const textStyle={
 	font:"avenir",
-	marginBottom:'1px',
-	fontSize:'20px',
+	marginBottom:'.25vh',
+	fontSize:'2.5vh',
 	padding:'none',
 	lineHeight:'1.25'
 }
