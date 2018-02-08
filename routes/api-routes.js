@@ -54,32 +54,30 @@ const apiRoutes = (function(){
 				photoArray.push(Tags[i].photo_id)
 			}
 			// Finds the function that was returned the most.
-			function mode(array) {
-				if (array.length == 0)
-					return null;
-				var modeMap = {};
-				var maxEl = array[0], maxCount = 1;
-				for (var i = 0; i < array.length; i++) {
-					var el = array[i];
-					if (modeMap[el] == null)
-						modeMap[el] = 1;
-					else
-						modeMap[el]++;
-					if (modeMap[el] > maxCount) {
-						maxEl = el;
-						maxCount = modeMap[el];
+			function mostFreqId(idArr) {
+				console.log('hello')
+				const idMap = {};
+				let maxId = null;
+				let max = 0;
+				idArr.forEach(id => {
+					idMap[id] = idMap[id] +1 || 1
+				})
+				for (let id in idMap) {
+					if(idMap[id] > max) {
+						max = idMap[id];
+						maxId = id;
 					}
 				}
-				return maxEl;
+				return maxId
 			}
 			db.Photos.findAll({
 				where: {
-					id: mode(photoArray)
+					id: mostFreqId(photoArray)
 				}
 			}).then(function (photoId) {
 				res.json(photoId);
 			});
-			console.log(mode(photoArray))
+			console.log(mostFreqId(photoArray))
 		})
 
 	});
