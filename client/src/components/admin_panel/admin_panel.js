@@ -49,13 +49,13 @@ class AdminPanel extends Component {
     		</Col>
     	</Row>
     	<Row style={ headStyle }>
-			<Col xs={4}>
+			<Col xs={ 4 }>
 				<b>Tag:</b>
 			</Col>
-			<Col xs={4}>
+			<Col xs={ 4 }>
 				<b>Date Posted:</b>
 			</Col>
-			<Col xs={4}>
+			<Col xs={ 4 }>
 				<b>Approve:</b>
 			</Col>
 		</Row>
