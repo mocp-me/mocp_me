@@ -11,7 +11,7 @@ const logoStyle = {
 
 const Logo = () => 
     <div className="logo-wrapper">
-        <img className='logo' src={logo} style={logoStyle} />
+        <img className='logo' src={ logo } style={ logoStyle } />
     </div>;
 
 export default Logo;
