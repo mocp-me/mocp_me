@@ -2,7 +2,6 @@ import React, { Component } from 'react';
 import {Grid, Row, Col, Container} from 'react-grid-system';
 import { withRouter } from 'react-router-dom';
 
-
 import Logo from '../../components/logo/logo';
 import TagSubmit from '../../components/tag_submit/tag_submit';
 import Tags from '../../components/tag_list/tag_list';
@@ -33,8 +32,14 @@ const pagePadding = {
 class ExploreSearch extends Component {
     constructor(props){
         super(props);
-
+    
         this.handleFormSubmit = this.handleFormSubmit.bind(this);
+
+        this.state = {tags : ['funny cat', 'cute cat','sad cat', 'dumb cat','doggos']}
+    }
+
+    componentWillMount () {
+        //ajax call to get trending tags
     }
 
     handleFormSubmit(event) {
@@ -44,7 +49,6 @@ class ExploreSearch extends Component {
     }
     render() {
         return (
-
             <Row>
                 <Col sm={7} style={ leftColumn }>
                     <div style={ pagePadding }>
@@ -57,7 +61,11 @@ class ExploreSearch extends Component {
                 </Col>
                 <Col sm={5} style={ rightColumn }>
                     <div style={ pagePadding }>
-                    <Tags>
+                    <Tags 
+                        tagList={this.state.tags}
+                        withHash={true}
+                        isLink={true}
+                    >
                         <h3>Trending Tags:</h3>
                     </Tags>
                     </div>
