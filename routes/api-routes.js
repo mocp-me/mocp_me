@@ -19,12 +19,13 @@ const apiRoutes = (function(){
 		db.Photos.findAll({
 			include: [{
 				model: db.Tags,
+				as: 'Tags',
 				where: {
-					id: db.Tags.photo_id
+					'tag_name': req.params.tag_name
 				}
 			}]
-		}).then(function (tags) {
-			res.json(tags)
+		}).then(function (response) {
+			res.json(response)
 			// db.Photos.findAll({
 			// 	where: {
 			// 		id: tags.photo_id

@@ -50,7 +50,7 @@ db.Sequelize = Sequelize;
 // Import Models such that I can use them in the api just by importing 'db'
 // db.Photos = require('./photos')(sequelize, Sequelize);
 // db.Tags = require('./tags')(sequelize, Sequelize);
-db.Photos.hasMany(db.Tags);
-db.Tags.belongsTo(db.Photos);
+db.Tags.belongsTo(db.Photos, { foreignKey: 'id' });
+db.Photos.hasMany(db.Tags, { as: 'Tags', foreignKey: 'photo_id' });
 
 module.exports = db;
