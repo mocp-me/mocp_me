@@ -16,18 +16,22 @@ const apiRoutes = (function(){
 	// API Routes go here
 	// Get the images of a particular keyword
 	router.get("/search-tags/:tag_name", (req, res) => {
-		db.Tags.findAll({
-			where: {
-				tag_name: req.params.tag_name
-			}
-		}).then(function (tags) {
-			db.Photos.findAll({
+		db.Photos.findAll({
+			include: [{
+				model: db.Tags,
 				where: {
-					id: tags[0].photo_id
+					id: db.Tags.photo_id
 				}
-			}).then(function (photoId) {
-				res.json(photoId);
-			});
+			}]
+		}).then(function (tags) {
+			res.json(tags)
+			// db.Photos.findAll({
+			// 	where: {
+			// 		id: tags.photo_id
+			// 	}
+			// }).then(function (photoId) {
+			// 	res.json(photoId);
+			// });
 		});
 	});
 
