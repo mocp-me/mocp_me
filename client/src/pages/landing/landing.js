@@ -93,7 +93,7 @@ function sendFiletoCloudVision(file){
 }
 
 function getURL(tag) {
-    $.get("http://localhost:3001/api/get-matched-image/"+tag, function(data) {
+    $.get("/api/get-matched-image/"+tag, function(data) {
     	console.log(data)
 	});
 }
