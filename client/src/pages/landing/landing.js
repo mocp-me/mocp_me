@@ -80,8 +80,9 @@ function sendFiletoCloudVision(file){
 
         //Gets the image for the top tag.
         //getURL(data.responses[0].labelAnnotations[0].description);
-        // getURL(tagsArray)
-        console.log(tagsArray)
+        getURL(tagsArray)
+        
+
       },
       error: function(jqXHR, textStatus, errorThrown) {
         console.log(jqXHR);
@@ -90,6 +91,15 @@ function sendFiletoCloudVision(file){
       }
     });
 }
+
+function getURL(tag) {
+    $.get("http://localhost:3001/api/get-matched-image/"+tag, function(data) {
+    	console.log(data)
+	});
+}
+
+
+
 const landingWrapper = {
     background:'black',
     height:'100vh',
