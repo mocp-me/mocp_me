@@ -1,13 +1,13 @@
 import React from 'react';
+import { Link } from 'react-router-dom';
 
 import Logo from '../../components/logo/logo';
 import Phone from '../../components/phone/phone';
 import NavPanel from '../../components/nav_panel/nav_panel';
+import NavButton from '../../components/nav_button/nav_button';
 
 import {Grid, Row, Col, Container, Clearfix} from 'react-grid-system';
-// import styled from 'styled-components';
 
-// import './landing.css';
 
 const landingWrapper = {
     background:'black',
@@ -56,27 +56,28 @@ const Landing = () =>
                 <Phone />
             </Col>
             <Col xs={12} sm={4} md={5}>
-                <NavPanel style={navPanel_1}
+                <NavPanel style={ navPanel_1}
                     imgSrc="https://picsum.photos/190/190?random"
                     text1="Upload your image"
                     text2="to connect to"
                     text3="the collection."
-                    //route will eventually be passed to a Link to="{route}" in nav_panel
-                    route="/add"
-                    btnText='add image'
-                    style={ navPanel_1 }
-                    buttonStyleProp = { butt_1 }
-                />
+                    style={ navPanel_1 }>
+                    <NavButton 
+                    buttonText='add image' 
+                    style = { butt_1 } />
+                </NavPanel>
                 <NavPanel
                     imgSrc="https://picsum.photos/190/190?random"
                     text1="Search our tags"
                     text2="& add some more"
                     text3="on the go!"
-                    route="/explore"
-                    btnText='explore'
-                    style={navPanel_2}
-                    buttonStyleProp = { butt_2 }
-                />
+                    style={ navPanel_2 }>
+                        <Link to='/explore'>
+                            <NavButton 
+                                buttonText='explore'
+                                style = { butt_2 }/>
+                        </Link>
+                </NavPanel>
             </Col>
         </Row>
     </div>

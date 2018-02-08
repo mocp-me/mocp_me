@@ -55,7 +55,6 @@ class Phone extends Component {
     render() {
         return (
             <div style={phoneWrapper}  onMouseOver={this.handleOnMouseOver} onMouseLeave={this.handleOnMouseLeave}>                
-                {/* determine what to render based on state */}
                 {!this.state.hovered ? <div style={phone}>Tag the collection with machine learning & computer vision</div> : <About /> }
             </div>
         )
