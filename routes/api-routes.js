@@ -2,9 +2,7 @@ const apiRoutes = (function(){
 	// Dependencies
 	const multer = require('multer');
 	const upload = multer({ dest: './client/upload'})
-
-	const API_KEY = 'AIzaSyBY93fja8yxM9not6Nrd2v6NsRgNpJ4ZvM';
-	
+		
 	const helpers = require('./helpers');
 
 	const path = require("path");
@@ -21,44 +19,15 @@ const apiRoutes = (function(){
 
 	// API Routes go here
 
-	function detectLabels(filePath) {
-		// [START vision_label_detection]
-		// Imports the Google Cloud client library
-		const vision = require('@google-cloud/vision');
-	  
-		// Creates a client
-		// const client = new vision.ImageAnnotatorClient();
-		console.log('==================================')
-		console.log('vision', vision);
-		console.log('==================================')
-		const client = new vision.ImageAnnotatorClient({
-			projectId: 'cool-citadel-192004',
-			keyFilename: './keys.json'
-		  });
-	 
-		// Performs label detection on the local file
-		client
-		  .labelDetection(filePath)
-		  .then(results => {
-			const labels = results[0].labelAnnotations;
-			console.log('Labels:');
-			labels.forEach(label => console.log(label));
-		  })
-		  .catch(err => {
-			console.error('ERROR:', err);
-		  });
-		// [END vision_label_detection]
-	  }
 
-
-	router.post('/upload', upload.single('image'), (req, res, next) => {
+	router.post('/upload', upload.single('image'), async (req, res) => {
 		console.log('==================================')
 		console.log('file upload', req.file.path);
 		console.log('==================================')
 		const filePath = req.file.path;
-		detectLabels(filePath)
+		const tags = await helpers.detectLabels(filePath);
+		console.log('tags tags tagsssssssssssssssssssssssss', tags)
 	});
-
 
 
 	// Get the images of a particular keyword
@@ -84,8 +53,6 @@ const apiRoutes = (function(){
 		var array = req.params.array_string;
 		array = array.split(',');
 
-
-		console.log(array);
 		db.Tags.findAll({
 			where: {
 				tag_name: array
