@@ -1,18 +1,31 @@
 import React, { Component } from 'react';
 import About from '../about/about';
 import {Grid, Row, Col, Container} from 'react-grid-system';
+import Media from "react-media";
+
 // import './phone.css';
 
-const phoneWrapper = {
+const phoneWrapperSm = {
     marginTop:'0',
     width:'272px',
     height:'564px',
     borderRadius:'25px',
     background:'gray',
     paddingTop: '40px',
-    marginLeft: '15vw',
+    marginLeft: '9vw',
     marginBottom:'7vh'
 }
+const phoneWrapperLg = {
+    marginTop:'0',
+    width:'272px',
+    height:'564px',
+    borderRadius:'25px',
+    background:'gray',
+    paddingTop: '40px',
+    marginLeft: '16vw',
+    marginBottom:'7vh'
+}
+
 const phone ={
     marginLeft:'7px',
     marginRight:'7px',
@@ -54,9 +67,19 @@ class Phone extends Component {
 
     render() {
         return (
-            <div style={phoneWrapper}  onMouseOver={this.handleOnMouseOver} onMouseLeave={this.handleOnMouseLeave}>                
-                {!this.state.hovered ? <div style={phone}>Tag the collection with machine learning & computer vision</div> : <About /> }
-            </div>
+            <Media query="(max-width: 800px)">
+              {matches =>
+                matches ? (
+                    <div style={phoneWrapperSm}  onMouseOver={this.handleOnMouseOver} onMouseLeave={this.handleOnMouseLeave}>                
+                        {!this.state.hovered ? <div style={phone}>Tag the collection with machine learning & computer vision</div> : <About /> }
+                    </div>
+                ) : (
+                    <div style={phoneWrapperLg}  onMouseOver={this.handleOnMouseOver} onMouseLeave={this.handleOnMouseLeave}>                
+                        {!this.state.hovered ? <div style={phone}>Tag the collection with machine learning & computer vision</div> : <About /> }
+                    </div>
+                )
+              }
+            </Media>
         )
     }
 }

@@ -165,11 +165,11 @@ class Landing extends Component {
         return (
             <div style={landingWrapper}>
                 <Row>
-                    <Col xs={12} sm={8} md={7}>
+                    <Col xs={12} sm={7} md={7} style={ phoneStyle }>
                         <Logo />
                         <Phone />
                     </Col>
-                    <Col xs={12} sm={4} md={5}>
+                    <Col xs={12} sm={5} md={5}>
                         <Dropzone 
                             onDrop={this.onDrop}
                             multiple={false}
