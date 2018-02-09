@@ -118,24 +118,22 @@ const butt_1 = {
     borderColor:'#E5B616',
     color:'#E5B616',
     borderRadius:'25px',
-    borderWidth:'1.5px',
-    paddingLeft:'20px',
-    paddingRight:'18px',
-    paddingTop:'10px',
-    paddingBottom:'10px',
-    marginTop:'10px'
+    borderWidth:'.25vh',
+    padding:'1vh 2vw 1vh 2vw',
+    marginTop:'2vh'
 }
 const butt_2 = {
     background:'none',
     borderColor:'#FFDC65',
     color:'#FFDC65',
     borderRadius:'25px',
-    borderWidth:'1.5px',
-    paddingLeft:'20px',
-    paddingRight:'18px',
-    paddingTop:'10px',
-    paddingBottom:'10px',
-    marginTop:'10px'
+    borderWidth:'.25vh',
+    padding:'1vh 2vw 1vh 2vw',
+    marginTop:'2vh'
+}
+
+const phoneStyle= {
+    height:'100vh'
 }
 
 class Landing extends Component { 
@@ -177,11 +175,11 @@ class Landing extends Component {
         return (
             <div style={landingWrapper}>
                 <Row>
-                    <Col xs={12} sm={8} md={7}>
+                    <Col xs={12} sm={7} md={7} style={ phoneStyle }>
                         <Logo />
                         <Phone />
                     </Col>
-                    <Col xs={12} sm={4} md={5}>
+                    <Col xs={12} sm={5} md={5}>
                         <Dropzone 
                             onDrop={this.onDrop}
                             multiple={false}

@@ -20,14 +20,15 @@ const rowStyle={
     height:'100vh',
     overflowY:'none'
 }
-
 const imageStyle={
     height:'60vh',
+    paddingLeft:'10vw'
 }
 const imageContainer={
+    padding:'10px',
+    background:'black',
     height:'100%',
-    marginRight:'20px',
-    right:'0'
+    width:'350px',
 }
 const pageContainer={
     background:'#D0D0D0'
@@ -92,12 +93,14 @@ class SearchResultsDesktop extends Component {
                         return (
                             <div>
                                 <Row style={rowStyle}>
-                                    <Col xs={6} style={ imageStyle }>
+                                    <Col sm={6} style={ imageStyle }>
                                         <div style={ imageContainer }>
-                                            <Image source={result.images.original.url} />
+                                            <img 
+                                                style={{width:'100%', verticalAlign:'center'}}
+                                                src={result.images.original.url}/>
                                         </div>
                                     </Col>
-                                    <Col xs={6}>
+                                    <Col sm={6}>
                                         <Info
                                             title={result.title}
                                             artist={result.type}
