@@ -25,10 +25,10 @@ const imageStyle={
     paddingLeft:'10vw'
 }
 const imageContainer={
-    padding:'10px',
-    background:'black',
     height:'100%',
     width:'350px',
+    border:'1vw solid',
+    
 }
 const pageContainer={
     background:'#D0D0D0'
