@@ -1,6 +1,7 @@
 const routes = (function(){
 	
 	// Dependencies
+	const adminRoutes = require("./admin-routes");
 	const apiRoutes = require("./api-routes");
 	const path = require("path");
 	const bodyParser = require("body-parser");
@@ -14,6 +15,7 @@ const routes = (function(){
 
 	// API calls are directed here
 	router.use("/api", apiRoutes);
+	router.use("/admin/", adminRoutes);
 
 	// All other paths return React app
 	router.use("*", function (req, res){

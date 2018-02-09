@@ -2,6 +2,8 @@ import React, { Component } from 'react';
 import { Grid, Row, Col, Container } from 'react-grid-system';
 import logo from '../logo/logo.png';
 import AdminContent from './admin_content/admin_content';
+import $ from "jquery";
+import base64url from "base64url";
 
 const pageStyle = {
 	font:'avenir'
@@ -37,6 +39,35 @@ const headStyle={
 	paddingRight:'20px',
 }
 class AdminPanel extends Component {
+	componentWillMount() {
+		const header = 
+			{
+			    "typ": "JWT",
+			    "alg": "HS256"
+			};
+		const payload =
+			{
+			    "userId": "b08f86af-35da-48f2-8fab-cef3904660bd"
+			};
+		let data = base64url.toBase64( header )// + "." + base64url.toBase64( payload );
+		console.log('data', Object.keys(data));
+
+		const token = `Bearer ${localStorage.getItem("access_token")}`;
+		const settings = {
+			"async": true,
+			"crossDomain": true,
+			"url": "/admin/",
+			"method": "GET",
+			"headers": {
+			"authorization": token
+			}
+		}
+
+		$.ajax(settings).done(function (response) {
+		  console.log(response);
+		});
+	}
+
   render() {
     return (
       <Container style={ pageStyle }>
