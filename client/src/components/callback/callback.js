@@ -1,12 +1,14 @@
 import React, { Component } from 'react';
-import loading from './loading.svg';
 
 class Callback extends Component {
+	componentWillMount () {
+		const hash = window.location.hash || null;
+		console.log('callback hash', hash);
+	}
+
   render() {
     return (
       <div>
-        <h1>Callback!</h1>
-        <img src={loading} alt="loading"/>
       </div>
     );
   }

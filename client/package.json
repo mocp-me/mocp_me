@@ -6,6 +6,7 @@
 	"dependencies": {
 		"auth0-js": "^9.2.1",
 		"axios": "^0.17.1",
+		"base64url": "^2.0.0",
 		"body-parser": "^1.18.2",
 		"express": "^4.16.2",
 		"history": "^4.7.2",

@@ -25,6 +25,7 @@ class Auth {
 
 	handleAuthentication() {
 		this.auth0.parseHash((err, authResult) => {
+			console.log('authResult', authResult);
 			if (authResult && authResult.accessToken && authResult.idToken) {
 				this.setSession(authResult);
 				this.history.replace('/admin');
@@ -58,7 +59,6 @@ class Auth {
 		// Check whether the current time is past the 
 		// access token's expiry time
 		let expiresAt = JSON.parse(localStorage.getItem('expires_at'));
-		console.log('expiresAt', expiresAt);
 		return new Date().getTime() < expiresAt;
 	}
 	

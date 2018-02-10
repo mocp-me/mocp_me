@@ -67,9 +67,10 @@ const apiRoutes = (function(){
 
 	// Test DB get routes
 	router.get("/all-photos", (req, res) => {
-		db.Photos.findAll().then(Photos => {
-			res.json(Photos);
-		})
+		res.json({photos: "allthephotos"});
+		// db.Photos.findAll().then(Photos => {
+		// 	res.json(Photos);
+		// })
 	});
 
 	router.get("/all-tags", (req, res) => {
