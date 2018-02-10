@@ -29,7 +29,7 @@ const apiRoutes = (function(){
 		//delete the uploaded file after we're done using it
 		fs.unlink(filePath, (err) => {
 			if (err) throw err;
-			console.log('successfully deleted /tmp/hello');
+			console.log('successfully deleted');
 		  });
 		//make DB call for photos with same tag association
 		db.Tags.findAll({

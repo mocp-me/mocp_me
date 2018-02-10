@@ -43,7 +43,6 @@ const helpers = {
           .catch(err => {
             console.error('ERROR:', err);
           })
-
     )
     return results;
   },
