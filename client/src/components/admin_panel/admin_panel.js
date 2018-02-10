@@ -40,26 +40,32 @@ const headStyle={
 }
 class AdminPanel extends Component {
 	componentWillMount() {
-		const header = 
+		const token = `Bearer ${localStorage.getItem("access_token")}`;
+		const hash = window.location.hash || null;
+		console.log('admin_panel hash', hash);
+		console.log('token', token)
+		const header = JSON.stringify(
 			{
 			    "typ": "JWT",
 			    "alg": "HS256"
-			};
-		const payload =
+			}
+		);
+		const payload = JSON.stringify(
 			{
-			    "userId": "b08f86af-35da-48f2-8fab-cef3904660bd"
-			};
-		let data = base64url.toBase64( header )// + "." + base64url.toBase64( payload );
-		console.log('data', Object.keys(data));
+			    "access_token": token
+			}
+		);
+		let data = base64url( header ) + "." + base64url( payload );
+		console.log('data', data);
 
-		const token = `Bearer ${localStorage.getItem("access_token")}`;
+		
 		const settings = {
 			"async": true,
 			"crossDomain": true,
-			"url": "/admin/",
+			"url": "/admin/all-tags",
 			"method": "GET",
 			"headers": {
-			"authorization": token
+			"Authorization": token
 			}
 		}
 

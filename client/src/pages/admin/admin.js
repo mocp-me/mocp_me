@@ -3,8 +3,9 @@ import {Router, Route} from "react-router-dom"
 import Logo from '../../components/logo/logo';
 import AdminPanel from "../../components/admin_panel/admin_panel.js";
 
-var result = (<span />); 
+var result = null; 
 class Admin extends Component {
+
 	login() {
 		return this.props.auth.login();
 	}
@@ -14,9 +15,11 @@ class Admin extends Component {
 	}
 
 	componentWillMount() {
+		console.log('this.props.auth', this.props.auth);
 		if (!this.isAuthenticated()){
 			this.login();
 		} else {
+			console.log("this")
 			result = (<AdminPanel auth={this.props.auth}/>)
 		}
 	}
