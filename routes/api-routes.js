@@ -98,10 +98,7 @@ const apiRoutes = (function(){
 
 	router.get("/all-photos", (req, res) => {
 		db.Photos.findAll({
-			include: [{
-				model: db.Information,
-				as: 'Information'
-			}]
+			limit: 10
 		}).then(Photos => {
 			res.json(Photos);
 		})
