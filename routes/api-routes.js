@@ -1,6 +1,12 @@
 const apiRoutes = (function(){
-
 	// Dependencies
+	const multer = require('multer');
+	const upload = multer({ dest: './client/upload'});
+
+	const fs = require('fs');
+		
+	const helpers = require('./helpers');
+
 	const path = require("path");
 	const bodyParser = require("body-parser");
 	// Passes the db object to the routes
@@ -14,80 +20,59 @@ const apiRoutes = (function(){
 	router.use(bodyParser.json());
 
 	// API Routes go here
-	// Get the images of a particular keyword
-	router.get("/search-tags/:tag_name", (req, res) => {
-		db.Photos.findAll({
-			include: [{
-				model: db.Tags,
-				as: 'Tags',
-				where: {
-					'tag_name': req.params.tag_name
-				}
-			}]
-		}).then(function (response) {
-			res.json(response)
-			// db.Photos.findAll({
-			// 	where: {
-			// 		id: tags.photo_id
-			// 	}
-			// }).then(function (photoId) {
-			// 	res.json(photoId);
-			// });
-		});
-	});
-
-	//Gets the best image based on array from Google Vision
-	router.get("/get-matched-image/:array_string", (req, res) => {
-		console.log("\n------------------------------------------")
-
-		var array = req.params.array_string;
-		array = array.split(',');
-		console.log(array);
-
+	router.post('/upload', upload.single('image'), async (req, res) => {
+		const filePath = req.file.path;
+		//pass the file to google vision which returns tags associated with that image
+		const tagsArray = await helpers.detectLabels(filePath);
+		//top three tags to be displayed on page
+		const topThree = tagsArray.slice(0,3);
+		//delete the uploaded file after we're done using it
+		fs.unlink(filePath, (err) => {
+			if (err) throw err;
+			console.log('successfully deleted');
+		  });
+		//make DB call for photos with same tag association
 		db.Tags.findAll({
 			where: {
-				tag_name: array
+				tag_name: tagsArray
 			}
 		}).then(function (Tags) {
-			// Creates an array of all the photo_id
-			var photoArray = [];
-			for (let i = 0; i < Tags.length; i++) {
-				photoArray.push(Tags[i].photo_id)
-			}
-			// Finds the function that was returned the most.
-			function mostFreqId(idArr) {
-				console.log('hello')
-				const idMap = {};
-				let maxId = null;
-				let max = 0;
-				idArr.forEach(id => {
-					idMap[id] = idMap[id] +1 || 1
-				})
-				for (let id in idMap) {
-					if(idMap[id] > max) {
-						max = idMap[id];
-						maxId = id;
-					}
-				}
-				return maxId
-			}
 			db.Photos.findAll({
 				where: {
-					id: mostFreqId(photoArray)
+					id: helpers.mostFreqId(helpers.createIdArray(Tags))
+				}
+			}).then(function (photoId) {
+				console.log(photoId);
+			});
+			console.log(helpers.mostFreqId(helpers.createIdArray(Tags)))
+		})
+	});
+
+	// Get the images of a particular keyword
+	router.get("/search-tags/:tag_name", (req, res) => {
+		db.Tags.findAll({
+			where: {
+				tag_name: req.params.tag_name
+			}
+		}).then(function (tags) {
+			db.Photos.findAll({
+				where: {
+					id: tags[0].photo_id
+
 				}
 			}).then(function (photoId) {
 				res.json(photoId);
 			});
-			console.log(mostFreqId(photoArray))
-		})
+		});
 
 	});
 
 	// Test DB get routes
 	router.get("/all-photos", (req, res) => {
-		db.Photos.findAll().then(Photos => {
-			res.json(Photos);
-		})
+		res.json({photos: "allthephotos"});
+		// db.Photos.findAll().then(Photos => {
+		// 	res.json(Photos);
+		// })
 	});
 
 	router.get("/all-tags", (req, res) => {
