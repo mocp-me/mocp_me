@@ -22,7 +22,7 @@ const textStyle={
 
 const NavPanel = ({children, imgSrc, text1, text2, text3, route, onClick, btnText, style, buttonStyleProp}) => 
     <Row style={style}>
-    	<Col xs={12} style={panelStyle}>
+    	<Col xs={12}>
 	        <img style={imageStyle} src={imgSrc}/>
 	        <p style={textStyle}><b>{text1}</b></p>
 	        <p style={textStyle}><b>{text2}</b></p>

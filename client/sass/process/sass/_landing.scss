@@ -1,18 +1,22 @@
 
-
-
 .landingWrapper{
     background-color:black;
     height:100vh;
     overflow-y:none;
-}
-.navPanel_1{
-    background-color: #FFDC65;
-    color:#E5B616;
-}
-.navPanel_2{
-    background-color: #E5B616;
-    color:#FFDC65;
+
+    .phoneStyle{
+	    height:100vh;
+	}
+	.navPanel_1{
+    	background-color: #FFDC65 !important;
+    	color:#E5B616;
+    	height:50vh;
+	}
+	.navPanel_2{
+	    background-color: #E5B616 !important;
+	    color:#FFDC65;
+	    height:50vh;
+	}
 }
 // .butt_1{
 //     background:'none';
@@ -32,7 +36,3 @@
 //     padding:'1vh 2vw 1vh 2vw';
 //     marginTop:'2vh';
 // }
-
-.phoneStyle{
-    height:100vh;
-}
