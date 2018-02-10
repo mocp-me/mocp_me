@@ -29,7 +29,7 @@ const adminRoutes = (function(){
 	    algorithms: ['RS256']
 	});
 
-	router.use(jwtCheck)
+	router.use(jwtCheck);
 
 
 	// API Routes go here
@@ -66,7 +66,7 @@ const adminRoutes = (function(){
 	});
 
 	// Catch-all route
-	// router.get("*", (req, res) => res.json({answer: 42}));
+	router.get("*", (req, res) => res.json({answer: 42}));
 
 	return router;
 	

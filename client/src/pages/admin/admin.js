@@ -3,7 +3,7 @@ import {Router, Route} from "react-router-dom"
 import Logo from '../../components/logo/logo';
 import AdminPanel from "../../components/admin_panel/admin_panel.js";
 
-var result = null; 
+var result = (<span />); 
 class Admin extends Component {
 
 	login() {
@@ -25,6 +25,7 @@ class Admin extends Component {
 	}
 
 	render() {
+		console.log("admin render() called.");
 		return (
 			<div className="container">
 				{result}
