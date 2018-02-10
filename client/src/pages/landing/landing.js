@@ -90,41 +90,6 @@ function sendFiletoCloudVision(file){
       }
     });
 }
-const landingWrapper = {
-    background:'black',
-    height:'100vh',
-    overflowY:'none'
-}
-const navPanel_1 = {
-    backgroundColor: '#FFDC65',
-    color:'#E5B616',
-}
-const navPanel_2 = {
-    backgroundColor: '#E5B616',
-    color:'#FFDC65',
-}
-const butt_1 = {
-    background:'none',
-    borderColor:'#E5B616',
-    color:'#E5B616',
-    borderRadius:'25px',
-    borderWidth:'.25vh',
-    padding:'1vh 2vw 1vh 2vw',
-    marginTop:'2vh'
-}
-const butt_2 = {
-    background:'none',
-    borderColor:'#FFDC65',
-    color:'#FFDC65',
-    borderRadius:'25px',
-    borderWidth:'.25vh',
-    padding:'1vh 2vw 1vh 2vw',
-    marginTop:'2vh'
-}
-
-const phoneStyle= {
-    height:'100vh'
-}
 
 class Landing extends Component { 
     constructor(props){
@@ -163,9 +128,9 @@ class Landing extends Component {
           background: 'rgba(0,0,0,0.1)',
         };
         return (
-            <div style={landingWrapper}>
+            <div className="landingWrapper">
                 <Row>
-                    <Col xs={12} sm={7} md={7} style={ phoneStyle }>
+                    <Col xs={12} sm={7} md={7} className="phoneStyle">
                         <Logo />
                         <Phone />
                     </Col>
@@ -179,29 +144,29 @@ class Landing extends Component {
                             onDragEnter={this.onDragEnter.bind(this)}
                             onDragLeave={this.onDragLeave.bind(this)}>
                                 { dropzoneActive && <div style={overlayStyle}></div> }
-                                <NavPanel style={ navPanel_1}
+                                <NavPanel 
+                                    className="navPanel_1"
                                     imgSrc="https://picsum.photos/190/190?random"
                                     text1="Upload your image"
                                     text2="to connect to"
                                     text3="the collection."
-                                    style={ navPanel_1 }>
-                                    <NavButton 
-                                    buttonText='add image' 
-                                    style = { butt_1 } />
-                                </NavPanel>
+                                    // <NavButton 
+                                    // buttonText='add image' 
+                                    // style = { butt_1 } />
+                                />
                         </Dropzone>
                         <NavPanel
+                            className="navPanel_2"
                             imgSrc="https://picsum.photos/190/190?random"
                             text1="Search our tags"
                             text2="& add some more"
                             text3="on the go!"
-                            style={ navPanel_2 }>
-                                <Link to='/explore'>
-                                    <NavButton 
-                                        buttonText='explore'
-                                        style = { butt_2 }/>
-                                </Link>
-                        </NavPanel>
+                                // <Link to='/explore'>
+                                //     <NavButton 
+                                //         buttonText='explore'
+                                //         style = { butt_2 }/>
+                                // </Link>
+                        />
                     </Col>
                 </Row>
             </div>
