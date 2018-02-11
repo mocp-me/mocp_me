@@ -50,21 +50,17 @@ const apiRoutes = (function(){
 
 	// Get the images of a particular keyword
 	router.get("/search-tags/:tag_name", (req, res) => {
-		db.Tags.findAll({
-			where: {
-				tag_name: req.params.tag_name
-			}
-		}).then(function (tags) {
-			db.Photos.findAll({
+
+		db.Photos.findAll({
+			include: [{
+				model: db.Tags,
 				where: {
-					id: tags[0].photo_id
-
+					tag_name: req.params.tag_name
 				}
-			}).then(function (photoId) {
-				res.json(photoId);
-			});
-		});
-
+			}]
+		}).then(function(query){
+			res.json(query)
+		})
 	});
 
 	// Test DB get routes
