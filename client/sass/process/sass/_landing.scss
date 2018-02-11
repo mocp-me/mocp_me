@@ -3,9 +3,40 @@
     background-color:black;
     height:100vh;
     overflow-y:none;
-
     .phoneStyle{
 	    height:100vh;
+	}
+	.logoWrapper{
+		.logo{
+			width:272px;
+			margin-top:7vh;
+			margin-bottom:5vh;
+
+		}
+	}
+	.phoneWrapper{
+		margin-top:0;
+		width: 272px;
+		height:564px;
+		border-radius:25px;
+		background:$lightGray;
+		padding-top:40px;
+		margin-left:10vw;
+		marginBottom:7vh;
+		.phone{
+			margin-left:7px;
+			margin-right:7px;
+			width:258px;
+			height:475px;
+			border-radius:4px;
+			background:black;
+			color:white;
+			padding:40px;
+			padding-left:25px;
+			font-size:35px;
+			font-family:avenir;
+			line-height:1.25
+		}
 	}
 	.navPanel_1{
     	background-color: #FFDC65 !important;
@@ -18,6 +49,52 @@
 	    height:50vh;
 	}
 }
+
+@media screen and (max-width: $small) {
+	.landingWrapper{
+		.logoWrapper{
+			.logo{
+				margin-left:calc(50vw - 140px) !important;
+			}
+		}
+		.phoneWrapper{
+			margin-left:calc(50vw - 140px) !important;
+		}
+		.navPanel_1{
+			height:100vh !important;
+		}
+		.navPanel_2{
+			height:100vh !important;
+		}
+	}
+}
+
+@media screen and (max-width: $medium) {
+	.landingWrapper{
+		.logoWrapper{
+			.logo{
+				margin-left:10vw;
+			}
+		}
+		.phoneWrapper{
+			margin-left:10vw;
+		}
+	}
+}
+
+@media screen and (min-width: $medium) {
+	.landingWrapper{
+		.logoWrapper{
+			.logo{
+				margin-left:17vw;
+			}
+		}
+		.phoneWrapper{
+			margin-left:17vw;
+		}
+	}
+}
+
 // .butt_1{
 //     background:'none';
 //     border-color:'#E5B616';
