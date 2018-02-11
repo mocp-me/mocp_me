@@ -73,6 +73,7 @@ const apiRoutes = (function(){
 		// db.Photos.findAll().then(Photos => {
 		// 	res.json(Photos);
 		// })
+
 	});
 
 	router.get("/all-tags", (req, res) => {

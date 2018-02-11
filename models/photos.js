@@ -9,21 +9,24 @@ module.exports = function (sequelize, DataTypes) {
     const Photos = sequelize.define("Photos",
 
         {
-            // the Photo's id gets saved as an integer
             id:
                 {
                     type: Sequelize.INTEGER,
 
                     primaryKey: true
                 },
-            // the name of the Photo (a string)
             name: Sequelize.STRING,
-            // the Photo's file path (a string)
             path: Sequelize.STRING,
-            // the Photo's URL aka web path (a string)
             web_path: Sequelize.STRING,
-            // and the artist id (an integer)
-            artist_id: Sequelize.INTEGER
+            artist_id: Sequelize.INTEGER,
+            artist: Sequelize.STRING,
+            title: Sequelize.STRING,
+            year: Sequelize.STRING,
+            medium: Sequelize.STRING,
+            dimensions: Sequelize.STRING,
+            web_path: Sequelize.STRING,
+            accession_num: Sequelize.STRING,
+            file_name: Sequelize.STRING,
         },
         {
             timestamps: false
