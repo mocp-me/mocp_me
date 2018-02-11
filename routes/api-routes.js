@@ -23,10 +23,6 @@ const apiRoutes = (function(){
 				where: {
 					'tag_name': req.params.tag_name
 				}
-			},
-			{
-				model: db.Information,
-				as: 'Information'
 			}]
 		}).then(function (response) {
 			res.json(response)
@@ -90,15 +86,12 @@ const apiRoutes = (function(){
 	});
 
 	// Test DB get routes
-	router.get("/all-info", (req, res) => {
-		db.Information.findAll().then(Info => {
-			res.json(Info);
-		})
-	});
-
 	router.get("/all-photos", (req, res) => {
 		db.Photos.findAll({
-			limit: 10
+			limit: 10,
+			include: [{
+				model: db.Tags
+			}]
 		}).then(Photos => {
 			res.json(Photos);
 		})
