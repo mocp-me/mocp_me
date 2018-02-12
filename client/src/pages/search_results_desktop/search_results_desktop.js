@@ -3,36 +3,13 @@ import axios from 'axios';
 import Slider from 'react-slick';
 import {Grid, Row, Col, Container} from 'react-grid-system';
 
-import Image from '../../components/image/image';
 import Info from '../../components/returned_info/returned_info';
 import Tags from '../../components/tag_list/tag_list';
 import TagSubmit from '../../components/tag_submit/tag_submit';
-import styles from './search_results_desktop.css';
 
 
 const API_KEY = '&api_key=CDrewNwfN9TWDnXhucfwDmCGcZIfoVuy&limit=5';
 const ROOT_URL = 'http://api.giphy.com/v1/gifs/search?q='
-
-const rowStyle={
-    marginTop:'20vh',
-    minHeight:'0px',
-    minWidth:'0px',
-    height:'100vh',
-    overflowY:'none'
-}
-const imageStyle={
-    height:'60vh',
-    paddingLeft:'10vw'
-}
-const imageContainer={
-    height:'100%',
-    width:'350px',
-    border:'1vw solid',
-    
-}
-const pageContainer={
-    background:'#D0D0D0'
-}
 
 
 class SearchResultsDesktop extends Component {
@@ -85,28 +62,28 @@ class SearchResultsDesktop extends Component {
             )
         }
         return(
-            <div style={ pageContainer }>
+            <div className="explorePageContainer">
                 <Slider {...settings}>
                     {this.state.results.map(result => {
                         if(toggle){
                             toggle = !toggle;
                         return (
                             <div>
-                                <Row style={rowStyle}>
-                                    <Col sm={6} style={ imageStyle }>
-                                        <div style={ imageContainer }>
+                                <Row className="rowStyle">
+                                    <Col sm={6} className="imageWrapper">
+                                        <div className="imageContainer">
                                             <img 
-                                                style={{width:'100%', verticalAlign:'center'}}
+                                                className="imageStyle"
                                                 src={result.images.original.url}/>
                                         </div>
                                     </Col>
                                     <Col sm={6}>
-                                        <Info
+                                        {/*<Info
                                             title={result.title}
                                             artist={result.type}
                                             link={result.source}
                                             tags={['an', 'array', 'of', 'tags']} 
-                                        />
+                                        />*/}
                                     </Col>
                                 </Row>
                             </div>
