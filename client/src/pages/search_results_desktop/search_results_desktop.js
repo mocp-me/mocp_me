@@ -78,12 +78,12 @@ class SearchResultsDesktop extends Component {
                                         </div>
                                     </Col>
                                     <Col sm={6}>
-                                        {/*<Info
+                                        <Info
                                             title={result.title}
                                             artist={result.type}
                                             link={result.source}
                                             tags={['an', 'array', 'of', 'tags']} 
-                                        />*/}
+                                        />
                                     </Col>
                                 </Row>
                             </div>
