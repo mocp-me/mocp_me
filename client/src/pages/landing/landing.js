@@ -10,7 +10,6 @@ import $ from 'jquery';
 import Logo from '../../components/logo/logo';
 import Phone from '../../components/phone/phone';
 import NavPanel from '../../components/nav_panel/nav_panel';
-import NavButton from '../../components/nav_button/nav_button';
 
 import {Grid, Row, Col, Container, Clearfix} from 'react-grid-system';
 

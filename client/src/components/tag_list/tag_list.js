@@ -19,7 +19,6 @@ class Tags extends Component {
         return (
             <div className='trending-wrapper'>
                 {this.props.children}
-                <ul>
                     {this.props.tagList.map(tag => 
                         <Tag
                             key={tag}
@@ -28,7 +27,7 @@ class Tags extends Component {
                             withHash={this.props.withHash}
                         />
                     )}
-                </ul>
+
             </div>
         )
     }
