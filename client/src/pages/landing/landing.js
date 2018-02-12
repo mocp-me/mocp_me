@@ -1,9 +1,7 @@
-import React, {Component} from 'react';
-import {Link} from 'react-router-dom';
+import React, { Component } from 'react';
+import { Link, withRouter } from 'react-router-dom';
 import Dropzone from 'react-dropzone';
 import request from 'superagent';
-import axios from 'axios';
-import $ from 'jquery';
 
 import Logo from '../../components/logo/logo';
 import Phone from '../../components/phone/phone';
@@ -89,15 +87,15 @@ class Landing extends Component {
 
         const image = new FormData();
         image.append('image', file[0]);
-
+ 
         request
             .post('/api/upload')
             .send(image)
             .end((err, res) => {
-                if (err) {
-                    console.log(err)
-                }
-                console.log(res);
+                if (err) { console.log(err) }
+                const file = res.body.split('\\')[2]
+                console.log('landing file path', file)
+                this.props.history.push(`/vision_search/${file}`)
             });
     }
 
@@ -157,4 +155,4 @@ class Landing extends Component {
     }
 }
 
-export default Landing;
+export default withRouter(Landing);
