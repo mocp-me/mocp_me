@@ -35,18 +35,72 @@
 			padding-left:25px;
 			font-size:35px;
 			font-family:avenir;
-			line-height:1.25
+			line-height:1.25;
 		}
 	}
 	.navPanel_1{
     	background-color: #FFDC65 !important;
     	color:#E5B616;
     	height:50vh;
+    	align-content:center;
+		text-align:center;
+		height:50vh;
+		padding-top:2vh;
+    	.panelStyle{
+			.textStyle{
+				font-family:avenir;
+				line-height:.7;
+				margin:none;
+				padding:none;
+				font-size:2.5vh;
+
+			}
+			.imageStyle{
+	    		margin-bottom:2vh;
+				height:25vh;
+	    	}
+    	}
+    	.button{
+    		background:none;
+    		border-color:$darkYellow;
+    		color:$darkYellow;
+    		border-radius:25px;
+    		border-width:.25vh;
+    		padding:1vh 2vw 1vh 2vw;
+    		margin-top:.75vh;
+    	}
 	}
 	.navPanel_2{
 	    background-color: #E5B616 !important;
 	    color:#FFDC65;
 	    height:50vh;
+	    align-content:center;
+		text-align:center;
+		height:50vh;
+		padding-top:2vh;
+	    .panelStyle{
+			.textStyle{
+				font-family:avenir;
+				line-height:.7;
+				margin:none;
+				padding:none;
+				font-size:2.5vh;
+
+			}
+			.imageStyle{
+	    		margin-bottom:2vh;
+				height:25vh;
+	    	}
+    	}
+    	.button{
+    		background:none;
+    		border-color:$lightYellow;
+    		color:$lightYellow;
+    		border-radius:25px;
+    		border-width:.25vh;
+    		padding:1vh 2vw 1vh 2vw;
+    		margin-top:.75vh;
+    	}
 	}
 }
 
@@ -62,9 +116,31 @@
 		}
 		.navPanel_1{
 			height:100vh !important;
+			.panelStyle{
+				padding-top:20vh !important;
+				height:67vh !important;
+				.imageStyle{
+					margin-bottom:8vh;
+				}
+			}
+			.button{
+				margin-top:.75vh;
+				padding:1vh 5vw 1vh 5vw;
+			}
 		}
 		.navPanel_2{
 			height:100vh !important;
+			.panelStyle{
+				padding-top:20vh !important;
+				height:67vh !important;
+				.imageStyle{
+					margin-bottom:8vh;
+				}
+			}
+			.button{
+				margin-top:.75vh;
+				padding:1vh 5vw 1vh 5vw;
+			}
 		}
 	}
 }

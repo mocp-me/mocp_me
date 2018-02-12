@@ -145,28 +145,29 @@ class Landing extends Component {
                             onDragLeave={this.onDragLeave.bind(this)}>
                                 { dropzoneActive && <div style={overlayStyle}></div> }
                                 <div className="navPanel_1">
-
-                                  {/*imgSrc="https://picsum.photos/190/190?random"
-                                  text1="Upload your image"
-                                  text2="to connect to"
-                                  text3="the collection."
-                                  // <NavButton 
-                                  //   buttonText='add image' 
-                                  //   style = { butt_1 } 
-                                  // />*/}
+                                  <NavPanel
+                                    imgSrc="https://picsum.photos/190/190?random"
+                                    text1="Upload your image"
+                                    text2="to connect to"
+                                    text3="the collection."
+                                  />
+                                  <button className="button">
+                                    add image
+                                  </button>
                                 </div>
                         </Dropzone>
                         <div className="navPanel_2">
-                          {/*imgSrc="https://picsum.photos/190/190?random"
-                          text1="Search our tags"
-                          text2="& add some more"
-                          text3="on the go!"
-                          // <Link to='/explore'>
-                          //   <NavButton 
-                          //     buttonText='explore'
-                          //     style = { butt_2 }
-                          //   />
-                          // </Link>*/}
+                          <NavPanel
+                            imgSrc="https://picsum.photos/190/190?random"
+                            text1="Search our tags"
+                            text2="& add some more"
+                            text3="on the go!"
+                            />
+                            <Link to='/explore'>
+                              <button className="button">
+                                  explore
+                              </button>
+                            </Link>
                         </div>
                     </Col>
                 </Row>

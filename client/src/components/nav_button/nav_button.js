@@ -4,14 +4,14 @@ const NavButton = (props) => {
     if(props.isInput === true){
         return (
             <input type={props.inputType}> 
-                <button style={props.style} onClick={props.handleOnClick}>
+                <button onClick={props.handleOnClick}>
                     {props.buttonText}
                 </button>
             </input>   
         );
     } else {
         return (
-            <button style={props.style} onClick={props.handleOnClick}>
+            <button onClick={props.handleOnClick}>
                 {props.buttonText}
             </button> 
         );       
