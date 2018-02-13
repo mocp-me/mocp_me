@@ -22,16 +22,15 @@ const apiRoutes = (function(){
 
 	// API Routes go here
 	router.post('/upload', upload.single('image'), (req, res) => {
-		const filePath = req.file.path;
-		res.json(filePath)
+		console.log('<===================== multer file ===============>', req.file)
+		const fileName = req.file.filename;
+		res.json(fileName)
 	});
 
 
 	router.get('/vision/:file', async (req, res) => {
 		const file = req.params.file;
-		console.log('route hit', file)
 		const filePath = `client\\upload\\${file}`;
-		console.log('filePath', filePath);
 
 		//pass the file to google vision which returns tags associated with that image
 		const tagsArray = await helpers.detectLabels(filePath);
@@ -55,7 +54,7 @@ const apiRoutes = (function(){
 				}
 			}).then(results => {
 				const appendedResults = results[0].dataValues;
-				appendedResults.localPath = filePath;
+				appendedResults.uploadFile = file;
 				appendedResults.topTags = topThree;
 				res.json(appendedResults)
 			});

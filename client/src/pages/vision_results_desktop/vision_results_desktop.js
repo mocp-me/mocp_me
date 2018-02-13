@@ -6,27 +6,25 @@ import Info from '../../components/returned_info/returned_info';
 import Tags from '../../components/tag_list/tag_list';
 import TagSubmit from '../../components/tag_submit/tag_submit';
 
-
 class VisionResultsDesktop extends Component {
     constructor(props) {
         super(props)
     }
 
     componentWillMount() {
-        console.log('params', this.props.match.params)
-        const { file } = this.props.match.params;
-        console.log('file path', file);
-
+        const { fileName } = this.props.match.params;
         request
-            .get(`/api/vision/${file}`)
+            .get(`/api/vision/${fileName}`)
             .end((err, res) => {
                 if(err) { console.log(err) }
                 console.log(res.body);
             });
     }
+    componentDidMount() {
+    }
     render(){
         return (
-            <img src="../../../upload/fd2d1291f427cf0c2d08637aacba5a34" />
+            <img src="" />
         )
     }
 }

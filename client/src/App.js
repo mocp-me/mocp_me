@@ -59,7 +59,7 @@ class App extends Component {
 				<Router history={history}>
 					<Switch>
 						<Route path="/search/:term" component={isMobile ? SearchResultsMobile : SearchResultsDesktop} />
-						<Route path="/vision_search/:file" component={isMobile ? VisionResultsMobile : VisionResultsDesktop} />
+						<Route path="/vision_search/:fileName" component={isMobile ? VisionResultsMobile : VisionResultsDesktop} />
 						<Route path="/explore" component={ExploreSearch} />
 						<Route path="/admin" render={(props) => <Admin auth={this.auth} {...props} />} />
 						<Route path="/callback" render={(props) => {

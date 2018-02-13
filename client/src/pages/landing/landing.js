@@ -84,7 +84,6 @@ class Landing extends Component {
         this.setState(() => {
             return {dropzoneActive: false}
         });
-
         const image = new FormData();
         image.append('image', file[0]);
  
@@ -93,9 +92,8 @@ class Landing extends Component {
             .send(image)
             .end((err, res) => {
                 if (err) { console.log(err) }
-                const file = res.body.split('\\')[2]
-                console.log('landing file path', file)
-                this.props.history.push(`/vision_search/${file}`)
+                const fileName = res.body
+                this.props.history.push(`/vision_search/${fileName}`)
             });
     }
 
