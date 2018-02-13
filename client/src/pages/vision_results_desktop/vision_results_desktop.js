@@ -12,6 +12,7 @@ class VisionResultsDesktop extends Component {
     }
 
     componentWillMount() {
+        console.log('props', this.props)
         const { fileName } = this.props.match.params;
         request
             .get(`/api/vision/${fileName}`)
@@ -24,7 +25,7 @@ class VisionResultsDesktop extends Component {
     }
     render(){
         return (
-            <img src="" />
+            <img src={this.props.location.uploadedImage.filePath} />
         )
     }
 }
