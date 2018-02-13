@@ -1,38 +1,54 @@
 import React, { Component } from 'react';
-import request from 'superagent';
+import axios from 'axios';
 
-import Image from '../../components/image/image';
+import Logo from '../../components/logo/logo';
 import Info from '../../components/returned_info/returned_info';
 import Tags from '../../components/tag_list/tag_list';
 import TagSubmit from '../../components/tag_submit/tag_submit';
-import { isNull } from 'util';
 
 class VisionResultsDesktop extends Component {
     constructor(props) {
         super(props)
 
-        this.state = { imageInfo : null };
+        this.state = {};
     }
 
-    componentDidMount() {
-        console.log(this.props)
+    componentWillMount() {
         const { fileName } = this.props.match.params;
-        request
+        axios
             .get(`/api/vision/${fileName}`)
-            .end((err, res) => {
-                if(err) { console.log(err) }
-                console.log(res.body);
-                this.setState({ imageInfo : res.body })
-                console.log('new state', this.state.imageInfo.web_path)
-            });
+            .then((res) => {
+                console.log('some data', res.data);
+                this.setState({ 
+                    title : res.data.title,
+                    artist : res.data.artist,
+                    tags : res.data.topTags,
+                    returnedImg: res.data.web_path
+                })
+            })
+            .catch(err => console.log(err));
     }
-    render(){
-      return (
-        <div>
-            <Image source={this.props.location.uploadedImage.filePath} />
-            {this.state.imageInfo ? <Image source={this.state.imageInfo.web_path} /> : <div>Loading...</div>}
-        </div>
-      )  
+
+    render() {
+        const { title, artist, tags, returnedImg } = this.state;
+        const uploadedImage = this.props.location.uploadedImage.filePath
+        return (
+            <div>
+                <div style={{backgroundColor: 'black'}}>
+                    <Logo />
+                </div> 
+                <img src={uploadedImage} />
+                {returnedImg ? <img src={returnedImg} /> : <div>Loading...</div>}
+                <Info 
+                    title={title ? title : 'Loading...'}
+                    artist={artist ? artist : 'Loading...'}
+                >
+                    { tags ? <Tags tagList={tags} /> : <div>Loading...</div> }
+                    <p>add a tag: </p>
+                    { returnedImg ? <TagSubmit imageRef={returnedImg} /> : <div>Loading...</div>}
+                </Info>
+            </div>
+        );  
     }
 }
 
