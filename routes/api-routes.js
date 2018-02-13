@@ -31,17 +31,15 @@ const apiRoutes = (function(){
 	router.get('/vision/:file', async (req, res) => {
 		const file = req.params.file;
 		const filePath = `client\\upload\\${file}`;
-
 		//pass the file to google vision which returns tags associated with that image
 		const tagsArray = await helpers.detectLabels(filePath);
 		//top three tags to be displayed on page
 		const topThree = tagsArray.slice(0,3);
 		//delete the uploaded file after we're done using it
-		/////////////////need to figure out a new place for this as its going to be needed for displaying the user uploaded photo on the results page/////////////////////
-		// fs.unlink(filePath, (err) => {
-		// 	if (err) throw err;
-		// 	console.log('successfully deleted');
-		//   });
+		fs.unlink(filePath, (err) => {
+			if (err) throw err;
+			console.log('successfully deleted');
+		  });
 		//make DB call for photos with same tag association
 		db.Tags.findAll({
 			where: {
@@ -54,7 +52,6 @@ const apiRoutes = (function(){
 				}
 			}).then(results => {
 				const appendedResults = results[0].dataValues;
-				appendedResults.uploadFile = file;
 				appendedResults.topTags = topThree;
 				res.json(appendedResults)
 			});
@@ -79,11 +76,14 @@ const apiRoutes = (function(){
 
 	// Test DB get routes
 	router.get("/all-photos", (req, res) => {
-		res.json({photos: "allthephotos"});
-		// db.Photos.findAll().then(Photos => {
-		// 	res.json(Photos);
-		// })
-
+		db.Photos.findAll({
+			limit: 10,
+			include: [{
+				model: db.Tags
+			}]
+		}).then(Photos => {
+			res.json(Photos);
+		})
 	});
 
 	router.get("/all-tags", (req, res) => {
