@@ -76,11 +76,14 @@ const apiRoutes = (function(){
 
 	// Test DB get routes
 	router.get("/all-photos", (req, res) => {
-		res.json({photos: "allthephotos"});
-		// db.Photos.findAll().then(Photos => {
-		// 	res.json(Photos);
-		// })
-
+		db.Photos.findAll({
+			limit: 10,
+			include: [{
+				model: db.Tags
+			}]
+		}).then(Photos => {
+			res.json(Photos);
+		})
 	});
 
 	router.get("/all-tags", (req, res) => {
