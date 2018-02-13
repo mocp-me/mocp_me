@@ -12,17 +12,19 @@ class VisionResultsDesktop extends Component {
 
         this.state = {};
     }
-
+    
     componentWillMount() {
         const { fileName } = this.props.match.params;
         axios
             .get(`/api/vision/${fileName}`)
             .then((res) => {
-                console.log('some data', res.data);
+                const returnedTags = [];
+                res.data.Tags.map(tag => returnedTags.push(tag.tag_name));
                 this.setState({ 
                     title : res.data.title,
                     artist : res.data.artist,
-                    tags : res.data.topTags,
+                    visionTopTags : res.data.visionTopTags,
+                    returnedTags,
                     returnedImg: res.data.web_path
                 })
             })
@@ -30,22 +32,23 @@ class VisionResultsDesktop extends Component {
     }
 
     render() {
-        const { title, artist, tags, returnedImg } = this.state;
+        const { title, artist, visionTopTags, returnedImg, returnedTags } = this.state;
         const uploadedImage = this.props.location.uploadedImage.filePath
         return (
             <div>
-                <div style={{backgroundColor: 'black'}}>
+                <div style={{ backgroundColor: 'black', color: 'white' }}>
                     <Logo />
+                    { visionTopTags ? <Tags tagList={ visionTopTags } /> : null }
                 </div> 
-                <img src={uploadedImage} />
-                {returnedImg ? <img src={returnedImg} /> : <div>Loading...</div>}
+                <img src={ uploadedImage } />
+                { returnedImg ? <img src={ returnedImg } /> : <div>Loading...</div> }
                 <Info 
-                    title={title ? title : 'Loading...'}
-                    artist={artist ? artist : 'Loading...'}
+                    title={ title ? title : 'Loading...' }
+                    artist={ artist ? artist : 'Loading...' }
                 >
-                    { tags ? <Tags tagList={tags} /> : <div>Loading...</div> }
+                    { returnedTags ? <Tags withHash={ true } tagList={ returnedTags } /> : <div>Loading...</div> }
                     <p>add a tag: </p>
-                    { returnedImg ? <TagSubmit imageRef={returnedImg} /> : <div>Loading...</div>}
+                    <TagSubmit imageRef={ returnedImg && returnedImg } />
                 </Info>
             </div>
         );  
