@@ -1,14 +1,14 @@
 {
 	"development": {
 		"username": "root",
-		"password": "abc123",
+		"password": "",
 		"database": "mocp_db",
 		"host": "localhost",
 		"dialect": "mysql"
 	},
 	"test": {
 		"username": "root",
-		"password": "abc12",
+		"password": "",
 		"database": "mocp_db",
 		"host": "127.0.0.1",
 		"dialect": "mysql"
