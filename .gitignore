@@ -10,7 +10,7 @@
 /build
 
 # misc
-keys.json
+#keys.json
 .DS_Store
 .env
 .env.local
