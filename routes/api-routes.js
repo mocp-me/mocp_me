@@ -30,11 +30,11 @@ const apiRoutes = (function(){
 
 	router.get('/vision/:file', async (req, res) => {
 		const file = req.params.file;
-		const filePath = `client\\upload\\${file}`;
+		const filePath = `client/upload/${file}`;
 		//pass the file to google vision which returns tags associated with that image
 		const tagsArray = await helpers.detectLabels(filePath);
 		//top three tags to be displayed on page
-		const topThree = tagsArray.slice(0,3);
+		const visionTopTags = tagsArray.slice(0,3);
 		//delete the uploaded file after we're done using it
 		fs.unlink(filePath, (err) => {
 			if (err) throw err;
@@ -49,10 +49,16 @@ const apiRoutes = (function(){
 			db.Photos.findAll({
 				where: {
 					id: helpers.mostFreqId(helpers.createIdArray(Tags))
-				}
+				},
+				include: [{
+					model: db.Tags
+				}]
+				
 			}).then(results => {
+				results[0].Tags.forEach(entry => console.log(entry.tag_name))
+				console.log('api call results', results[0].Tags)
 				const appendedResults = results[0].dataValues;
-				appendedResults.topTags = topThree;
+				appendedResults.visionTopTags = visionTopTags;
 				res.json(appendedResults)
 			});
 		})

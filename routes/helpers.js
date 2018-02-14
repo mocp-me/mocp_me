@@ -29,7 +29,7 @@ const helpers = {
     // Creates a client
     const client = new vision.ImageAnnotatorClient({
         projectId: 'cool-citadel-192004',
-        keyFilename: process.env.GOOGLE_APPLICATION_CREDENTIALS
+        keyFilename: process.env.GOOGLE_APPLICATION_CREDENTIALS 
       });
     // Performs label detection on the local file
     const results = await (
