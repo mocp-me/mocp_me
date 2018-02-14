@@ -22,7 +22,6 @@ const apiRoutes = (function(){
 
 	// API Routes go here
 	router.post('/upload', upload.single('image'), (req, res) => {
-		console.log('<===================== multer file ===============>', req.file)
 		const fileName = req.file.filename;
 		res.json(fileName)
 	});
@@ -38,7 +37,7 @@ const apiRoutes = (function(){
 		//delete the uploaded file after we're done using it
 		fs.unlink(filePath, (err) => {
 			if (err) throw err;
-			console.log('successfully deleted');
+			console.log('upload successfully deleted');
 		  });
 		//make DB call for photos with same tag association
 		db.Tags.findAll({
@@ -55,8 +54,6 @@ const apiRoutes = (function(){
 				}]
 				
 			}).then(results => {
-				results[0].Tags.forEach(entry => console.log(entry.tag_name))
-				console.log('api call results', results[0].Tags)
 				const appendedResults = results[0].dataValues;
 				appendedResults.visionTopTags = visionTopTags;
 				res.json(appendedResults)
@@ -64,6 +61,9 @@ const apiRoutes = (function(){
 		})
 	});
 
+
+	//we need this to return all tags relate to the returned imaged
+	//then maybe we could use those to offer users 'connected' or 'related' tags to lead them around the collection
 
 	// Get the images of a particular keyword
 	router.get("/search-tags/:tag_name", (req, res) => {
