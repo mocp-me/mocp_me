@@ -96,7 +96,7 @@ class Landing extends Component {
                 const fileName = res.body
                 this.props.history.push({
                     pathname: `/vision_search/${fileName}`,
-                    uploadedImage: {filePath: file[0].preview}
+                    uploadedImg: {filePath: file[0].preview}
                 })
             });
     }

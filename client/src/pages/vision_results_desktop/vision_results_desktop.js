@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import axios from 'axios';
+import domtoimage from 'dom-to-image';
 
 import Logo from '../../components/logo/logo';
 import Info from '../../components/returned_info/returned_info';
@@ -10,7 +11,9 @@ class VisionResultsDesktop extends Component {
     constructor(props) {
         super(props)
 
-        this.state = {};
+        this.handleOnClick = this.handleOnClick.bind(this);
+
+        this.state = { uploadedImg : this.props.location.uploadedImg.filePath };
     }
     
     componentWillMount() {
@@ -31,16 +34,23 @@ class VisionResultsDesktop extends Component {
             .catch(err => console.log(err));
     }
 
+    handleOnClick() {
+        this.props.history.push({
+            pathname: `/download`,
+            uploadedImg: this.state.uploadedImg,
+            returnedImg: this.state.returnedImg
+        })
+    }
+
     render() {
         const { title, artist, visionTopTags, returnedImg, returnedTags } = this.state;
-        const uploadedImage = this.props.location.uploadedImage.filePath
         return (
-            <div>
+            <div id="my-node">
                 <div style={{ backgroundColor: 'black', color: 'white' }}>
                     <Logo />
                     { visionTopTags ? <Tags tagList={ visionTopTags } /> : null }
                 </div> 
-                <img src={ uploadedImage } />
+                <img src={ this.state.uploadedImg } />
                 { returnedImg ? <img src={ returnedImg } /> : <div>Loading...</div> }
                 <Info 
                     title={ title ? title : 'Loading...' }
@@ -49,6 +59,7 @@ class VisionResultsDesktop extends Component {
                     { returnedTags ? <Tags withHash={ true } tagList={ returnedTags } /> : <div>Loading...</div> }
                     <p>add a tag: </p>
                     <TagSubmit imageRef={ returnedImg && returnedImg } />
+                    { returnedImg && <button onClick={this.handleOnClick} style={{fontSize: '50px'}}>download</button> }
                 </Info>
             </div>
         );  
