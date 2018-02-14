@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import axios from 'axios';
 import domtoimage from 'dom-to-image';
+import _ from 'lodash';
 
 import Logo from '../../components/logo/logo';
 import Info from '../../components/returned_info/returned_info';
@@ -13,14 +14,58 @@ class VisionResultsDesktop extends Component {
 
         this.handleOnClick = this.handleOnClick.bind(this);
 
-        this.state = { uploadedImg : this.props.location.uploadedImg.filePath };
+        this.state = { uploadedImg : this.props.location.state.filePath };
     }
+  
+    componentDidMount() {
+        window.onpopstate = this.handlePopState;
+        this.applyParams();
+      }
     
-    componentWillMount() {
+    componentWillUnmount() {
+        window.onpopstate = null;
+      }
+    
+    shouldComponentUpdate(nextProps) {
+        return _.isEqual(this.props.location, nextProps.location);
+      }
+    
+    handlePopState = (event) => {
+        event.preventDefault();
+        this.applyParams();
+      }
+    
+    applyParams() {
+        console.log('applyParams location state', this.props.location.state)
+        this.params = this.props.location.state || {};
+        if(!this.props.location.state.returnedImg){
+            this.fetchImage();
+        }
+      }
+    
+    handlePageChange = (page) => {
+        console.log('handlePageChange location state', this.props.location.state)
+        this.params.page = page;
+        this.props.history.push('/', this.params);
+        if(!this.props.location.state.returnedImg){
+            this.fetchImage();
+        }
+      }
+    handleOnClick() {
+        this.props.history.push({
+            pathname: `/download`,
+            state: { 
+                uploadedImg: this.state.uploadedImg,
+                returnedImg: this.state.returnedImg
+            }
+        })
+    }
+    fetchImage() {
         const { fileName } = this.props.match.params;
         axios
             .get(`/api/vision/${fileName}`)
             .then((res) => {
+                this.props.location.state.returnedImg = res.data.web_path;
                 const returnedTags = [];
                 res.data.Tags.map(tag => returnedTags.push(tag.tag_name));
                 this.setState({ 
@@ -33,15 +78,6 @@ class VisionResultsDesktop extends Component {
             })
             .catch(err => console.log(err));
     }
-
-    handleOnClick() {
-        this.props.history.push({
-            pathname: `/download`,
-            uploadedImg: this.state.uploadedImg,
-            returnedImg: this.state.returnedImg
-        })
-    }
-
     render() {
         const { title, artist, visionTopTags, returnedImg, returnedTags } = this.state;
         return (
