@@ -8,6 +8,18 @@ import Info from '../../components/returned_info/returned_info';
 import Tags from '../../components/tag_list/tag_list';
 import TagSubmit from '../../components/tag_submit/tag_submit';
 
+/*****      Notes possible routing solutions ***** 
+    removing the upload delete function from the backend will make this page work
+    even when a user navigate back and forward in the browser. Is it better to recall the api 
+    every time and find a new place to delete the uplaoded file, or would it be better to store the api return
+    in location state so we can recall it if user comes back to the page??
+    In that case, we'd have to store a lot of data in location.state and change all of our condition rendering.. this also seems
+    to defeats the purpose of the component state in that case. 
+    First option seems like the way to go, but then where do we put the delete for the uploaded file?? 
+    Also, in that case we may then want to disable navigation back to the 'download' page pending the new api call in the case
+    that a user makes it to downloads and then navigations back to results  
+*****/
+
 class VisionResultsDesktop extends Component {
     constructor(props) {
         super(props)
@@ -65,7 +77,6 @@ class VisionResultsDesktop extends Component {
         axios
             .get(`/api/vision/${fileName}`)
             .then((res) => {
-                this.props.location.state.returnedImg = res.data.web_path;
                 const returnedTags = [];
                 res.data.Tags.map(tag => returnedTags.push(tag.tag_name));
                 this.setState({ 

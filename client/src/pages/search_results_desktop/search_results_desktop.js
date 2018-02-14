@@ -8,10 +8,6 @@ import Tags from '../../components/tag_list/tag_list';
 import TagSubmit from '../../components/tag_submit/tag_submit';
 import styles from './search_results_desktop.css';
 
-
-const API_KEY = '&api_key=CDrewNwfN9TWDnXhucfwDmCGcZIfoVuy&limit=5';
-const ROOT_URL = 'http://api.giphy.com/v1/gifs/search?q='
-
 const rowStyle={
     marginTop:'20vh',
     minHeight:'0px',
@@ -41,21 +37,19 @@ class SearchResultsDesktop extends Component {
         this.state = { results : [] }
     }
 
-    componentWillMount() {
+    componentDidMount() {
         const { term } = this.props.match.params
         const searchResults = [];
-
-        axios.get(`${ROOT_URL}${term}${API_KEY}`)
-        .then(response => {
-            response.data.data.map(result => {
-                searchResults.push(result);
-                searchResults.push(result);
-
+        axios
+        .get(`/api/search-tags/${term}`)
+        .then((res) => {
+            console.log(res)
+            this.setState({ 
+                results : res.data
             });
-            this.setState({
-                results: searchResults
-            });           
-        });
+            console.log('new state', this.state)
+        })
+        .catch(err => console.log(err));
     }
 
     render() {
@@ -85,14 +79,14 @@ class SearchResultsDesktop extends Component {
                                         <div style={ imageContainer }>
                                             <img 
                                                 style={{ width:'100%', verticalAlign:'center' }}
-                                                src={ result.images.original.url }/>
+                                                src={ result.web_path }/>
                                         </div>
                                     </Col>
                                     <Col sm={6}>
                                         <Info
                                             title={ result.title }
-                                            artist={ result.type }
-                                            link={ result.source }
+                                            artist={ result.artist }
+                                            link={null}
                                             tags={ ['an', 'array', 'of', 'tags'] } 
                                         />
                                     </Col>
