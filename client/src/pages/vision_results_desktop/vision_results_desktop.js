@@ -3,6 +3,7 @@ import axios from 'axios';
 import domtoimage from 'dom-to-image';
 import _ from 'lodash';
 
+
 import Logo from '../../components/logo/logo';
 import Info from '../../components/returned_info/returned_info';
 import Tags from '../../components/tag_list/tag_list';

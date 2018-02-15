@@ -6,28 +6,7 @@ import { Grid, Row, Col, Container } from 'react-grid-system';
 import Info from '../../components/returned_info/returned_info';
 import Tags from '../../components/tag_list/tag_list';
 import TagSubmit from '../../components/tag_submit/tag_submit';
-import styles from './search_results_desktop.css';
 
-const rowStyle={
-    marginTop:'20vh',
-    minHeight:'0px',
-    minWidth:'0px',
-    height:'100vh',
-    overflowY:'none'
-}
-const imageStyle={
-    height:'60vh',
-    paddingLeft:'10vw'
-}
-const imageContainer={
-    padding:'10px',
-    background:'black',
-    height:'100%',
-    width:'350px',
-}
-const pageContainer={
-    background:'#D0D0D0'
-}
 
 
 class SearchResultsDesktop extends Component {
@@ -69,17 +48,17 @@ class SearchResultsDesktop extends Component {
             )
         }
         return(
-            <div style={ pageContainer }>
-                <Slider { ...settings }>
+            <div className="explorePageContainer">
+                <Slider {...settings}>
                     {this.state.results.map(result => {
                         return (
                             <div>
-                                <Row style={rowStyle}>
-                                    <Col sm={6} style={ imageStyle }>
-                                        <div style={ imageContainer }>
+                                <Row className="rowStyle">
+                                    <Col sm={6} className="imageWrapper">
+                                        <div className="imageContainer">
                                             <img 
-                                                style={{ width:'100%', verticalAlign:'center' }}
-                                                src={ result.web_path }/>
+                                                className="imageStyle"
+                                                src={result.web_path}/>
                                         </div>
                                     </Col>
                                     <Col sm={6}>

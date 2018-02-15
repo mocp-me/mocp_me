@@ -1,55 +1,8 @@
 import React, { Component } from 'react';
 import About from '../about/about';
 import {Grid, Row, Col, Container} from 'react-grid-system';
-import Media from "react-media";
 
 // import './phone.css';
-
-const phoneWrapperSm = {
-    marginTop:'0',
-    width:'272px',
-    height:'564px',
-    borderRadius:'25px',
-    background:'gray',
-    paddingTop: '40px',
-    marginLeft: '9vw',
-    marginBottom:'7vh'
-}
-const phoneWrapperLg = {
-    marginTop:'0',
-    width:'272px',
-    height:'564px',
-    borderRadius:'25px',
-    background:'gray',
-    paddingTop: '40px',
-    marginLeft: '16vw',
-    marginBottom:'7vh'
-}
-
-const phone ={
-    marginLeft:'7px',
-    marginRight:'7px',
-    width:'258px',
-    height:'475px',
-    borderRadius:'4px',
-    background:'black',
-    color:'white',
-    padding:'40px',
-    paddingLeft:'25px',
-    fontSize: '35px',
-    font:'avenir',
-    lineHeight:'1.25'
-}
-
-//   .speaker-circle{
-//     width:10px;
-//     height:10px;
-//     margin-left: 50px;
-//     border-radius:50px;
-//     background-color: #404040;
-//     transition:all .5s linear;
-//     -webkit-transition:all linear .5s;
-//   }
 
 
 class Phone extends Component {
@@ -67,19 +20,9 @@ class Phone extends Component {
 
     render() {
         return (
-            <Media query="(max-width: 800px)">
-              {matches =>
-                matches ? (
-                    <div style={phoneWrapperSm}  onMouseOver={this.handleOnMouseOver} onMouseLeave={this.handleOnMouseLeave}>                
-                        {!this.state.hovered ? <div style={phone}>Tag the collection with machine learning & computer vision</div> : <About /> }
-                    </div>
-                ) : (
-                    <div style={phoneWrapperLg}  onMouseOver={this.handleOnMouseOver} onMouseLeave={this.handleOnMouseLeave}>                
-                        {!this.state.hovered ? <div style={phone}>Tag the collection with machine learning & computer vision</div> : <About /> }
-                    </div>
-                )
-              }
-            </Media>
+            <div className="phoneWrapper"  onMouseOver={this.handleOnMouseOver} onMouseLeave={this.handleOnMouseLeave}>                
+                {!this.state.hovered ? <div className="phone">Tag the collection with machine learning & computer vision</div> : <About /> }
+            </div>
         )
     }
 }
