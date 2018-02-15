@@ -51,6 +51,11 @@ class SearchResultsDesktop extends Component {
             <div className="explorePageContainer">
                 <Slider {...settings}>
                     {this.state.results.map(result => {
+                        console.log(result)
+                        let tags = [];
+                        result.Tags.map(tag => {
+                            tags.push(tag.tag_name)
+                        })
                         return (
                             <div>
                                 <Row className="rowStyle">
@@ -58,16 +63,16 @@ class SearchResultsDesktop extends Component {
                                         <div className="imageContainer">
                                             <img 
                                                 className="imageStyle"
-                                                src={result.web_path}/>
+                                                src={ result.web_path }/>
                                         </div>
                                     </Col>
                                     <Col sm={6}>
                                         <Info
                                             title={ result.title }
                                             artist={ result.artist }
-                                            link={null}
-                                            tags={ ['an', 'array', 'of', 'tags'] } 
-                                        />
+                                        >
+                                            <Tags isLink={ true } withHash={ true } tagList={ tags } />
+                                        </Info>
                                     </Col>
                                 </Row>
                             </div> 

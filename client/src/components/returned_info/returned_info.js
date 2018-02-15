@@ -15,7 +15,6 @@ const Info = (props) => {
         <div className="info-wrapper" style={ infoStyle }>
             <h3>{props.title}</h3>
             <h4>{props.artist}</h4>
-            <a href={props.link}>more info</a>
             <hr />
             {props.children}
         </div>
