@@ -58,7 +58,7 @@ class SearchResultsDesktop extends Component {
                                         <div className="imageContainer">
                                             <img 
                                                 className="imageStyle"
-                                                src={result.web_pat}/>
+                                                src={result.web_path}/>
                                         </div>
                                     </Col>
                                     <Col sm={6}>
