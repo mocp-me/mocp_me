@@ -58,6 +58,7 @@ class Landing extends Component {
             .post('/api/upload')
             .send(image)
             .end((err, res) => {
+                console.log('ressponnsseeee', res)
                 if (err) { console.log(err) }
                 const fileName = res.body
                 this.props.history.push({
@@ -84,7 +85,7 @@ class Landing extends Component {
                         <Logo />
                         <Phone />
                     </Col>
-                    <Col xs={12} sm={4} md={5}>
+                    <Col xs={12} sm={5} md={5}>
                         <Dropzone
                             onDrop={this.onDrop}
                             multiple={false}

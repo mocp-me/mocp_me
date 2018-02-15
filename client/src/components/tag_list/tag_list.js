@@ -16,7 +16,7 @@ const Tags = (props) => {
                             withHash={props.withHash}
                         />
                     )}
-
+                </ul>
             </div>
         )
     }

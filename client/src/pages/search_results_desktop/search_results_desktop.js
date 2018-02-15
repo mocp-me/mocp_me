@@ -7,32 +7,6 @@ import Info from '../../components/returned_info/returned_info';
 import Tags from '../../components/tag_list/tag_list';
 import TagSubmit from '../../components/tag_submit/tag_submit';
 
-<<<<<<< HEAD
-
-const API_KEY = '&api_key=CDrewNwfN9TWDnXhucfwDmCGcZIfoVuy&limit=5';
-const ROOT_URL = 'http://api.giphy.com/v1/gifs/search?q='
-=======
-const rowStyle={
-    marginTop:'20vh',
-    minHeight:'0px',
-    minWidth:'0px',
-    height:'100vh',
-    overflowY:'none'
-}
-const imageStyle={
-    height:'60vh',
-    paddingLeft:'10vw'
-}
-const imageContainer={
-    padding:'10px',
-    background:'black',
-    height:'100%',
-    width:'350px',
-}
-const pageContainer={
-    background:'#D0D0D0'
-}
->>>>>>> test
 
 
 class SearchResultsDesktop extends Component {
@@ -74,13 +48,8 @@ class SearchResultsDesktop extends Component {
             )
         }
         return(
-<<<<<<< HEAD
             <div className="explorePageContainer">
                 <Slider {...settings}>
-=======
-            <div style={ pageContainer }>
-                <Slider { ...settings }>
->>>>>>> test
                     {this.state.results.map(result => {
                         return (
                             <div>
@@ -88,13 +57,8 @@ class SearchResultsDesktop extends Component {
                                     <Col sm={6} className="imageWrapper">
                                         <div className="imageContainer">
                                             <img 
-<<<<<<< HEAD
                                                 className="imageStyle"
-                                                src={result.images.original.url}/>
-=======
-                                                style={{ width:'100%', verticalAlign:'center' }}
-                                                src={ result.web_path }/>
->>>>>>> test
+                                                src={result.web_pat}/>
                                         </div>
                                     </Col>
                                     <Col sm={6}>
