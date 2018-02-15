@@ -19,6 +19,7 @@ keys.json
 .env.development.local
 .env.test.local
 .env.production.local
+config.json
 
 
 npm-debug.log*

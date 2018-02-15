@@ -22,7 +22,6 @@ const apiRoutes = (function(){
 
 	// API Routes go here
 	router.post('/upload', upload.single('image'), (req, res) => {
-		console.log('<===================== multer file ===============>', req.file)
 		const fileName = req.file.filename;
 		res.json(fileName)
 	});
@@ -34,11 +33,11 @@ const apiRoutes = (function(){
 		//pass the file to google vision which returns tags associated with that image
 		const tagsArray = await helpers.detectLabels(filePath);
 		//top three tags to be displayed on page
-		const topThree = tagsArray.slice(0,3);
+		const visionTopTags = tagsArray.slice(0,3);
 		//delete the uploaded file after we're done using it
 		fs.unlink(filePath, (err) => {
 			if (err) throw err;
-			console.log('successfully deleted');
+			console.log('upload successfully deleted');
 		  });
 		//make DB call for photos with same tag association
 		db.Tags.findAll({
@@ -49,15 +48,22 @@ const apiRoutes = (function(){
 			db.Photos.findAll({
 				where: {
 					id: helpers.mostFreqId(helpers.createIdArray(Tags))
-				}
+				},
+				include: [{
+					model: db.Tags
+				}]
+				
 			}).then(results => {
 				const appendedResults = results[0].dataValues;
-				appendedResults.topTags = topThree;
+				appendedResults.visionTopTags = visionTopTags;
 				res.json(appendedResults)
 			});
 		})
 	});
 
+
+	//we need this to return all tags relate to the returned imaged
+	//then maybe we could use those to offer users 'connected' or 'related' tags to lead them around the collection
 
 	// Get the images of a particular keyword
 	router.get("/search-tags/:tag_name", (req, res) => {

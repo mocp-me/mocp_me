@@ -1,12 +1,12 @@
- 'use strict';
+'use strict';
 // Sequelize (capital) references the standard library
- const Sequelize = require("sequelize");
+const Sequelize = require("sequelize");
 // sequelize (lowercase) references our connection to the DB.
- const sequelize = require("../config/connection_config.js");
+const db = require("../models/");
 
  // Creates a "Photo" model that matches up with DB
-module.exports = function (sequelize, DataTypes) {
-    const Photos = sequelize.define("Photos",
+module.exports = function (db, DataTypes) {
+    const Photos = db.define("Photos",
 
         {
             id:
