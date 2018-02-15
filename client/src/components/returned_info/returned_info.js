@@ -1,7 +1,5 @@
 import React from 'react';
 
-//just some quick inline css for testing
-//still need the 'add tag' field and links, which will probably be a seperate component
 const infoStyle={
 	background:'black',
 	color:'white',

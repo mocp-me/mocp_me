@@ -59,10 +59,9 @@ const adminRoutes = (function(){
 
 	router.get("/all-tags", (req, res) => {
 		console.log("admin/all-tags call received by backend");
-		res.json({tags: "all of the tags"});
-		// db.Tags.findAll().then(Tags => {
-		// 	res.json(Tags);
-		// })
+		db.Tags.findAll().then(Tags => {
+			res.json(Tags);
+		})
 	});
 
 	// Catch-all route
