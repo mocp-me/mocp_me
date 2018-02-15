@@ -1,4 +1,4 @@
- 
+
 .explorePageContainer{
 	height:80vh !important;
 	width:100vw;
@@ -43,6 +43,7 @@
 	.explorePageContainer{
 		.rowStyle{
 			.imageWrapper{
+				height:100vh;
 				.imageContainer{
 					.imageStyle{
 					}
@@ -50,8 +51,10 @@
 			}
 		}
 		.slick-dots {
+			top:0vh !important;
 		}
 		.infoWrapper{
+			height:100vh;
 		}
 	}
 }
@@ -59,6 +62,7 @@
 @media screen and (max-width: $medium) {
 	.explorePageContainer{
 		.rowStyle{
+			padding-left:5vw;
 			.imageWrapper{
 				.imageContainer{
 					.imageStyle{
@@ -69,6 +73,8 @@
 		.slick-dots {
 		}
 		.infoWrapper{
+			padding:20px;
+			margin-left:2vw;
 		}
 	}
 }
