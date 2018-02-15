@@ -5,6 +5,7 @@ import AdminPanel from "../../components/admin_panel/admin_panel.js";
 
 var result = (<span />); 
 class Admin extends Component {
+
 	login() {
 		return this.props.auth.login();
 	}
@@ -14,14 +15,17 @@ class Admin extends Component {
 	}
 
 	componentWillMount() {
+		console.log('this.props.auth', this.props.auth);
 		if (!this.isAuthenticated()){
 			this.login();
 		} else {
+			console.log("this")
 			result = (<AdminPanel auth={this.props.auth}/>)
 		}
 	}
 
 	render() {
+		console.log("admin render() called.");
 		return (
 			<div className="container">
 				{result}
