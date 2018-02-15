@@ -61,9 +61,11 @@ class SearchResultsDesktop extends Component {
                                 <Row className="rowStyle">
                                     <Col sm={6} className="imageWrapper">
                                         <div className="imageContainer">
-                                            <img 
-                                                className="imageStyle"
-                                                src={ result.web_path }/>
+                                            <div className="imageClip">
+                                                <img 
+                                                    className="imageStyle"
+                                                    src={ result.web_path }/>
+                                            </div>
                                         </div>
                                     </Col>
                                     <Col sm={6}>
