@@ -19,13 +19,11 @@ const apiRoutes = (function(){
 	router.use(bodyParser.urlencoded({extended: false}));
 	router.use(bodyParser.json());
 
-
 	// API Routes go here
 	router.post('/upload', upload.single('image'), (req, res) => {
 		const fileName = req.file.filename;
 		res.json(fileName)
 	});
-
 
 	router.get('/vision/:file', async (req, res) => {
 		const file = req.params.file;

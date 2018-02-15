@@ -7,12 +7,7 @@ import Logo from '../../components/logo/logo';
 import Phone from '../../components/phone/phone';
 import NavPanel from '../../components/nav_panel/nav_panel';
 
-import {Grid, Row, Col, Container, Clearfix} from 'react-grid-system';
-
-// axios.defaults.headers.post['Content-Type'] = 'application/json';
-
-
-
+import {Grid, Row, Col, Container, Clearfix} from 'react-grid-system'
 
 class Landing extends Component {
     constructor(props) {
@@ -50,7 +45,6 @@ class Landing extends Component {
         this.setState(() => {
             return {dropzoneActive: false}
         });
-        console.log('dropzone file', file)
         const image = new FormData();
         image.append('image', file[0]);
  
@@ -58,7 +52,6 @@ class Landing extends Component {
             .post('/api/upload')
             .send(image)
             .end((err, res) => {
-                console.log('ressponnsseeee', res)
                 if (err) { console.log(err) }
                 const fileName = res.body
                 this.props.history.push({
