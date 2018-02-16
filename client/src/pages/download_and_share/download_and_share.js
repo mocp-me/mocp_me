@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import domtoimage from 'dom-to-image';
 import _ from 'lodash';
 
+import NavBtn from '../../components/nav_button';
 
 import mocp from './mocp.png';
 import me from './me.png';
@@ -40,6 +41,7 @@ class Downloader extends Component {
                         <img style={{position: 'absolute', bottom: '0', right: '0', height: '100px', width: '150px', opacity: '0.5'}}  src={me} />
                     </div>
                     <button onClick={this.handleOnClick}>Save</button> 
+                    <NavBtn route='/' btnText='fuck it!' />
                 </div>
         )
     }

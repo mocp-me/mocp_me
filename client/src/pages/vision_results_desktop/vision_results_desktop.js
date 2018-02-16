@@ -8,6 +8,7 @@ import Logo from '../../components/logo/logo';
 import Info from '../../components/returned_info/returned_info';
 import Tags from '../../components/tag_list/tag_list';
 import TagSubmit from '../../components/tag_submit/tag_submit';
+import NavBtn from '../../components/nav_button';
 
 /*****      Notes  ***** 
     currently localStorage is set after the api call and on WillUnmount.. this handles most situations except a page refresh during the api call
@@ -15,7 +16,6 @@ import TagSubmit from '../../components/tag_submit/tag_submit';
     but then we'd also have to figure out validation for file type, etc. 
     also, we still need to handle situations in which a user navigates directly to a page from the address bar and potentially causes a failed call etc.
 *****/
-
 
 
 class VisionResultsDesktop extends Component {
@@ -80,6 +80,7 @@ class VisionResultsDesktop extends Component {
                     <p>add a tag: </p>
                     <TagSubmit imageRef={ returnedImg && returnedImg } />
                     { returnedImg && <button onClick={this.handleOnClick} style={{fontSize: '50px'}}>download</button> }
+                    <NavBtn route='/' btnText='try again!' />
                 </Info>
             </div>
         );  

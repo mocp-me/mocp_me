@@ -6,7 +6,7 @@ import { Grid, Row, Col, Container } from 'react-grid-system';
 import Info from '../../components/returned_info/returned_info';
 import Tags from '../../components/tag_list/tag_list';
 import TagSubmit from '../../components/tag_submit/tag_submit';
-
+import NavBtn from '../../components/nav_button';
 
 
 class SearchResultsDesktop extends Component {
@@ -18,18 +18,32 @@ class SearchResultsDesktop extends Component {
 
     componentDidMount() {
         const { term } = this.props.match.params
-        const searchResults = [];
         axios
         .get(`/api/search-tags/${term}`)
         .then((res) => {
-            console.log(res)
-            this.setState({ 
-                results : res.data
-            });
-            console.log('new state', this.state)
+            const results = this.shuffleResults(res.data);
+            console.log('shuffled results', results)
+            this.setState({ results });
         })
         .catch(err => console.log(err));
     }
+
+    // the famous Fisher-Yates shuffle algorithm. thanks google :)
+    shuffleResults(array) {
+        let currentIndex = array.length, temporaryValue, randomIndex;
+        // While there remain elements to shuffle...
+        while (0 !== currentIndex) {
+          // Pick a remaining element...
+          randomIndex = Math.floor(Math.random() * currentIndex);
+          currentIndex -= 1;
+          // And swap it with the current element.
+          temporaryValue = array[currentIndex];
+          array[currentIndex] = array[randomIndex];
+          array[randomIndex] = temporaryValue;
+        }
+        const fiveResults = array.slice(0,5)
+        return fiveResults;
+      }
 
     render() {
         const settings = {
@@ -37,7 +51,7 @@ class SearchResultsDesktop extends Component {
             infinite: true,
             speed: 250,
             slidesToShow: 1,
-            slidesToScroll: 2,
+            slidesToScroll: 1,
             dotClass: 'slick-dots'
         }
         
@@ -51,13 +65,12 @@ class SearchResultsDesktop extends Component {
             <div className="explorePageContainer">
                 <Slider {...settings}>
                     {this.state.results.map(result => {
-                        console.log(result)
                         let tags = [];
                         result.Tags.map(tag => {
                             tags.push(tag.tag_name)
                         })
                         return (
-                            <div>
+                            <div key={result.id}>
                                 <Row className="rowStyle">
                                     <Col sm={6} className="imageWrapper">
                                         <div className="imageContainer">
@@ -79,6 +92,7 @@ class SearchResultsDesktop extends Component {
                         );
                     })}
                 </Slider>
+                <NavBtn route='/explore' btnText='search again!' />
             </div>
         );
     }
