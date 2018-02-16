@@ -43,7 +43,8 @@
 
 @media screen and (max-width: $small) {
 	.explorePageContainer{
-		height:100vh;
+		// position:fixed; 
+		height:80vh;
 		.rowStyle{
 			margin-top:22vh;
 			padding-left:1.5vw !important;
@@ -83,14 +84,14 @@
 		}
 		.slick-dots {
 			top:10vh !important;
-			height:100vh;
 			z-index:-100000;
+			height:30vh;
 		}
 		.resultContainer{
 			z-index:10000000000000000;
 			position:relative !important;
 			background-color:black !important;
-			height:100vh;
+			height:70vh;
 			width:100vw !important;
 			margin-top:75vh;
 			.infoWrapper{
