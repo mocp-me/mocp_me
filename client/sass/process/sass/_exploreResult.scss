@@ -46,7 +46,7 @@
 		// position:fixed; 
 		height:80vh;
 		.rowStyle{
-			margin-top:22vh;
+			margin-top:13vh;
 			padding-left:1.5vw !important;
 			.bgWrapper{
 				position:fixed !important;
@@ -83,7 +83,7 @@
 			}
 		}
 		.slick-dots {
-			top:10vh !important;
+			top:5vh !important;
 			z-index:-100000;
 			height:30vh;
 		}
@@ -93,7 +93,8 @@
 			background-color:black !important;
 			height:70vh;
 			width:100vw !important;
-			margin-top:75vh;
+			margin-top:65vh;
+			padding-top:3vh;
 			.infoWrapper{
 				border-radius:0 !important;
 			}
