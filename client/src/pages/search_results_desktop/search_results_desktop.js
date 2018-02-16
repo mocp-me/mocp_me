@@ -37,7 +37,7 @@ class SearchResultsDesktop extends Component {
             infinite: true,
             speed: 250,
             slidesToShow: 1,
-            slidesToScroll: 2,
+            slidesToScroll: 1,
             dotClass: 'slick-dots'
         }
         
@@ -59,16 +59,18 @@ class SearchResultsDesktop extends Component {
                         return (
                             <div>
                                 <Row className="rowStyle">
-                                    <Col sm={6} className="imageWrapper">
-                                        <div className="imageContainer">
-                                            <div className="imageClip">
-                                                <img 
-                                                    className="imageStyle"
-                                                    src={ result.web_path }/>
+                                    <Col sm={6} className="bgWrapper">
+                                        <div className="imageWrapper">
+                                            <div className="imageContainer">
+                                                <div className="imageClip">
+                                                    <img 
+                                                        className="imageStyle"
+                                                        src={ result.web_path }/>
+                                                </div>
                                             </div>
                                         </div>
                                     </Col>
-                                    <Col sm={6}>
+                                    <Col sm={6} className="resultContainer">
                                         <Info
                                             title={ result.title }
                                             artist={ result.artist }

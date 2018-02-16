@@ -6,7 +6,6 @@ const Info = (props) => {
         <div className="infoWrapper">
             <h3>{props.title}</h3>
             <h4>{props.artist}</h4>
-            <hr />
             {props.children}
         </div>
     );
