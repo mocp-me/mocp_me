@@ -59,10 +59,6 @@ const apiRoutes = (function(){
 		})
 	});
 
-
-	//we need this to return all tags relate to the returned imaged
-	//then maybe we could use those to offer users 'connected' or 'related' tags to lead them around the collection
-
 	// Get the images of a particular keyword
 	router.get("/search-tags/:tag_name", (req, res) => {
 		let arr = [];

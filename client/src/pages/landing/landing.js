@@ -13,15 +13,9 @@ class Landing extends Component {
     constructor(props) {
         super(props);
 
-        this.onDrop = this
-            .onDrop
-            .bind(this);
-        this.onDragEnter = this
-            .onDragEnter
-            .bind(this);
-        this.onDragLeave = this
-            .onDragLeave
-            .bind(this);
+        this.onDrop = this.onDrop.bind(this);
+        this.onDragEnter = this.onDragEnter.bind(this);
+        this.onDragLeave = this.onDragLeave.bind(this);
 
         this.state = {
             dropzoneActive: false
