@@ -67,16 +67,28 @@ const apiRoutes = (function(){
 
 	// Get the images of a particular keyword
 	router.get("/search-tags/:tag_name", (req, res) => {
-
-		db.Photos.findAll({
-			include: [{
-				model: db.Tags,
+		let arr = [];
+		db.Tags.findAll({
+			where: {
+				tag_name: req.params.tag_name
+			}
+		}).then(Tags => {
+			Tags.forEach(i => {
+				arr.push(i.photo_id);
+			})
+		}).then(function(){
+			db.Photos.findAll({
 				where: {
-					tag_name: req.params.tag_name
-				}
-			}]
-		}).then(function(query){
-			res.json(query)
+					id: {
+						$in: arr
+					}
+				},
+				include: [{
+					model: db.Tags
+				}]
+			}).then( matched => {
+				res.json(matched)
+			})
 		})
 	});
 

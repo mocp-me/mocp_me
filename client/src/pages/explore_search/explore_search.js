@@ -14,7 +14,7 @@ class ExploreSearch extends Component {
     
         this.handleFormSubmit = this.handleFormSubmit.bind(this);
 
-        this.state = {tags : ['funny cat', 'cute cat','sad cat', 'dumb cat','doggos']}
+        this.state = {tags : ['cat', 'dog']}
     }
 
     componentWillMount () {
