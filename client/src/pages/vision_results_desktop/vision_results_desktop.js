@@ -23,7 +23,8 @@ class VisionResultsDesktop extends Component {
     componentDidMount() {
         let prevState = sessionStorage.getItem('prevState');
         prevState = JSON.parse(prevState);
-        if(prevState.uploadedImg){
+        console.log(prevState);
+        if(prevState){
             if(this.state.uploadedImg === prevState.uploadedImg) {
                 this.setState(prevState);
             } else {
