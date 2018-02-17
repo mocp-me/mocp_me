@@ -29,6 +29,8 @@ class VisionResultsDesktop extends Component {
             } else {
                 this.fetchImage();
             }
+        } else {
+            this.fetchImage();
         }
     }
     componentWillUnmount() {
