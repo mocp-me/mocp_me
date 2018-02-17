@@ -7,6 +7,7 @@ const apiRoutes = (function(){
 		fileSize: 5 * 1024 * 1024
 	});
 
+	
 	const imgUpload = require('./imgUpload');
 
 	const fs = require('fs');

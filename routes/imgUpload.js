@@ -12,7 +12,6 @@ const bucketName = 'user_uploaded_images'
 const bucket = gcs.bucket(bucketName);
 
 function getPublicUrl(filename) {
-    console.log('hi2')
 
   return 'https://storage.googleapis.com/' + bucketName + '/' + filename;
 }
@@ -20,7 +19,6 @@ function getPublicUrl(filename) {
 let ImgUpload = {};
 
 ImgUpload.uploadToGcs = (req, res, next) => {
-    console.log('hi1')
   if(!req.file) return next();
 
   // Can optionally add a path to the gcsname below by concatenating it before the filename
@@ -34,9 +32,9 @@ ImgUpload.uploadToGcs = (req, res, next) => {
   });
 
   stream.on('error', (err) => {
-    console.log('hi3')
-
+    
     req.file.cloudStorageError = err;
+    console.log('on stream error', err)
     next(err);
   });
 
