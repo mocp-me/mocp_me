@@ -23,7 +23,7 @@ const btnStyle={
 	textAlign:'center'
 }
 
-const AdminContent = ({tagName, datePosted}) => 
+const AdminContent = ({tagName, datePosted, onRemove}) => 
 	<Row style={ style }>
 		<Col xs={4}>
 			{ tagName }
@@ -32,10 +32,10 @@ const AdminContent = ({tagName, datePosted}) =>
 			{ datePosted }
 		</Col>
 		<Col xs={4}>
-			<button style={ btnStyle }>
+			<button style={ btnStyle } onClick={ onRemove } >
                 yes
             </button> 
-			<button style={ btnStyle }>
+			<button style={ btnStyle } onClick={ onRemove } >
                 no
             </button> 
 		</Col>

@@ -1,9 +1,14 @@
 import React, { Component } from 'react';
 import { Grid, Row, Col, Container } from 'react-grid-system';
+import ReactCSSTransitionGroup from 'react-addons-css-transition-group'; 
+
+
 import logo from '../logo/logo.png';
 import AdminContent from './admin_content/admin_content';
 import $ from "jquery";
 import base64url from "base64url";
+
+import './style.css';
 
 const pageStyle = {
 	font:'avenir'
@@ -39,6 +44,11 @@ const headStyle={
 	paddingRight:'20px',
 }
 class AdminPanel extends Component {
+	constructor(props) {
+		super(props);
+
+		this.state = {}
+	}
 	componentWillMount() {
 		const token = `Bearer ${localStorage.getItem("access_token")}`;
 		const hash = window.location.hash || null;
@@ -69,12 +79,31 @@ class AdminPanel extends Component {
 			}
 		}
 
-		$.ajax(settings).done(function (response) {
-		  console.log(response);
+		$.ajax(settings).done(response => {
+			let testArray = response.splice(0,10)
+			this.setState({tags: testArray})
 		});
+	}
+	removeTheThing(tagName) {
+		const { tags } = this.state;
+		this.setState({
+			tags: tags.filter(tag => tag.tag_name !== tagName)
+		})
 	}
 
   render() {
+	const tagList = this.state.tags && this.state.tags.map(tag => {
+		return (
+			<AdminContent
+				key={tag.tag_name}
+				tagName={tag.tag_name}
+				datePosted={Date.now()}
+				onRemove={() => {
+					this.removeTheThing(tag.tag_name)}}
+			/>
+		)
+	})
+
     return (
       <Container style={ pageStyle }>
     	<Row style={ jumboStyle }>
@@ -97,14 +126,13 @@ class AdminPanel extends Component {
 			</Col>
 		</Row>
     	<Row style={{marginLeft:'20px', marginRight:'20px'}}>
-    		<AdminContent 
-    			tagName="#tagOne"
-    			datePosted="01/23/45"
-    		/>
-    		<AdminContent 
-    			tagName="#tagTwo"
-    			datePosted="01/23/45"
-    		/>
+			<ReactCSSTransitionGroup
+				transitionName="example"
+				transitionEnterTimeout={500}
+				transitionLeaveTimeout={300}
+				style={{width: '100%'}}>
+					{ tagList }
+			</ReactCSSTransitionGroup>
     	</Row>
       </Container>
     );

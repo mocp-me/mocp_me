@@ -1,7 +1,14 @@
 const apiRoutes = (function(){
 	// Dependencies
-	const multer = require('multer');
-	const upload = multer({ dest: './client/upload'});
+	const Multer = require('multer');
+	
+	const multer = Multer({ 
+		storage: Multer.MemoryStorage,
+		fileSize: 5 * 1024 * 1024
+	});
+
+	
+	const imgUpload = require('./imgUpload');
 
 	const fs = require('fs');
 		
@@ -19,12 +26,16 @@ const apiRoutes = (function(){
 	router.use(bodyParser.urlencoded({extended: false}));
 	router.use(bodyParser.json());
 
-
 	// API Routes go here
-	router.post('/upload', upload.single('image'), (req, res) => {
-		const fileName = req.file.filename;
-		res.json(fileName)
-	});
+	router.post('/upload', multer.single('image'), imgUpload.uploadToGcs, function(request, response, next) {
+		console.log('request', request)
+		const data = request.body;
+		console.log('data: ', data)
+		if (request.file && request.file.cloudStoragePublicUrl) {
+		  data.imageUrl = request.file.cloudStoragePublicUrl;
+		}
+		response.send(data);
+	  })
 
 
 	router.get('/vision/:file', async (req, res) => {
@@ -60,10 +71,6 @@ const apiRoutes = (function(){
 			});
 		})
 	});
-
-
-	//we need this to return all tags relate to the returned imaged
-	//then maybe we could use those to offer users 'connected' or 'related' tags to lead them around the collection
 
 	// Get the images of a particular keyword
 	router.get("/search-tags/:tag_name", (req, res) => {

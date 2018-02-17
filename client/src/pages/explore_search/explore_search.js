@@ -6,6 +6,7 @@ import Media from "react-media";
 import Logo from '../../components/logo/logo';
 import TagSubmit from '../../components/tag_submit/tag_submit';
 import Tags from '../../components/tag_list/tag_list';
+import NavBtn from '../../components/nav_button';
 
 
 class ExploreSearch extends Component {
@@ -47,6 +48,7 @@ class ExploreSearch extends Component {
                     >
                         <h3>Trending Tags:</h3>
                     </Tags>
+                    <NavBtn route='/' btnText='back' />
                     </div>
                 </Col>
             </Row>
