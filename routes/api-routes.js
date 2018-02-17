@@ -28,9 +28,7 @@ const apiRoutes = (function(){
 
 	// API Routes go here
 	router.post('/upload', multer.single('image'), imgUpload.uploadToGcs, function(request, response, next) {
-		console.log('request', request)
 		const data = request.body;
-		console.log('data: ', data)
 		if (request.file && request.file.cloudStoragePublicUrl) {
 		  data.imageUrl = request.file.cloudStoragePublicUrl;
 		}
@@ -40,7 +38,6 @@ const apiRoutes = (function(){
 
 	router.get('/vision/:file', async (req, res) => {
 		const file = req.params.file;
-		console.log('file in node', file)
 		//pass the file to google vision which returns tags associated with that image
 		const tagsArray = await helpers.detectLabels(file);
 		//top three tags to be displayed on page
@@ -73,7 +70,6 @@ const apiRoutes = (function(){
 		let fileName = req.body.uploadedImg;
 		fileName = fileName.split('/');
 		fileName = fileName[fileName.length-1];
-		console.log('fileName to for the bucketz', fileName)
 		helpers.submit(fileName);
 
 	})

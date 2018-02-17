@@ -35,7 +35,6 @@ class Landing extends Component {
     }
 
     onDrop(file) {
-        console.log(file[0])
         this.setState(() => {
             return {dropzoneActive: false}
         });
@@ -46,7 +45,6 @@ class Landing extends Component {
             .send(image)
             .end((err, res) => {
                 if (err) { console.log(err) }
-                console.log(res)
                 sessionStorage.setItem('uploadedImg', JSON.stringify(res.body.imageUrl))
                 this.props.history.push('/vision_search')
             });

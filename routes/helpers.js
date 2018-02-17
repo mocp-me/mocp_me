@@ -38,7 +38,6 @@ const helpers = {
         client
           .labelDetection(filePath)
           .then(results => {
-              console.log('vision results!!!!!!!!', results)
             const labels = results[0].labelAnnotations;
             const tagsArray = helpers.createTagsArray(labels);
             return tagsArray;

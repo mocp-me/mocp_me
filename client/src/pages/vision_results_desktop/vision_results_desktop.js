@@ -18,16 +18,17 @@ class VisionResultsDesktop extends Component {
         this.handleOnClick = this.handleOnClick.bind(this);
 
         this.state = { uploadedImg : JSON.parse(sessionStorage.getItem('uploadedImg')) };
-        console.log('state', this.state)
     }
 
     componentDidMount() {
         let prevState = sessionStorage.getItem('prevState');
         prevState = JSON.parse(prevState);
-        if(this.state.uploadedImg === prevState.uploadedImg) {
-            this.setState(prevState);
-        } else {
-            this.fetchImage();
+        if(prevState.uploadedImg){
+            if(this.state.uploadedImg === prevState.uploadedImg) {
+                this.setState(prevState);
+            } else {
+                this.fetchImage();
+            }
         }
     }
     componentWillUnmount() {
@@ -42,11 +43,9 @@ class VisionResultsDesktop extends Component {
         let fileName = this.state.uploadedImg;
         fileName = fileName.split('/');
         fileName = fileName[fileName.length-1];
-        console.log('vision return fetch func', fileName)
         axios
             .get(`/api/vision/${fileName}`)
             .then((res) => {
-                console.log('vision resp', res)
                 const returnedTags = [];
                 res.data.Tags.map(tag => returnedTags.push(tag.tag_name));
                 this.setState({ 
