@@ -46,10 +46,6 @@ const apiRoutes = (function(){
 		//top three tags to be displayed on page
 		const visionTopTags = tagsArray.slice(0,3);
 		//delete the uploaded file after we're done using it
-		fs.unlink(filePath, (err) => {
-			if (err) throw err;
-			console.log('upload successfully deleted');
-		  });
 		//make DB call for photos with same tag association
 		db.Tags.findAll({
 			where: {
