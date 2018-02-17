@@ -35,24 +35,25 @@ class Landing extends Component {
     }
 
     onDrop(file) {
-
+        console.log(file[0])
         this.setState(() => {
             return {dropzoneActive: false}
         });
         const image = new FormData();
         image.append('image', file[0]);
- 
-        request
-            .post('/api/upload')
-            .send(image)
-            .end((err, res) => {
-                if (err) { console.log(err) }
-                const fileName = res.body
-                this.props.history.push({
-                    pathname: `/vision_search/${fileName}`,
-                    state: {filePath: file[0].preview}
-                })
-            });
+        console.log(image)
+        fetch('/api/upload', {
+            method: 'POST',
+            headers: {
+              'Accept': 'application/json',
+              'Content-Type': 'multipart/form-data',
+            },
+            body: image
+            })
+            .then(res => console.log(res))
+            .catch(error => {
+            console.error(error);
+          });
     }
 
     render() {

@@ -25,6 +25,7 @@ const helpers = {
     
     //use the file uploaded by dropzone and multer to make the google vision call
     detectLabels: async (filePath) => {
+        console.log('file path', filePath)
     const vision = require('@google-cloud/vision');
     // Creates a client
     const client = new vision.ImageAnnotatorClient({
@@ -34,7 +35,7 @@ const helpers = {
     // Performs label detection on the local file
     const results = await (
         client
-          .labelDetection(filePath)
+          .labelDetection('https://storage.googleapis.com/mocp_images/MOCP_IMAGES/1999_206.jpg')
           .then(results => {
             const labels = results[0].labelAnnotations;
             const tagsArray = helpers.createTagsArray(labels);
