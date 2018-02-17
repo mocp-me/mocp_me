@@ -38,6 +38,7 @@ class SearchResultsDesktop extends Component {
             speed: 250,
             slidesToShow: 1,
             slidesToScroll: 1,
+            arrows: false,
             dotClass: 'slick-dots'
         }
         

@@ -2,6 +2,8 @@
 .explorePageContainer{
 	height:80vh !important;
 	width:100vw;
+	overflow-x:hidden !important;
+	overflow-y:hidden !important;
 	.rowStyle{
 		margin-top:20vh;
 		min-height:0px;
