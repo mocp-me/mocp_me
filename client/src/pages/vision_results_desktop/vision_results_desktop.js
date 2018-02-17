@@ -18,6 +18,7 @@ class VisionResultsDesktop extends Component {
         this.handleOnClick = this.handleOnClick.bind(this);
 
         this.state = { uploadedImg : JSON.parse(sessionStorage.getItem('uploadedImg')) };
+        console.log('state', this.state)
     }
 
     componentDidMount() {
@@ -41,6 +42,7 @@ class VisionResultsDesktop extends Component {
         let fileName = this.state.uploadedImg;
         fileName = fileName.split('/');
         fileName = fileName[fileName.length-1];
+        console.log('vision return fetch func', fileName)
         axios
             .get(`/api/vision/${fileName}`)
             .then((res) => {

@@ -40,9 +40,9 @@ const apiRoutes = (function(){
 
 	router.get('/vision/:file', async (req, res) => {
 		const file = req.params.file;
-		const filePath = `https://storage.googleapis.com/${file}`;
+		console.log('file in node', file)
 		//pass the file to google vision which returns tags associated with that image
-		const tagsArray = await helpers.detectLabels(filePath);
+		const tagsArray = await helpers.detectLabels(file);
 		//top three tags to be displayed on page
 		const visionTopTags = tagsArray.slice(0,3);
 		//delete the uploaded file after we're done using it
@@ -67,6 +67,16 @@ const apiRoutes = (function(){
 			});
 		})
 	});
+
+	router.post('/submit', (req, res) => {
+		console.log('shit to be saved to the new db pending successful save', req.body)
+		let fileName = req.body.uploadedImg;
+		fileName = fileName.split('/');
+		fileName = fileName[fileName.length-1];
+		console.log('fileName to for the bucketz', fileName)
+		helpers.submit(fileName);
+
+	})
 
 	// Get the images of a particular keyword
 	router.get("/search-tags/:tag_name", (req, res) => {
