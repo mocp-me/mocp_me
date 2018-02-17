@@ -104,6 +104,20 @@ const apiRoutes = (function(){
 		})
 	});
 
+	// Test DB Post routes
+	router.post("/add-tag", function (req, res) {
+		console.log(req.body);
+		// create takes an argument of an object describing the item we want to insert into our table.
+		db.user_tags.create({
+			tag_name: req.body.tag_name,
+			photo_id: req.body.photo_id,
+			approved: req.body.approved
+		}).then(function (addedTag) {
+			// We have access to the new todo as an argument inside of the callback function
+			res.json(addedTag);
+		});
+	});
+
 	// Catch-all route
 	router.get("*", (req, res) => res.json({answer: 42}));
 
