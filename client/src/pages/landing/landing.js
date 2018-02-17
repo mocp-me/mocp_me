@@ -41,20 +41,17 @@ class Landing extends Component {
         });
         const image = new FormData();
         image.append('image', file[0]);
-        console.log(image)
-        fetch('/api/upload', {
-            method: 'POST',
-            headers: {
-              'Accept': 'application/json',
-              'Content-Type': 'multipart/form-data',
-            },
-            body: image
-            })
-            .then(res => console.log(res))
-            .catch(error => {
-            console.error(error);
-          });
+        request
+            .post('/api/upload')
+            .send(image)
+            .end((err, res) => {
+                if (err) { console.log(err) }
+                console.log(res)
+                sessionStorage.setItem('uploadedImg', JSON.stringify(res.body.imageUrl))
+                this.props.history.push('/vision_search')
+            });
     }
+    
 
     render() {
         const {dropzoneActive} = this.state;
