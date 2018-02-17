@@ -40,7 +40,7 @@ const apiRoutes = (function(){
 
 	router.get('/vision/:file', async (req, res) => {
 		const file = req.params.file;
-		const filePath = `client/upload/${file}`;
+		const filePath = `https://storage.googleapis.com/${file}`;
 		//pass the file to google vision which returns tags associated with that image
 		const tagsArray = await helpers.detectLabels(filePath);
 		//top three tags to be displayed on page
