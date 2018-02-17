@@ -110,8 +110,8 @@ const apiRoutes = (function(){
 		// create takes an argument of an object describing the item we want to insert into our table.
 		db.user_tags.create({
 			tag_name: req.body.tag_name,
-			photo_id: req.body.photo_id,
-			approved: req.body.approved
+			photo_id: req.body.photo_id
+			//approved: req.body.approved
 		}).then(function (addedTag) {
 			// We have access to the new todo as an argument inside of the callback function
 			res.json(addedTag);
