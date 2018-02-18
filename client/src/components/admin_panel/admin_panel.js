@@ -6,7 +6,7 @@ import ReactCSSTransitionGroup from 'react-addons-css-transition-group';
 import logo from '../logo/logo.png';
 import AdminContent from './admin_content/admin_content';
 import $ from "jquery";
-import base64url from "base64url";
+import axios from "axios";
 
 import './style.css';
 
@@ -51,24 +51,6 @@ class AdminPanel extends Component {
 	}
 	componentWillMount() {
 		const token = `Bearer ${localStorage.getItem("access_token")}`;
-		const hash = window.location.hash || null;
-		console.log('admin_panel hash', hash);
-		console.log('token', token)
-		const header = JSON.stringify(
-			{
-			    "typ": "JWT",
-			    "alg": "HS256"
-			}
-		);
-		const payload = JSON.stringify(
-			{
-			    "access_token": token
-			}
-		);
-		let data = base64url( header ) + "." + base64url( payload );
-		console.log('data', data);
-
-		
 		const settings = {
 			"async": true,
 			"crossDomain": true,
@@ -91,6 +73,17 @@ class AdminPanel extends Component {
 		})
 	}
 
+	approveTag(tagName) {
+		this.removeTheThing(tagName);
+		return console.log(`approveTag(${tagName}) called.`);
+	}
+
+	rejectTag(tagName) {
+		this.removeTheThing(tagName);
+		return console.log(`rejectTag(${tagName}) called.`);
+	}
+
+
   render() {
 	const tagList = this.state.tags && this.state.tags.map(tag => {
 		return (
@@ -98,8 +91,10 @@ class AdminPanel extends Component {
 				key={tag.tag_name}
 				tagName={tag.tag_name}
 				datePosted={Date.now()}
-				onRemove={() => {
-					this.removeTheThing(tag.tag_name)}}
+				onApprove={() => {
+					this.approveTag(tag.tag_name)}}
+				onReject={() => {
+					this.rejectTag(tag.tag_name)}}
 			/>
 		)
 	})

@@ -15,17 +15,14 @@ class Admin extends Component {
 	}
 
 	componentWillMount() {
-		console.log('this.props.auth', this.props.auth);
 		if (!this.isAuthenticated()){
 			this.login();
 		} else {
-			console.log("this")
 			result = (<AdminPanel auth={this.props.auth}/>)
 		}
 	}
 
 	render() {
-		console.log("admin render() called.");
 		return (
 			<div className="container">
 				{result}
