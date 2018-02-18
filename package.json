@@ -1,6 +1,9 @@
 {
   "name": "mocp.me",
   "version": "2.0.0",
+  "engine": {
+    "node": "9.4.0"
+  },
   "description": "React based application to explore the works of the Museum of Contemporary Photography",
   "main": "index.js",
   "scripts": {
