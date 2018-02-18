@@ -63,28 +63,34 @@ class AdminPanel extends Component {
 		this.state = {}
 	}
 	componentWillMount() {
-		axios.get("/all-tags").then(response => {
+		axios.get("/user-tags").then(response => {
 			console.log('response', response);
 			let testArray = response.data.splice(0,10)
 			this.setState({tags: testArray})
 		});
 	}
-	removeTheThing(tagName) {
+	removeTheThing(tagId) {
 		const { tags } = this.state;
 		this.setState({
-			tags: tags.filter(tag => tag.tag_name !== tagName)
+			tags: tags.filter(tag => tag.id !== tagId)
 		})
 	}
 
-	approveTag(tagName) {
-		this.removeTheThing(tagName);
-		return console.log(`approveTag(${tagName}) called.`);
+	approveTag(tagId) {
+		axios.put(`/approval/${tagId}`)
+			.then(response => console.log(response))
+			.catch(err => console.log(err));
+		this.removeTheThing(tagId);
+		return console.log(`approveTag(${tagId}) called.`);
 
 	}
 
-	rejectTag(tagName) {
-		this.removeTheThing(tagName);
-		return console.log(`rejectTag(${tagName}) called.`);
+	rejectTag(tagId) {
+		axios.put(`/delete/${tagId}`)
+			.then(response => console.log(response))
+			.catch(err => console.log(err));		
+		this.removeTheThing(tagId);
+		return console.log(`rejectTag(${tagId}) called.`);
 	}
 
 
@@ -96,9 +102,9 @@ class AdminPanel extends Component {
 				tagName={tag.tag_name}
 				datePosted={Date.now()}
 				onApprove={() => {
-					this.approveTag(tag.tag_name)}}
+					this.approveTag(tag.id)}}
 				onReject={() => {
-					this.rejectTag(tag.tag_name)}}
+					this.rejectTag(tag.id)}}
 			/>
 		)
 	})
