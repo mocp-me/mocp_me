@@ -6,7 +6,7 @@ import ReactCSSTransitionGroup from 'react-addons-css-transition-group';
 import logo from '../logo/logo.png';
 import AdminContent from './admin_content/admin_content';
 import $ from "jquery";
-import axios from "axios";
+import Axios from "axios";
 
 import './style.css';
 
@@ -43,6 +43,19 @@ const headStyle={
 	paddingLeft:'20px',
 	paddingRight:'20px',
 }
+
+const token = `Bearer ${localStorage.getItem("access_token")}`;
+
+let axios = Axios.create({
+	baseURL: "/admin",
+	timeout: 5000,
+	headers: {
+		"Authorization": token,
+		"crossDomain": true
+	}
+});
+
+
 class AdminPanel extends Component {
 	constructor(props) {
 		super(props);
@@ -50,19 +63,9 @@ class AdminPanel extends Component {
 		this.state = {}
 	}
 	componentWillMount() {
-		const token = `Bearer ${localStorage.getItem("access_token")}`;
-		const settings = {
-			"async": true,
-			"crossDomain": true,
-			"url": "/admin/all-tags",
-			"method": "GET",
-			"headers": {
-			"Authorization": token
-			}
-		}
-
-		$.ajax(settings).done(response => {
-			let testArray = response.splice(0,10)
+		axios.get("/all-tags").then(response => {
+			console.log('response', response);
+			let testArray = response.data.splice(0,10)
 			this.setState({tags: testArray})
 		});
 	}
@@ -76,6 +79,7 @@ class AdminPanel extends Component {
 	approveTag(tagName) {
 		this.removeTheThing(tagName);
 		return console.log(`approveTag(${tagName}) called.`);
+
 	}
 
 	rejectTag(tagName) {
