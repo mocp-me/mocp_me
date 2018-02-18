@@ -7,13 +7,10 @@
 /coverage
 
 # production
-/sass
-/process
 
 # misc
 .DS_Store
 env
-.sass-cache
 .env
 .env.local
 .env.development.local
