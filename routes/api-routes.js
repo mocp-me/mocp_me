@@ -1,7 +1,14 @@
 const apiRoutes = (function(){
 	// Dependencies
-	const multer = require('multer');
-	const upload = multer({ dest: './client/upload'});
+	const Multer = require('multer');
+	
+	const multer = Multer({ 
+		storage: Multer.MemoryStorage,
+		fileSize: 5 * 1024 * 1024
+	});
+
+	
+	const imgUpload = require('./imgUpload');
 
 	const fs = require('fs');
 		
@@ -19,26 +26,23 @@ const apiRoutes = (function(){
 	router.use(bodyParser.urlencoded({extended: false}));
 	router.use(bodyParser.json());
 
-
 	// API Routes go here
-	router.post('/upload', upload.single('image'), (req, res) => {
-		const fileName = req.file.filename;
-		res.json(fileName)
-	});
+	router.post('/upload', multer.single('image'), imgUpload.uploadToGcs, function(request, response, next) {
+		const data = request.body;
+		if (request.file && request.file.cloudStoragePublicUrl) {
+		  data.imageUrl = request.file.cloudStoragePublicUrl;
+		}
+		response.send(data);
+	  })
 
 
 	router.get('/vision/:file', async (req, res) => {
 		const file = req.params.file;
-		const filePath = `client/upload/${file}`;
 		//pass the file to google vision which returns tags associated with that image
-		const tagsArray = await helpers.detectLabels(filePath);
+		const tagsArray = await helpers.detectLabels(file);
 		//top three tags to be displayed on page
 		const visionTopTags = tagsArray.slice(0,3);
 		//delete the uploaded file after we're done using it
-		fs.unlink(filePath, (err) => {
-			if (err) throw err;
-			console.log('upload successfully deleted');
-		  });
 		//make DB call for photos with same tag association
 		db.Tags.findAll({
 			where: {
@@ -61,9 +65,14 @@ const apiRoutes = (function(){
 		})
 	});
 
+	router.post('/submit', (req, res) => {
+		console.log('shit to be saved to the new db pending successful save', req.body)
+		let fileName = req.body.uploadedImg;
+		fileName = fileName.split('/');
+		fileName = fileName[fileName.length-1];
+		helpers.submit(fileName);
 
-	//we need this to return all tags relate to the returned imaged
-	//then maybe we could use those to offer users 'connected' or 'related' tags to lead them around the collection
+	})
 
 	// Get the images of a particular keyword
 	router.get("/search-tags/:tag_name", (req, res) => {
@@ -108,6 +117,20 @@ const apiRoutes = (function(){
 		db.Tags.findAll().then(Tags => {
 			res.json(Tags);
 		})
+	});
+
+	// Test DB Post routes
+	router.post("/add-tag", function (req, res) {
+		console.log(req.body);
+		// create takes an argument of an object describing the item we want to insert into our table.
+		db.user_tags.create({
+			tag_name: req.body.tag_name,
+			photo_id: req.body.photo_id
+			//approved: req.body.approved
+		}).then(function (addedTag) {
+			// We have access to the new todo as an argument inside of the callback function
+			res.json(addedTag);
+		});
 	});
 
 	// Catch-all route

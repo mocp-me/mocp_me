@@ -13,6 +13,7 @@
 
 # misc
 keys.json
+.sass-cache
 .DS_Store
 .vscode/database.json
 .env
