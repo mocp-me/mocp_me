@@ -1,0 +1,13 @@
+
+  .example-leave {
+    opacity: 1;
+  }
+  
+  .example-leave.example-leave-active {
+    opacity: 0.01;
+    height: 0px;
+    width: 0px;
+    transition: 500ms;
+    transform: translate(-500px,0px);
+  }
+  

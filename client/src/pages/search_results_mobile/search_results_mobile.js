@@ -2,7 +2,6 @@ import React, { Component } from 'react';
 import axios from 'axios';
 import Slider from 'react-slick';
 
-import Image from '../../components/image/image';
 import Info from '../../components/returned_info/returned_info';
 import Tags from '../../components/tag_list/tag_list';
 import TagSubmit from '../../components/tag_submit/tag_submit';
@@ -58,7 +57,9 @@ class SearchResultsMobile extends Component {
                     {this.state.results.map(result => {
                         return (
                             <div>
-                                <Image source={result.images.original.url} />
+                                <img 
+                                    className="imageStyle"
+                                    src={result.images.original.url}/>
                                 <Info
                                         title={result.title}
                                         artist={result.type}

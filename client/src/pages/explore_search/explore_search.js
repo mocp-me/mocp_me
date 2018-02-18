@@ -6,40 +6,8 @@ import Media from "react-media";
 import Logo from '../../components/logo/logo';
 import TagSubmit from '../../components/tag_submit/tag_submit';
 import Tags from '../../components/tag_list/tag_list';
+import NavBtn from '../../components/nav_button';
 
-
-const leftColumn = {
-    background: '#FFDC65',
-    height:'100vh',
-    color: '#E5B616',
-    font:'avenir'
-}
-
-const tagSearchStyleSm = {
-    paddingLeft:'9vw'
-}
-const tagSearchStyleLg = {
-    paddingLeft:'16vw'
-}
-
-const rightColumnSm = {
-    background:'#E5B616',
-    height:'100vh',
-    padding:'5vh',
-    paddingTop:'10vh',
-    color:'#FFDC65'
-}
-const rightColumnLg = {
-    background:'#E5B616',
-    height:'100vh',
-    padding:'10vh',
-    paddingTop:'9vh',
-    color:'#FFDC65'
-}
-
-const pagePadding = {
-    paddingTop:'25vh'
-}
 
 class ExploreSearch extends Component {
     constructor(props){
@@ -47,7 +15,7 @@ class ExploreSearch extends Component {
     
         this.handleFormSubmit = this.handleFormSubmit.bind(this);
 
-        this.state = {tags : ['funny cat', 'cute cat','sad cat', 'dumb cat','doggos']}
+        this.state = {tags : ['cat', 'dog']}
     }
 
     componentWillMount () {
@@ -62,55 +30,27 @@ class ExploreSearch extends Component {
     render() {
         return (
             <Row>
-                <Col sm={7} style={ leftColumn }>
-                    <div style={ pagePadding }>
+                <Col sm={7} className="leftColumn">
+                    <div className="wrapper">
                         <Logo />
-                        <Media query="(max-width: 800px)">
-                            {matches =>
-                                matches ? (
-                                    <div style={ tagSearchStyleSm }>
-                                        <p><b>Search a tag: </b></p>
-                                        <TagSubmit handleFormSubmit ={this.handleFormSubmit}/>
-                                    </div>
-                                ) : (
-                                    <div style={ tagSearchStyleLg }>
-                                        <p><b>Search a tag: </b></p>
-                                        <TagSubmit handleFormSubmit ={this.handleFormSubmit}/>
-                                    </div>
-                                )
-                            }
-                        </Media>
+                        <div className="tagSearchStyle">
+                            <p><b>Search a tag: </b></p>
+                            <TagSubmit handleFormSubmit ={this.handleFormSubmit}/>
+                        </div>
                     </div>
                 </Col>
-                <Media query="(max-width: 800px)">
-                    {matches =>
-                        matches ? (
-                            <Col sm={5} style={ rightColumnSm }>
-                                <div style={ pagePadding }>
-                                <Tags 
-                                    tagList={this.state.tags}
-                                    withHash={true}
-                                    isLink={true}
-                                >
-                                    <h3>Trending Tags:</h3>
-                                </Tags>
-                                </div>
-                            </Col>
-                        ) : (
-                            <Col sm={5} style={ rightColumnLg }>
-                                <div style={ pagePadding }>
-                                <Tags 
-                                    tagList={this.state.tags}
-                                    withHash={true}
-                                    isLink={true}
-                                >
-                                    <h3>Trending Tags:</h3>
-                                </Tags>
-                                </div>
-                            </Col>
-                        )
-                    }
-                </Media>
+                <Col sm={5} className="rightColumn">
+                    <div className="wrapper">
+                    <Tags 
+                        tagList={this.state.tags}
+                        withHash={true}
+                        isLink={true}
+                    >
+                        <h3>Trending Tags:</h3>
+                    </Tags>
+                    <NavBtn route='/' btnText='back' />
+                    </div>
+                </Col>
             </Row>
         )
     }

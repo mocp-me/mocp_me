@@ -7,16 +7,19 @@
 /coverage
 
 # production
-
+/sass
+/process
 
 # misc
 .DS_Store
 env
+.sass-cache
 .env
 .env.local
 .env.development.local
 .env.test.local
 .env.production.local
+keys.json
 
 npm-debug.log*
 yarn-debug.log*

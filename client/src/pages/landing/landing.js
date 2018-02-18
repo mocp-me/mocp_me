@@ -6,61 +6,16 @@ import request from 'superagent';
 import Logo from '../../components/logo/logo';
 import Phone from '../../components/phone/phone';
 import NavPanel from '../../components/nav_panel/nav_panel';
-import NavButton from '../../components/nav_button/nav_button';
 
-import {Grid, Row, Col, Container, Clearfix} from 'react-grid-system';
-
-const landingWrapper = {
-    background: 'black',
-    height: '100vh',
-    overflowY: 'none'
-}
-const navPanel_1 = {
-    backgroundColor: '#FFDC65',
-    color: '#E5B616'
-}
-const navPanel_2 = {
-    backgroundColor: '#E5B616',
-    color: '#FFDC65'
-}
-const butt_1 = {
-    background: 'none',
-    borderColor: '#E5B616',
-    color: '#E5B616',
-    borderRadius: '25px',
-    borderWidth: '1.5px',
-    paddingLeft: '20px',
-    paddingRight: '18px',
-    paddingTop: '10px',
-    paddingBottom: '10px',
-    marginTop: '10px'
-}
-const butt_2 = {
-    background: 'none',
-    borderColor: '#FFDC65',
-    color: '#FFDC65',
-    borderRadius: '25px',
-    borderWidth: '1.5px',
-    paddingLeft: '20px',
-    paddingRight: '18px',
-    paddingTop: '10px',
-    paddingBottom: '10px',
-    marginTop: '10px'
-}
+import {Grid, Row, Col, Container, Clearfix} from 'react-grid-system'
 
 class Landing extends Component {
     constructor(props) {
         super(props);
 
-        this.onDrop = this
-            .onDrop
-            .bind(this);
-        this.onDragEnter = this
-            .onDragEnter
-            .bind(this);
-        this.onDragLeave = this
-            .onDragLeave
-            .bind(this);
+        this.onDrop = this.onDrop.bind(this);
+        this.onDragEnter = this.onDragEnter.bind(this);
+        this.onDragLeave = this.onDragLeave.bind(this);
 
         this.state = {
             dropzoneActive: false
@@ -80,26 +35,21 @@ class Landing extends Component {
     }
 
     onDrop(file) {
-
         this.setState(() => {
             return {dropzoneActive: false}
         });
-        console.log('dropzone file', file)
         const image = new FormData();
         image.append('image', file[0]);
- 
         request
             .post('/api/upload')
             .send(image)
             .end((err, res) => {
                 if (err) { console.log(err) }
-                const fileName = res.body
-                this.props.history.push({
-                    pathname: `/vision_search/${fileName}`,
-                    uploadedImage: {filePath: file[0].preview}
-                })
+                sessionStorage.setItem('uploadedImg', JSON.stringify(res.body.imageUrl))
+                this.props.history.push('/vision_search')
             });
     }
+    
 
     render() {
         const {dropzoneActive} = this.state;
@@ -112,13 +62,13 @@ class Landing extends Component {
             background: 'rgba(0,0,0,0.1)'
         };
         return (
-            <div style={landingWrapper}>
+            <div className="landingWrapper">
                 <Row>
-                    <Col xs={12} sm={8} md={7}>
-                        <Logo/>
-                        <Phone/>
+                    <Col xs={12} sm={7} md={7} className="phoneStyle">
+                        <Logo />
+                        <Phone />
                     </Col>
-                    <Col xs={12} sm={4} md={5}>
+                    <Col xs={12} sm={5} md={5}>
                         <Dropzone
                             onDrop={this.onDrop}
                             multiple={false}
@@ -126,30 +76,35 @@ class Landing extends Component {
                             position: "relative"
                         }}
                             accept="image/*"
-                            onDrop={this.onDrop}
-                            onDragEnter={this.onDragEnter}
-                            onDragLeave={this.onDragLeave}>
-                            {dropzoneActive && <div style={overlayStyle}></div>}
-                            <NavPanel
-                                style={navPanel_1}
-                                imgSrc="https://picsum.photos/190/190?random"
-                                text1="Upload your image"
-                                text2="to connect to"
-                                text3="the collection."
-                                style={navPanel_1}>
-                                <NavButton buttonText='add image' style={butt_1}/>
-                            </NavPanel>
+                            onDrop={this.onDrop.bind(this)}
+                            onDragEnter={this.onDragEnter.bind(this)}
+                            onDragLeave={this.onDragLeave.bind(this)}>
+                                { dropzoneActive && <div style={overlayStyle}></div> }
+                                <div className="navPanel_1">
+                                  <NavPanel
+                                    imgSrc="https://picsum.photos/190/190?random"
+                                    text1="Upload your image"
+                                    text2="to connect to"
+                                    text3="the collection."
+                                  />
+                                  <button className="button">
+                                    add image
+                                  </button>
+                                </div>
                         </Dropzone>
-                        <NavPanel
+                        <div className="navPanel_2">
+                          <NavPanel
                             imgSrc="https://picsum.photos/190/190?random"
                             text1="Search our tags"
                             text2="& add some more"
                             text3="on the go!"
-                            style={navPanel_2}>
+                            />
                             <Link to='/explore'>
-                                <NavButton buttonText='explore' style={butt_2}/>
+                              <button className="button">
+                                  explore
+                              </button>
                             </Link>
-                        </NavPanel>
+                        </div>
                     </Col>
                 </Row>
             </div>

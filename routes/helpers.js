@@ -24,12 +24,14 @@ const helpers = {
     }, 
     
     //use the file uploaded by dropzone and multer to make the google vision call
-    detectLabels: async (filePath) => {
+    detectLabels: async (file) => {
+        const filePath = `https://storage.googleapis.com/user_uploaded_images/${file}`;
+
     const vision = require('@google-cloud/vision');
     // Creates a client
     const client = new vision.ImageAnnotatorClient({
         projectId: 'cool-citadel-192004',
-        keyFilename: process.env.GOOGLE_APPLICATION_CREDENTIALS
+        keyFilename: process.env.GOOGLE_APPLICATION_CREDENTIALS 
       });
     // Performs label detection on the local file
     const results = await (
@@ -45,6 +47,35 @@ const helpers = {
           })
     )
     return results;
+  },
+
+  submit: function copyFile(fileName) {
+
+    const Storage = require('@google-cloud/storage');
+ 
+    const storage = new Storage({
+        projectId: 'cool-citadel-192004',
+        keyFilename: process.env.GOOGLE_APPLICATION_CREDENTIALS 
+      });
+
+    const srcBucketName = 'user_uploaded_images';
+    const srcFilename = fileName;
+    const destBucketName = 'submitted_images';
+    const destFilename = fileName;
+  
+    // Copies the file to the other bucket
+    storage
+      .bucket(srcBucketName)
+      .file(srcFilename)
+      .copy(storage.bucket(destBucketName).file(destFilename))
+      .then(() => {
+        console.log(
+          `gs://${srcBucketName}/${srcFilename} copied to gs://${destBucketName}/${destFilename}.`
+        );
+      })
+      .catch(err => {
+        console.error('ERROR:', err);
+      });
   },
 
     //create a tags array from the labels returned by the google vision call

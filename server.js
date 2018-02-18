@@ -26,5 +26,5 @@ app.use(routes);
 // Activate express server
 app.listen(PORT, function(){
 	console.log(`
-🤫 Please, pay no attention to the express app listening on port ${PORT}.`);
+🍑💨 Please, pay no attention to the express app listening on port ${PORT}.`);
 });
