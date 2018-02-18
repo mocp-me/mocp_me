@@ -7,6 +7,8 @@
 /coverage
 
 # production
+/sass
+/process
 
 # misc
 .DS_Store
