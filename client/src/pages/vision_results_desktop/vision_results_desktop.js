@@ -85,7 +85,7 @@ class VisionResultsDesktop extends Component {
             <div className="explorePageContainer">
                 <Slider { ...settings }>
                     <div>
-                        <Row className="rowStyle" style={{width: '75vw'}}>
+                        <Row className="rowStyle">
                             <Col sm={6} className="imageWrapper">
                                 <div className="imageContainer">
                                     <img 
@@ -99,14 +99,13 @@ class VisionResultsDesktop extends Component {
                                     headerOne = "Some shit about what we're doing with google vision or whatever"
                                 >
                                     { visionTopTags ? <Tags withHash={ true } tagList={ visionTopTags } /> : <p>fetching tags..</p> }
-                                    <NavBtn route='/explore' btnText='search again!' />
                                 </Info>
                             </Col>
                         </Row>
                     </div> 
                     { returnedImg && 
                         <div>
-                            <Row className="rowStyle" style={{width: '75vw'}}>
+                            <Row className="rowStyle">
                                 <Col sm={6} className="imageWrapper">
                                     <div className="imageContainer">
                                         <img 
@@ -121,13 +120,15 @@ class VisionResultsDesktop extends Component {
                                         headerTwo={ artist }
                                     >
                                         <Tags withHash={ true } tagList={ returnedTags } />
-                                        <NavBtn route='/explore' btnText='search again!' />
+                                     
                                     </Info>
                                 </Col>
                             </Row>
                         </div> 
                     }
                 </Slider>
+                <NavBtn route='/explore' btnText='search again!' />
+                {returnedImg && <NavBtn route='/submit' btnText='submit your results to mocp' />}
             </div>
         );
     }

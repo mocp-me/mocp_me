@@ -71,6 +71,8 @@ const apiRoutes = (function(){
 		fileName = fileName.split('/');
 		fileName = fileName[fileName.length-1];
 		helpers.submit(fileName);
+		res.json(req.body)
+		
 
 	})
 

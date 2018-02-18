@@ -49,7 +49,7 @@ const helpers = {
     return results;
   },
 
-  submit: function copyFile(fileName) {
+  submit: (fileName) => {
 
     const Storage = require('@google-cloud/storage');
  
