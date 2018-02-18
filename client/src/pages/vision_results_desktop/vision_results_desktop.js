@@ -1,4 +1,6 @@
 import React, { Component } from 'react';
+import Slider from 'react-slick';
+import { Grid, Row, Col, Container } from 'react-grid-system';
 import axios from 'axios';
 import domtoimage from 'dom-to-image';
 import _ from 'lodash';
@@ -9,6 +11,10 @@ import Info from '../../components/returned_info/returned_info';
 import Tags from '../../components/tag_list/tag_list';
 import TagSubmit from '../../components/tag_submit/tag_submit';
 import NavBtn from '../../components/nav_button';
+
+import mocp from './mocp.png';
+import me from './me.png';
+
 
 
 class VisionResultsDesktop extends Component {
@@ -23,8 +29,13 @@ class VisionResultsDesktop extends Component {
     componentDidMount() {
         let prevState = sessionStorage.getItem('prevState');
         prevState = JSON.parse(prevState);
-        if(this.state.uploadedImg === prevState.uploadedImg) {
-            this.setState(prevState);
+        console.log(prevState);
+        if(prevState){
+            if(this.state.uploadedImg === prevState.uploadedImg) {
+                this.setState(prevState);
+            } else {
+                this.fetchImage();
+            }
         } else {
             this.fetchImage();
         }
@@ -44,7 +55,6 @@ class VisionResultsDesktop extends Component {
         axios
             .get(`/api/vision/${fileName}`)
             .then((res) => {
-                console.log('vision resp', res)
                 const returnedTags = [];
                 res.data.Tags.map(tag => returnedTags.push(tag.tag_name));
                 this.setState({ 
@@ -60,26 +70,66 @@ class VisionResultsDesktop extends Component {
     }
     render() {
         const { title, artist, visionTopTags, uploadedImg, returnedImg, returnedTags } = this.state;
+
+        const settings = {
+            fade: true,
+            dots: true,
+            infinite: false,
+            speed: 1000,
+            autoplay: true,
+            autoplaySpeed: 1000,
+            slidesToShow: 1,
+            slidesToScroll: 1,
+        }
         return (
-            <div id="my-node">
-                <div style={{ backgroundColor: 'black', color: 'white' }}>
-                    <Logo />
-                    { visionTopTags ? <Tags tagList={ visionTopTags } /> : null }
-                </div> 
-                <img src={ uploadedImg } />
-                { returnedImg ? <img src={ returnedImg } /> : <div>Loading...</div> }
-                <Info 
-                    title={ title ? title : 'Loading...' }
-                    artist={ artist ? artist : 'Loading...' }
-                >
-                    { returnedTags ? <Tags withHash={ true } tagList={ returnedTags } /> : <div>Loading...</div> }
-                    <p>add a tag: </p>
-                    <TagSubmit imageRef={ returnedImg && returnedImg } />
-                    { returnedImg && <button onClick={this.handleOnClick} style={{fontSize: '50px'}}>Submit</button> }
-                    <NavBtn route='/' btnText='try again!' />
-                </Info>
+            <div className="explorePageContainer">
+                <Slider { ...settings }>
+                    <div>
+                        <Row className="rowStyle" style={{width: '75vw'}}>
+                            <Col sm={6} className="imageWrapper">
+                                <div className="imageContainer">
+                                    <img 
+                                        className="imageStyle"
+                                        src={ uploadedImg }/>
+                                </div>
+                            </Col>
+                            <Col sm={6}>
+                                <Info
+                                    image={ me }
+                                    headerOne = "Some shit about what we're doing with google vision or whatever"
+                                >
+                                    { visionTopTags ? <Tags withHash={ true } tagList={ visionTopTags } /> : <p>fetching tags..</p> }
+                                    <NavBtn route='/explore' btnText='search again!' />
+                                </Info>
+                            </Col>
+                        </Row>
+                    </div> 
+                    { returnedImg && 
+                        <div>
+                            <Row className="rowStyle" style={{width: '75vw'}}>
+                                <Col sm={6} className="imageWrapper">
+                                    <div className="imageContainer">
+                                        <img 
+                                            className="imageStyle"
+                                            src={ returnedImg }/>
+                                    </div>
+                                </Col>
+                                <Col sm={6}>
+                                    <Info
+                                        image = { mocp }
+                                        headerOne={ title }
+                                        headerTwo={ artist }
+                                    >
+                                        <Tags withHash={ true } tagList={ returnedTags } />
+                                        <NavBtn route='/explore' btnText='search again!' />
+                                    </Info>
+                                </Col>
+                            </Row>
+                        </div> 
+                    }
+                </Slider>
             </div>
-        );  
+        );
     }
 }
 
