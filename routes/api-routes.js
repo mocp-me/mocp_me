@@ -65,16 +65,30 @@ const apiRoutes = (function(){
 		})
 	});
 
-	router.post('/submit', (req, res) => {
+	router.post('/submit-photo', (req, res) => {
 		console.log('shit to be saved to the new db pending successful save', req.body)
 		let fileName = req.body.uploadedImg;
 		fileName = fileName.split('/');
 		fileName = fileName[fileName.length-1];
 		helpers.submit(fileName);
+<<<<<<< HEAD
 		res.json(req.body)
 		
-
+=======
 	})
+>>>>>>> master
+
+	router.post('/submit-tag', (req, res) => {
+		console.log("route hit: ", req.body)
+		const { id, tag } = req.body
+		db.user_tags.create({
+			tag_name: tag,
+			photo_id: id,
+		}).then(res => console.log('tag submitted'))
+		res.send('tag submitted')
+	})
+
+
 
 	// Get the images of a particular keyword
 	router.get("/search-tags/:tag_name", (req, res) => {
@@ -134,6 +148,45 @@ const apiRoutes = (function(){
 			res.json(addedTag);
 		});
 	});
+	// TESTING ADMIN ROUTES WITHOUT AUTH.
+	// //Update all tag content including approval
+	// router.put("/update", function (req, res) {
+	// 	db.user_tags.update({
+	// 		tag_name: req.body.tag_name,
+	// 		photo_id: req.body.photo_id,
+	// 		approved: req.body.approved
+	// 	},
+	// 	{
+	// 		where: {
+	// 			id: req.body.id
+	// 		}
+	// 	})
+	// 	.then(function (updated) {
+	// 		res.json(updated);
+	// 	});
+	// })
+
+	// //Update only tags approval
+	// router.put("/approval", function (req, res) {
+	// 	db.user_tags.update({ approved: req.body.approved },
+	// 	{ 
+	// 		where: { id: req.body.id } 
+	// 	})
+	// 	.then(function (approved) { res.json(approved) });
+	// })
+
+	// // Delete from DB
+	// router.delete("/delete/:id", function (req, res) {
+	// 	// We just have to specify which todo we want to destroy with "where"
+	// 	db.user_tags.destroy({
+	// 		where: {
+	// 			id: req.params.id
+	// 		}
+	// 	}).then(function (deleted) {
+	// 		res.json(deleted);
+	// 	});
+	// });
+
 
 	// Catch-all route
 	router.get("*", (req, res) => res.json({answer: 42}));

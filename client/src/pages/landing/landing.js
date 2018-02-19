@@ -1,13 +1,12 @@
-import React, { Component } from 'react';
-import { Link, withRouter } from 'react-router-dom';
-import Dropzone from 'react-dropzone';
-import request from 'superagent';
+import React, { Component } from "react";
+import { Link, withRouter } from "react-router-dom";
+import Dropzone from "react-dropzone";
+import axios from "axios";
+import Logo from "../../components/logo/logo";
+import Phone from "../../components/phone/phone";
+import NavPanel from "../../components/nav_panel/nav_panel";
 
-import Logo from '../../components/logo/logo';
-import Phone from '../../components/phone/phone';
-import NavPanel from '../../components/nav_panel/nav_panel';
-
-import {Grid, Row, Col, Container, Clearfix} from 'react-grid-system'
+import {Grid, Row, Col, Container, Clearfix} from "react-grid-system"
 
 class Landing extends Component {
     constructor(props) {
@@ -39,27 +38,24 @@ class Landing extends Component {
             return {dropzoneActive: false}
         });
         const image = new FormData();
-        image.append('image', file[0]);
-        request
-            .post('/api/upload')
-            .send(image)
-            .end((err, res) => {
-                if (err) { console.log(err) }
-                sessionStorage.setItem('uploadedImg', JSON.stringify(res.body.imageUrl))
-                this.props.history.push('/vision_search')
-            });
+        image.append("image", file[0]);
+        axios.post("/api/upload", image)
+            .then(res => {
+                sessionStorage.setItem("uploadedImg", JSON.stringify(res.data.imageUrl));
+                this.props.history.push("/vision_search");
+            })
+            .catch(err => console.log(err));
     }
-    
 
     render() {
         const {dropzoneActive} = this.state;
         const overlayStyle = {
-            position: 'absolute',
+            position: "absolute",
             top: 0,
             right: 0,
             bottom: 0,
             left: 0,
-            background: 'rgba(0,0,0,0.1)'
+            background: "rgba(0,0,0,0.1)"
         };
         return (
             <div className="landingWrapper">
@@ -99,7 +95,7 @@ class Landing extends Component {
                             text2="& add some more"
                             text3="on the go!"
                             />
-                            <Link to='/explore'>
+                            <Link to="/explore">
                               <button className="button">
                                   explore
                               </button>

@@ -5,6 +5,7 @@ import ErrorMessage from '../../components/input_error/input_error';
 import './submit_style.css'
 
 class Submit extends Component {
+<<<<<<< HEAD
     constructor() {
         super();
         this.state = {};
@@ -63,6 +64,19 @@ class Submit extends Component {
       // });
     }
   
+=======
+    handleOnClick() {
+        const { uploadedImg, returnedImg } = JSON.parse(sessionStorage.getItem('prevState'));
+        const toSubmit = {
+            uploadedImg,
+            returnedImg
+        }
+        console.log(toSubmit)
+        axios
+            .post('/api/submit-photo', toSubmit)
+            .then(res => console.log('response: ', res))
+    }
+>>>>>>> master
     render() {
         const { res, invalid, displayErrors } = this.state;
       return (
