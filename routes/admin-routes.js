@@ -90,31 +90,24 @@ const adminRoutes = (function(){
 			res.json(deleted);
 		});
 	});
-	
-
-	// Test DB get routes
-	// router.get("/all-photos", (req, res) => {
-	// 	db.Photos.findAll().then(Photos => {
-	// 		res.json(Photos);
-	// 	})
-	// });
 
 	router.get("/user-tags", (req, res) => {
 		console.log("admin/all-tags call received by backend");
 		db.user_tags.findAll().then(Tags => {
 			res.json(Tags);
-		})
+		});
 	});
 
 	router.get("/pending-tags", (req, res) => {
-		console.log("admin/all-tags call received by backend");
+		console.log("admin/pending-tags call received by backend");
 		db.user_tags.findAll({
 			where: {
 				approved: false
-			}
+			},
+			include: [db.Photos]
 		}).then(Tags => {
 			res.json(Tags);
-		})
+		});
 	});
 
 	// Catch-all route
