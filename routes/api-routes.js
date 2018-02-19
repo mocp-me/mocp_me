@@ -71,12 +71,7 @@ const apiRoutes = (function(){
 		fileName = fileName.split('/');
 		fileName = fileName[fileName.length-1];
 		helpers.submit(fileName);
-<<<<<<< HEAD
-		res.json(req.body)
-		
-=======
 	})
->>>>>>> master
 
 	router.post('/submit-tag', (req, res) => {
 		console.log("route hit: ", req.body)

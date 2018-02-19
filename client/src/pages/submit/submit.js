@@ -5,66 +5,6 @@ import ErrorMessage from '../../components/input_error/input_error';
 import './submit_style.css'
 
 class Submit extends Component {
-<<<<<<< HEAD
-    constructor() {
-        super();
-        this.state = {};
-        this.handleSubmit = this.handleSubmit.bind(this);
-    }
-
-    stringifyFormData(formData) {
-        const data = {};
-          for (let key of formData.keys()) {
-            data[key] = formData.get(key);
-        }
-        return JSON.stringify(data, null, 2);
-      }
-
-      inputParsers = {
-    date(input) {
-      const split = input.split('/');
-      const day = split[1]
-      const month = split[0];
-      const year = split[2];
-      return `${year}-${month}-${day}`;
-    }
-  }
-  
-    handleSubmit(event) {
-      event.preventDefault();
-      if (!event.target.checkValidity()) {
-          this.setState({
-          invalid: true,
-          displayErrors: true,
-        });
-        return;
-      }
-      const form = event.target;
-      const data = new FormData(form);
-  
-      for (let name of data.keys()) {
-        const input = form.elements[name];
-        const parserName = input.dataset.parse;
-        console.log('parser name is', parserName);
-        if (parserName) {
-          const parsedValue = this.inputParsers[parserName](data.get(name))
-          data.set(name, parsedValue);
-        }
-      }
-      
-      this.setState({
-          res: this.stringifyFormData(data),
-        invalid: false,
-        displayErrors: false,
-      });
-  
-      // fetch('/api/form-submit-url', {
-      //   method: 'POST',
-      //   body: data,
-      // });
-    }
-  
-=======
     handleOnClick() {
         const { uploadedImg, returnedImg } = JSON.parse(sessionStorage.getItem('prevState'));
         const toSubmit = {
@@ -76,7 +16,6 @@ class Submit extends Component {
             .post('/api/submit-photo', toSubmit)
             .then(res => console.log('response: ', res))
     }
->>>>>>> master
     render() {
         const { res, invalid, displayErrors } = this.state;
       return (
