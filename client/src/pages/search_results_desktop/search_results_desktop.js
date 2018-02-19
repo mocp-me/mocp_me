@@ -13,6 +13,8 @@ class SearchResultsDesktop extends Component {
     constructor(props) {
         super(props);
 
+        this.handleTagSubmit = this.handleTagSubmit.bind(this)
+
         this.state = { results : [] }
     }
 
@@ -26,6 +28,26 @@ class SearchResultsDesktop extends Component {
             this.setState({ results });
         })
         .catch(err => console.log(err));
+    }
+
+    handleTagSubmit = (id) => (event) => {
+        event.preventDefault();
+        const tag = event.target.elements.term.value;
+        //there are way more sophisticated ways to handle form submittal, but this shit isn't very important, so fuck it.
+        if(tag.length > 1 && tag.length<12){
+            const data = {
+                id,
+                tag
+            }
+            axios
+                .post('/api/submit-tag', data)
+                .then(res => console.log(res))
+        }
+        //this is meant to clear the form, but its not working at all.. i'll figure it out later
+        //this.inputRef logs as a form object, but .reset isnt working
+        console.log('input ref', this.inputRef)
+        this.inputRef.reset();
+
     }
 
     // the famous Fisher-Yates shuffle algorithm. thanks google :)
@@ -64,28 +86,27 @@ class SearchResultsDesktop extends Component {
         return(
             <div className="explorePageContainer">
                 <Slider {...settings}>
-                    {this.state.results.map(result => {
+                    {this.state.results.map(results => {
                         let tags = [];
-                        result.Tags.map(tag => {
+                        results.Tags.map(tag => {
                             tags.push(tag.tag_name)
                         })
                         return (
-                            <div key={result.id}>
+                            <div key={results.id}>
                                 <Row className="rowStyle">
                                     <Col sm={6} className="imageWrapper">
                                         <div className="imageContainer">
                                             <img 
                                                 className="imageStyle"
-                                                src={ result.web_path }/>
+                                                src={ results.web_path }/>
                                         </div>
                                     </Col>
                                     <Col sm={6}>
-                                        <Info
-                                            title={ result.title }
-                                            artist={ result.artist }
-                                        >
-                                            <Tags isLink={ true } withHash={ true } tagList={ tags } />
-                                        </Info>
+                                        <p>Suggest a new tag: </p>
+                                        <TagSubmit
+                                            inputRef={(input) => { this.inputRef = input; }} 
+                                            handleTagSubmit={this.handleTagSubmit(results.id)}
+                                            btnText="omg thanx!" />
                                     </Col>
                                 </Row>
                             </div> 

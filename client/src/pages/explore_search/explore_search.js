@@ -13,16 +13,16 @@ class ExploreSearch extends Component {
     constructor(props){
         super(props);
     
-        this.handleFormSubmit = this.handleFormSubmit.bind(this);
+        this.handleTagSubmit = this.handleTagSubmit.bind(this);
 
         this.state = {tags : ['cat', 'dog']}
     }
 
-    componentWillMount () {
+    componentDidMount () {
         //ajax call to get trending tags
     }
 
-    handleFormSubmit(event) {
+    handleTagSubmit(event) {
         event.preventDefault();
         const term = event.target.elements.term.value;
         this.props.history.push(`/search/${term}`)
@@ -35,7 +35,9 @@ class ExploreSearch extends Component {
                         <Logo />
                         <div className="tagSearchStyle">
                             <p><b>Search a tag: </b></p>
-                            <TagSubmit handleFormSubmit ={this.handleFormSubmit}/>
+                            <TagSubmit
+                                handleTagSubmit ={this.handleTagSubmit}
+                                btnText="go"/>
                         </div>
                     </div>
                 </Col>
