@@ -108,19 +108,19 @@
 			margin-left:15px;
 			transition:linear .7s;
 			border-color:$lightGray; 
-			width:110px; 
+			width:90px; 
 			color:$reallyLightGray; 
 			padding-top:10px; 
 			font-size:14px;
-			border-width:2px;
+			border-width:1px;
 		}
 		.credits{
 			display:block;
-			color:$reallyLightGray;
-			line-height:.75;
+			color:$lightGray;
+			line-height:.5;
 			margin-top:-28px; 
-			margin-left:145px; 
-			font-size:12px; 
+			margin-left:125px; 
+			font-size:15px; 
 		}
 		.speakerCircle{
 			left:182px;
@@ -278,10 +278,26 @@
 					}
 				}
 				.extra_3{
-					
+					top:-350px !important;
+					transform: translateX(190px); 
+					border-radius:3px !important; 
+					transition:linear .7s;
+					width:75px !important;
+					height:75px !important; 
+					background:$lightYellow !important;
+					border: solid $darkYellow;
+					border-width: 5px !important; 
 				}
 				.extra_4{
-					
+					top:-340px !important; 
+					transform: translateX(-15px); 
+					border-radius:3px !important; 
+					transition:linear .7s;
+					width:60px !important;
+					height:100px !important; 
+					background:$lightYellow !important;
+					border: solid $darkYellow;
+					border-width: 5px !important;
 				}
 			}
 		}
