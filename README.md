@@ -2,7 +2,7 @@
 Application for Museum of Contemporary Photography that reverse image searches the museums database and allows users to interact with the museums works
 
 # Database Creation ~ *A History*
-## Raw Data Prep
+### Raw Data Prep
 Due to the unique nature of this project, the database of images and information that we had access to was greatly limited. We were unable to plug directly in the database that the museum uses for their internal systems. Instead we received a hard drive copy of the files and folders of each image and high definition image. This hard drive contained a seemingly unordered structure of nested folders and database files.
 
 In order to get a database that we could use we first had to sift through the hard drive and pull out all the file paths of all the images. Using *fs* the file-system package for node, we iterated over each folder in the hard drive in and wrote a mySql query to log each folder path.
@@ -24,7 +24,4 @@ After we presented our first rendering of this application to the museum we were
 
 ## User Added Tags
 The entire premise of this application was to first get people to interact with the museums collection in a creative and fun way, and second to get the public to add their own #hashtags to the collection. We didn't want to litter the table filled with Google Vision tags so we opted to create a new table where users own tags will be stored with a reference to the photo_id as well as sitting in a cue, waiting to be approved. This gives the museum admins the capability to log in to the admin portal and review user added tags and approve, unapprove, edit, or delete them. Our goal is to use the approved user tags along with the base tags table to query the images together. This will allow the application to 'learn' over time and get better and better at improving searchability through the collection.
-
-
-
 
