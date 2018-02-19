@@ -32,3 +32,16 @@ The entire premise of this application was to first get people to interact with 
 | id    | name      | path          | web_path              | artist_id | artist    | title         | year      | medium        | dimensions        | accession_num     | file_name         |
 | ----- | --------- | ------------- | --------------------- | --------- | --------- | ------------- | --------- | ------------- | ----------------- | ----------------- | ----------------- |
 | 10    | 1997_1_11 copy.jpg | /Volumes/MOCP_AI/Abbott_B/1997_1_11 copy.jpg | https://storage.googleapis.com/mocp_images/MOCP_IMAGES/1997_1_11 copy.jpg | 33 | Abbott, Berenice | Collision of Two Balls, from The Science Pictures portfolio | 1958-1961; printed 1982 | Gelatin silver print | board: 30 in x 24 in; image/paper: 18 5/8 in x 15 1/2 in; paper: 18 5/8 in x 15 7/16 in | 1997:1.11 | 1997_1_11 copy.jpg |
+
+### Tags Table
+| id    | tag_name          | photo_id  |
+| ----- | ----------------- | --------- |
+| 86    | Black             | 10        |
+| 87    | Water             | 10        |
+| 88    | Light             | 10        |
+
+### user_tags Table
+| id    | tag_name          | photo_id  | createdAt             | updatedAt             | approved  |
+| ----- | ----------------- | --------- | --------------------- | --------------------- | --------- |
+| 34    | Motion            | 10        | 2018-02-18 15:14:03   | 2018-02-18 16:47:83   | 1         |
+| 97    | Swing             | 10        | 2018-02-20 14:25:33   | 2018-02-20 14:25:33   | 0         |
