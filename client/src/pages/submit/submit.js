@@ -3,20 +3,16 @@ import axios from 'axios';
 
 class Submit extends Component {
     handleOnClick() {
-        const getState = JSON.parse(sessionStorage.getItem('prevState'));
+        const { uploadedImg, returnedImg } = JSON.parse(sessionStorage.getItem('prevState'));
         const toSubmit = {
-            uploadedImg: getState.uploadedImg,
-            returnedImg: getState.returnedImg
+            uploadedImg,
+            returnedImg
         }
         console.log(toSubmit)
-        axios({
-            method: 'post',
-            url: '/api/submit',
-            data: toSubmit
-          }).then(res => console.log('response: ', res))
+        axios
+            .post('/api/submit-photo', toSubmit)
+            .then(res => console.log('response: ', res))
     }
-    
-    
     render() {
         return (
             <div>

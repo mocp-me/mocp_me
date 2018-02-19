@@ -65,14 +65,25 @@ const apiRoutes = (function(){
 		})
 	});
 
-	router.post('/submit', (req, res) => {
+	router.post('/submit-photo', (req, res) => {
 		console.log('shit to be saved to the new db pending successful save', req.body)
 		let fileName = req.body.uploadedImg;
 		fileName = fileName.split('/');
 		fileName = fileName[fileName.length-1];
 		helpers.submit(fileName);
-
 	})
+
+	router.post('/submit-tag', (req, res) => {
+		console.log("route hit: ", req.body)
+		const { id, tag } = req.body
+		db.user_tags.create({
+			tag_name: tag,
+			photo_id: id,
+		}).then(res => console.log('tag submitted'))
+		res.send('tag submitted')
+	})
+
+
 
 	// Get the images of a particular keyword
 	router.get("/search-tags/:tag_name", (req, res) => {
