@@ -1,14 +1,14 @@
-import React, { Component } from 'react';
-import { Grid, Row, Col, Container } from 'react-grid-system';
-import ReactCSSTransitionGroup from 'react-addons-css-transition-group'; 
+import React, { Component } from "react";
+import { Grid, Row, Col, Container } from "react-grid-system";
+import ReactCSSTransitionGroup from "react-addons-css-transition-group"; 
 
 
-import logo from '../logo/logo.png';
-import AdminContent from './admin_content/admin_content';
-import $ from "jquery";
+import logo from "../logo/logo.png";
+import AdminContent from "./admin_content/admin_content";
+import moment from "moment";
 import Axios from "axios";
 
-import './style.css';
+import "./style.css";
 
 const pageStyle = {
 	font:'avenir'
@@ -44,8 +44,10 @@ const headStyle={
 	paddingRight:'20px',
 }
 
+// retrieve Javascript Web Token from localStorage
 const token = `Bearer ${localStorage.getItem("access_token")}`;
 
+// instantiate and configure axios
 let axios = Axios.create({
 	baseURL: "/admin",
 	timeout: 5000,
@@ -62,13 +64,15 @@ class AdminPanel extends Component {
 
 		this.state = {}
 	}
+
 	componentWillMount() {
-		axios.get("/user-tags").then(response => {
+		axios.get("/pending-tags").then(response => {
 			console.log('response', response);
 			let testArray = response.data.splice(0,10)
 			this.setState({tags: testArray})
 		});
 	}
+
 	removeTheThing(tagId) {
 		const { tags } = this.state;
 		this.setState({
@@ -86,7 +90,7 @@ class AdminPanel extends Component {
 	}
 
 	rejectTag(tagId) {
-		axios.put(`/delete/${tagId}`)
+		axios.delete(`/delete/${tagId}`)
 			.then(response => console.log(response))
 			.catch(err => console.log(err));		
 		this.removeTheThing(tagId);
@@ -100,7 +104,7 @@ class AdminPanel extends Component {
 			<AdminContent
 				key={tag.tag_name}
 				tagName={tag.tag_name}
-				datePosted={Date.now()}
+				datePosted={moment(tag.createdAt).format("LLL")}
 				onApprove={() => {
 					this.approveTag(tag.id)}}
 				onReject={() => {

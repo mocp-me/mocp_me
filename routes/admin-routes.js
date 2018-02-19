@@ -78,7 +78,8 @@ const adminRoutes = (function(){
 
 	// Delete from DB
 	router.delete("/delete/:tagId", function (req, res) {
-		console.log(`/delete/${tagId} called`);
+		console.log("admin/delete call received by backend");
+		console.log(`/delete/${req.params.tagId} called`);
 		// We just have to specify which tag we want to destroy with "where"
 		db.user_tags.destroy({
 			where: {
@@ -101,6 +102,17 @@ const adminRoutes = (function(){
 	router.get("/user-tags", (req, res) => {
 		console.log("admin/all-tags call received by backend");
 		db.user_tags.findAll().then(Tags => {
+			res.json(Tags);
+		})
+	});
+
+	router.get("/pending-tags", (req, res) => {
+		console.log("admin/all-tags call received by backend");
+		db.user_tags.findAll({
+			where: {
+				approved: false
+			}
+		}).then(Tags => {
 			res.json(Tags);
 		})
 	});
