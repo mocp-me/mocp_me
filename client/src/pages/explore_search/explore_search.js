@@ -2,11 +2,13 @@ import React, { Component } from 'react';
 import {Grid, Row, Col, Container} from 'react-grid-system';
 import { withRouter } from 'react-router-dom';
 import Media from "react-media";
+import axios from 'axios';
 
 import Logo from '../../components/logo/logo';
 import TagSubmit from '../../components/tag_submit/tag_submit';
 import Tags from '../../components/tag_list/tag_list';
 import NavBtn from '../../components/nav_button';
+import SearchBar from '../../components/search_bar';
 
 
 class ExploreSearch extends Component {
@@ -15,18 +17,36 @@ class ExploreSearch extends Component {
     
         this.handleTagSubmit = this.handleTagSubmit.bind(this);
 
-        this.state = {tags : ['cat', 'dog']}
+        this.state = {
+            tags : ['cat', 'dog'],
+            disableSearch: true
+        }
+
     }
 
     componentDidMount () {
         //ajax call to get trending tags
     }
 
-    handleTagSubmit(event) {
-        event.preventDefault();
-        const term = event.target.elements.term.value;
-        this.props.history.push(`/search/${term}`)
+    handleTagSubmit(term) {
+        
+        if(!this.state.disableSearch) {
+            this.props.history.push(`/search/${term}`)
+        }
     }
+
+    tagSearch = (term) => {
+        axios
+            .get(`/api/check-tag/${term}`)
+            .then((res) => {
+                if(res.data) {
+                    this.setState({ disableSearch: false });
+                } else {
+                    this.setState({ disableSearch: true });
+                }
+            });
+    }
+
     render() {
         return (
             <Row>
@@ -35,9 +55,11 @@ class ExploreSearch extends Component {
                         <Logo />
                         <div className="tagSearchStyle">
                             <p><b>Search a tag: </b></p>
-                            <TagSubmit
-                                handleTagSubmit ={this.handleTagSubmit}
-                                btnText="go"/>
+                            <SearchBar 
+                                handleOnSubmit={this.handleTagSubmit}
+                                onSearchTermChange={this.tagSearch} 
+                                isDisabled={this.state.disableSearch}
+                                />
                         </div>
                     </div>
                 </Col>

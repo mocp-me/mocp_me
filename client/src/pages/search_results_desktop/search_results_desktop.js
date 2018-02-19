@@ -34,7 +34,7 @@ class SearchResultsDesktop extends Component {
         event.preventDefault();
         const tag = event.target.elements.term.value;
         //there are way more sophisticated ways to handle form submittal, but this shit isn't very important, so fuck it.
-        if(tag.length > 1 && tag.length<12){
+        if(tag.length > 1 && tag.length<12) {
             const data = {
                 id,
                 tag
@@ -43,11 +43,8 @@ class SearchResultsDesktop extends Component {
                 .post('/api/submit-tag', data)
                 .then(res => console.log(res))
         }
-        //this is meant to clear the form, but its not working at all.. i'll figure it out later
-        //this.inputRef logs as a form object, but .reset isnt working
-        console.log('input ref', this.inputRef)
-        this.inputRef.reset();
 
+        event.target.elements.term.value = ""
     }
 
     // the famous Fisher-Yates shuffle algorithm. thanks google :)
@@ -104,7 +101,6 @@ class SearchResultsDesktop extends Component {
                                     <Col sm={6}>
                                         <p>Suggest a new tag: </p>
                                         <TagSubmit
-                                            inputRef={(input) => { this.inputRef = input; }} 
                                             handleTagSubmit={this.handleTagSubmit(results.id)}
                                             btnText="omg thanx!" />
                                     </Col>

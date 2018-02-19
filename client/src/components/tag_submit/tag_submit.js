@@ -9,9 +9,7 @@ class TagSubmit extends Component {
     render(){
         return (
             <div className="search-wrapper">
-                <form
-                    ref={this.props.inputRef} 
-                    onSubmit={ this.props.handleTagSubmit }>
+                <form onSubmit={ this.props.handleTagSubmit }>
                     <input 
                         className="formSubmitStyle"
                         type="text"
