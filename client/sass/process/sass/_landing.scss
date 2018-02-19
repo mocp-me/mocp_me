@@ -67,12 +67,13 @@
 			opacity:0;
 		}
 		.line{
-			border-bottom:solid white;
+			border-top:solid white;
 			border-width:1px;
 			position:relative;
 			margin-top:-80px; 
 			width:90px; 
 			margin-left:30px; 
+			color:black; 
 			transition:linear .7s;
 		}
 		.credits{
@@ -98,6 +99,9 @@
 			background:black !important;
 			padding:12px;
 			transition:linear .15s;
+			b{
+				color:$darkYellow !important; 
+			}
 		}
 		.line{
 			margin-top:80px; 
@@ -105,12 +109,15 @@
 			transition:linear .7s;
 			border-color:$darkGray; 
 			width:110px; 
+			color:$lightGray; 
+			padding-top:10px; 
+			font-size:14px;
 		}
 		.credits{
 			display:block;
 			color:$lightGray;
 			line-height:.75;
-			margin-top:0px; 
+			margin-top:-28px; 
 			margin-left:145px; 
 			font-size:12px; 
 		}
@@ -149,19 +156,42 @@
 		height:50vh;
 		padding-top:2vh;
     	.panelStyle{
-			.textStyle{
-				font-family:avenir;
-				line-height:.7;
-				margin:none;
-				padding:none;
-				font-size:2.5vh;
+    		// background:red;  
+    		.animationWrapper{
+    			margin-top:3vh; 
+    			height:30vh;
+    			padding-left:calc(51% - 125px) !important;
+	    		.frame{
+	    			height:140px; 
+	    			width:250px; 
+	    			background:$darkYellow; 
+	    			margin-top:7vh;
+	    			border-radius:3px; 
+	    			.textWrapper{
+						.textStyle{
+							font-family:avenir;
+							line-height:.4;
+							margin:none;
+							padding:none;
+							color:$darkGray; 
+		    			}
+		    		}
+		    		.extra_1{
+		    			position:relative;
+		    			height:19px;
+		    			width:90px; 
+		    			background:$darkYellow; 
+		    			top:-18px; 
+		    			left:145px;
+		    			border-radius:3px;
 
+		    		}
+				}
 			}
-			.imageStyle{
-	    		margin-bottom:2vh;
-				height:25vh;
-	    	}
     	}
+    	.animationWapperHovered{
+			
+		}
     	.button{
     		background:none;
     		border-color:$darkYellow;
@@ -169,7 +199,7 @@
     		border-radius:25px;
     		border-width:.25vh;
     		padding:1vh 2vw 1vh 2vw;
-    		margin-top:.75vh;
+    		margin-top:3vh;
     	}
 	}
 	.navPanel_2{
@@ -181,18 +211,26 @@
 		height:50vh;
 		padding-top:2vh;
 	    .panelStyle{
-			.textStyle{
-				font-family:avenir;
-				line-height:.7;
-				margin:none;
-				padding:none;
-				font-size:2.5vh;
-
+    		// background:red;  
+    		.animationWrapper{
+    			margin-top:3vh; 
+    			height:30vh;
+	    		.frame{
+	    			margin-left:8vw; 
+	    			width:25vw;
+    				background:black; 
+    				height:200px; 
+	    			.textWrapper{
+						.textStyle{
+							font-family:avenir;
+							line-height:.7;
+							margin:none;
+							padding:none;
+							font-size:2.5vh;
+			    		}
+		    		}
+				}
 			}
-			.imageStyle{
-	    		margin-bottom:2vh;
-				height:25vh;
-	    	}
     	}
     	.button{
     		background:none;
@@ -201,7 +239,7 @@
     		border-radius:25px;
     		border-width:.25vh;
     		padding:1vh 2vw 1vh 2vw;
-    		margin-top:.75vh;
+    		margin-top:3vh;
     	}
 	}
 }
@@ -260,6 +298,19 @@
 		}
 		.phoneWrapper{
 			margin-left:10vw;
+		}
+		.navPanel_1{
+	    	.panelStyle{
+	    		// background:red;  
+	    		.animationWrapper{
+		    		.frame{
+		    			.textWrapper{
+							.textStyle{ 
+			    			}
+			    		}
+					}
+				}
+	    	}
 		}
 	}
 }

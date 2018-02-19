@@ -82,7 +82,6 @@ class Landing extends Component {
                                 { dropzoneActive && <div style={overlayStyle}></div> }
                                 <div className="navPanel_1">
                                   <NavPanel
-                                    imgSrc="https://picsum.photos/190/190?random"
                                     text1="Upload your image"
                                     text2="to connect to"
                                     text3="the collection."
@@ -94,7 +93,6 @@ class Landing extends Component {
                         </Dropzone>
                         <div className="navPanel_2">
                           <NavPanel
-                            imgSrc="https://picsum.photos/190/190?random"
                             text1="Search our tags"
                             text2="& add some more"
                             text3="on the go!"
