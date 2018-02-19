@@ -1,5 +1,4 @@
 import React, { Component } from 'react';
-import About from '../about/about';
 import {Grid, Row, Col, Container} from 'react-grid-system';
 import ClassNames from 'classnames';
 // import './phone.css';
@@ -32,7 +31,7 @@ class Phone extends Component {
                     </div>                
                     {!this.state.hovered ? 
                     <div className="phone">
-                        Tag the collection with machine learning & computer vision.
+                        Let's tag the collection with machine learning & computer vision.
                     </div> : 
                     <div className ="aboutWrapper">
                         <p><b>MoCP.me</b> is a web application using computer vision and machine learning as a way to interact with the collection on user-generated terms.</p>
