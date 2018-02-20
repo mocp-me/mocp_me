@@ -21,10 +21,10 @@ class SearchResultsDesktop extends Component {
     componentDidMount() {
         const { term } = this.props.match.params
         axios
-        .get(`/api/search-tags/${term}`)
+        .get(`/api/search-tags/${term}/random`)
         .then((res) => {
-            const results = this.shuffleResults(res.data);
-            console.log('shuffled results', results)
+            const results = res.data;
+            console.log('results: ', results)
             this.setState({ results });
         })
         .catch(err => console.log(err));
@@ -47,23 +47,6 @@ class SearchResultsDesktop extends Component {
 
         event.target.elements.term.value = ""
     }
-
-    // the famous Fisher-Yates shuffle algorithm. thanks google :)
-    shuffleResults(array) {
-        let currentIndex = array.length, temporaryValue, randomIndex;
-        // While there remain elements to shuffle...
-        while (0 !== currentIndex) {
-          // Pick a remaining element...
-          randomIndex = Math.floor(Math.random() * currentIndex);
-          currentIndex -= 1;
-          // And swap it with the current element.
-          temporaryValue = array[currentIndex];
-          array[currentIndex] = array[randomIndex];
-          array[randomIndex] = temporaryValue;
-        }
-        const fiveResults = array.slice(0,5)
-        return fiveResults;
-      }
 
     render() {
         const settings = {
