@@ -7,6 +7,8 @@ const apiRoutes = (function(){
 		fileSize: 5 * 1024 * 1024
 	});
 
+	const Sequelize = require('sequelize');
+	const Op = Sequelize.Op;
 	
 	const imgUpload = require('./imgUpload');
 
@@ -76,14 +78,22 @@ const apiRoutes = (function(){
 	router.post('/submit-tag', (req, res) => {
 		console.log("route hit: ", req.body)
 		const { id, tag } = req.body
-		db.user_tags.create({
-			tag_name: tag,
-			photo_id: id,
-		}).then(res => console.log('tag submitted'))
-		res.send('tag submitted')
+		db.user_tags.findOrCreate({
+			where: {
+				tag_name: tag,
+				photo_id: id
+			}
+		})
+		.then(results => console.log('results', results))
+		
 	})
 
 
+
+	/*	the [Op.like] operator isn't working quite how I thought it would.. searching 'cats' returns 'cat' pictures instead of failing..
+		but searching 'cars' fails while 'car' doesnt. weird af! Also, just searching 'c' returns a bunch of shit when it should fail
+		..but now that I set it up so you can only search for tags that strictly exist, maybe we should just stick with that?
+	*/
 
 	// Get the images of a particular keyword
 	router.get("/search-tags/:tag_name", (req, res) => {
@@ -91,6 +101,9 @@ const apiRoutes = (function(){
 		db.Tags.findAll({
 			where: {
 				tag_name: req.params.tag_name
+				// tag_name: {
+				// 	[Op.like] : `%${req.params.tag_name}`
+				// } 
 			}
 		}).then(Tags => {
 			Tags.forEach(i => {
@@ -111,6 +124,17 @@ const apiRoutes = (function(){
 			})
 		})
 	});
+
+	router.get('/check-tag/:tag_name', (req, res) => {
+		console.log(req.params.tag_name)
+		db.Tags.findOne({
+			where: {
+				tag_name: req.params.tag_name
+			}
+		}).then(result => {
+			res.json(result);
+		})
+	})
 
 	// Test DB get routes
 	router.get("/all-photos", (req, res) => {
