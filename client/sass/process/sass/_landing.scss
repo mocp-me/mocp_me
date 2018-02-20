@@ -156,12 +156,14 @@
 		text-align:center;
 		height:50vh;
 		padding-top:2vh;
+		transition:linear .7s;
     	.panelStyle{
     		// background:red;  
     		.animationWrapper{
     			margin-top:3vh; 
     			height:30vh;
     			padding-left:calc(51% - 125px) !important;
+    			transition:linear .7s;
 	    		.frame{
 	    			height:140px; 
 	    			width:250px; 
@@ -177,6 +179,7 @@
 	    				top:-15px; 
 	    				width:250px; 
 	    				padding-top:10px; 
+	    				transition:linear .7s;
 						.textStyle{
 							font-family:avenir;
 							line-height:.4;
@@ -184,6 +187,7 @@
 							padding:none;
 							margin-top:15px; 
 							color:$offwhite; 
+							transition:linear .7s;
 		    			}
 		    		}
 		    		.extra_1{
@@ -241,7 +245,7 @@
     	}
     	.animationWapperHovered{
 			.frame{
-				margin-left:calc(50% - 175px) !important;
+				margin-left:1.5vw !important;
 				height:175px !important;
 				width:175px !important; 
 				transform: translateY(-10%);
@@ -319,12 +323,15 @@
 		text-align:center;
 		height:50vh;
 		padding-top:2vh;
+		transition:linear .7s;
+		padding-left: calc(50%-85px) !important; 
 	    .panelStyle{
     		// background:red;  
     		.animationWrapper{
     			margin-top:3vh; 
     			height:30vh;
-    			padding-left:calc(51% - 110px) !important;
+    			padding-left:calc(50% - 80px) !important;
+    			transition:linear .7s;
 	    		.frame{
 	    			height:160px; 
 	    			width:160px; 
@@ -332,6 +339,7 @@
 					border-radius:100px; 
 					padding:7.5px;
 					position:relative; 
+					transition:linear .7s;
 	    			.textWrapper{
 	    				background:$darkYellow;
 	    				height:145px;
@@ -342,6 +350,7 @@
 	    				padding-top:50px; 
 	    				position:relative; 
 	    				margin-top:-80px; 
+	    				transition:linear .7s;
 						.textStyle{
 							font-family:avenir;
 							line-height:.5;
@@ -349,6 +358,7 @@
 							padding:none;
 							color:white; 
 							position:relative; 
+							transition:linear .7s;
 			    		}
 		    		}
 		    		.extra_1{
@@ -359,6 +369,7 @@
 		    			transform: rotate(-45deg);
 		    			top:120px; 
 		    			left:130px; 
+		    			transition:linear .7s;
 		    		}
 		    		.extra_2{
 		    			position:relative; 
@@ -370,11 +381,13 @@
 		    			left:160px; 
 		    			border-top:solid black;
 		    			border-width:5px;  
+		    			transition:linear .7s;
 		    			.extra_2_2{
 		    				position:relative; 
 		    				height:45px;
 		    				width:5px; 
-		    				background:$lightGray;  
+		    				background:$lightGray; 
+		    				transition:linear .7s; 
 		    			}
 		    		}
 		    		.extra_3{
@@ -393,6 +406,71 @@
 				}
 			}
     	}
+    	.animationWapperHovered{
+    		margin-left:55px !important; 
+			.frame{
+				width:70px !important;
+				height:70px !important;
+				background:$offwhite !important;
+				padding:0 !important; 
+				border-top:solid $reallyLightGray 10px !important; 
+				.textWrapper{ 
+					border-radius:10px !important;
+					margin-top:25px !important; 
+					background:$lightYellow !important; 
+					width:170px !important; 
+					margin-left:-50px !important; 
+					height: 100px !important;
+					padding-top:25px !important;
+					border-left:solid $lightYellow !important;
+					.textStyle{
+						color:$darkGray !important;
+					}
+				}
+				.extra_1{
+					width: 0 !important;
+					height: 0 !important;
+					border-left: 27px solid transparent !important;
+					border-right: 27px solid transparent !important;
+					border-top: 35px solid $offwhite !important; 
+					background:none !important; 
+					transform: rotate(0deg) !important;
+					left:8px !important; 
+					top:47px !important; 
+					border-radius:10px !important; 
+
+				}
+				.extra_2{
+					border-left:$darkGray solid 5px !important; 
+					border-right:$darkGray solid 5px !important;
+					border-top:none !important;
+					border-bottom:none !important;
+					background:none !important;
+					transform: rotate(0deg) !important;
+					height:30px !important;
+					width:15px !important;
+					left:28px !important;
+					top:-20px !important; 
+					.extra_2_2{
+						border-left:$darkGray solid 5px !important; 
+						border-right:$darkGray solid 5px !important;
+						border-top:none !important;
+						border-bottom:none !important;
+						background:none !important;
+						transform: rotate(90deg) !important;
+						height:30px !important;
+						width:15px !important;
+						left:-6px !important; 
+					}
+				}
+				.extra_3{
+					
+				}
+				.extra_4{
+				
+				}
+			}
+		}
     	.button{
     		background:none;
     		border-color:$lightYellow;
@@ -458,9 +536,46 @@
 			}
 		}
 		.phoneWrapper{
-			margin-left:10vw;
+
 		}
 		.navPanel_1{
+	    	.panelStyle{
+	    		// background:red;  
+	    		.animationWrapper{
+		    		.frame{
+		    			margin-left:10px !important; 
+		    			.textWrapper{
+							.textStyle{ 
+			    			}
+			    		}
+					}
+				}
+	    	}
+	    	.animationWapperHovered{
+				.frame{
+					
+					.textWrapper{
+						
+						.textStyle{
+						}
+					}
+					.extra_1{
+
+					}
+					.extra_2{
+						.extra_2_2{
+						}
+					}
+					.extra_3{
+						
+					}
+					.extra_4{
+					
+					}
+				}
+			}
+		}
+		.navPanel_2{
 	    	.panelStyle{
 	    		// background:red;  
 	    		.animationWrapper{
@@ -472,6 +587,30 @@
 					}
 				}
 	    	}
+	    	.animationWapperHovered{
+				.frame{
+					margin-left:-5% !important;
+					.textWrapper{
+						border-radius:0px !important; 
+						padding-left:7px !important; 
+						.textStyle{
+						}
+					}
+					.extra_1{
+
+					}
+					.extra_2{
+						.extra_2_2{
+						}
+					}
+					.extra_3{
+						
+					}
+					.extra_4{
+					
+					}
+				}
+			}
 		}
 	}
 }
@@ -485,6 +624,42 @@
 		}
 		.phoneWrapper{
 			margin-left:17vw;
+		}
+		.navPanel_2{
+	    	.panelStyle{
+	    		// background:red;  
+	    		.animationWrapper{
+		    		.frame{
+		    			.textWrapper{
+							.textStyle{ 
+			    			}
+			    		}
+					}
+				}
+	    	}
+	    	.animationWapperHovered{
+	    		// margin-left:4vw !important; 
+				.frame{
+					margin-left:-2% !important; 
+					.textWrapper{
+						.textStyle{
+						}
+					}
+					.extra_1{
+
+					}
+					.extra_2{
+						.extra_2_2{
+						}
+					}
+					.extra_3{
+						
+					}
+					.extra_4{
+					
+					}
+				}
+			}
 		}
 	}
 }
