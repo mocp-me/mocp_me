@@ -82,28 +82,39 @@ class VisionResultsDesktop extends Component {
         const { title, artist, visionTopTags, uploadedImg, returnedImg, returnedTags } = this.state;
 
         const settings = {
-            fade: true,
             dots: true,
-            infinite: false,
-            speed: 1000,
-            autoplay: true,
-            autoplaySpeed: 1000,
+            infinite: true,
+            speed: 250,
             slidesToShow: 1,
             slidesToScroll: 1,
+            arrows: false,
+            dotClass: 'slick-dots'
         }
         return (
             <div className="explorePageContainer">
                 <Slider { ...settings }>
                     <div>
                         <Row className="rowStyle">
+<<<<<<< HEAD
                             <Col sm={6} className="imageWrapper">
                                 <div className="imageContainer">
                                     <img 
                                         className="imageStyle"
                                         src={ uploadedImg }/>
+=======
+                            <Col sm={6} className="bgWrapper">
+                                <div className="imageWrapper">
+                                    <div className="imageContainer">
+                                        <div className="imageClip">
+                                            <img 
+                                                className="imageStyle"
+                                                src={ uploadedImg }/>
+                                        </div>
+                                    </div>
+>>>>>>> front_end
                                 </div>
                             </Col>
-                            <Col sm={6}>
+                            <Col sm={6} className="resultContainer">
                                 <Info
                                     image={ me }
                                     headerOne = "Some shit about what we're doing with google vision or whatever"
@@ -117,14 +128,26 @@ class VisionResultsDesktop extends Component {
                     { returnedImg && 
                         <div>
                             <Row className="rowStyle">
+<<<<<<< HEAD
                                 <Col sm={6} className="imageWrapper">
                                     <div className="imageContainer">
                                         <img 
                                             className="imageStyle"
                                             src={ returnedImg }/>
+=======
+                                <Col sm={6} className="bgWrapper">
+                                    <div className="imageWrapper">
+                                        <div className="imageContainer">
+                                            <div className="imageClip">
+                                                <img 
+                                                    className="imageStyle"
+                                                    src={ returnedImg }/>
+                                            </div>
+                                        </div>
+>>>>>>> front_end
                                     </div>
                                 </Col>
-                                <Col sm={6}>
+                                <Col sm={6} className="resultContainer">
                                     <Info
                                         image = { mocp }
                                         headerOne={ title }

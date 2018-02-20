@@ -74,6 +74,7 @@ class SearchResultsDesktop extends Component {
             speed: 250,
             slidesToShow: 1,
             slidesToScroll: 1,
+            arrows: false,
             dotClass: 'slick-dots'
         }
         
@@ -94,6 +95,7 @@ class SearchResultsDesktop extends Component {
                         return (
                             <div key={results.id}>
                                 <Row className="rowStyle">
+<<<<<<< HEAD
                                     <Col sm={6} className="imageWrapper">
                                         <div className="imageContainer">
                                             <img 
@@ -107,6 +109,26 @@ class SearchResultsDesktop extends Component {
                                             inputRef={(input) => { this.inputRef = input; }} 
                                             handleTagSubmit={this.handleTagSubmit(results.id)}
                                             btnText="omg thanx!" />
+=======
+                                    <Col sm={6} className="bgWrapper">
+                                        <div className="imageWrapper">
+                                            <div className="imageContainer">
+                                                <div className="imageClip">
+                                                    <img 
+                                                        className="imageStyle"
+                                                        src={ result.web_path }/>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </Col>
+                                    <Col sm={6} className="resultContainer">
+                                        <Info
+                                            title={ result.title }
+                                            artist={ result.artist }
+                                        >
+                                            <Tags isLink={ true } withHash={ true } tagList={ tags } />
+                                        </Info>
+>>>>>>> front_end
                                     </Col>
                                 </Row>
                             </div> 

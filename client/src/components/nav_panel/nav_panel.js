@@ -1,17 +1,48 @@
-import React from 'react';
+import React, { Component } from 'react';
 import {Link} from 'react-router-dom'
 import {Grid, Row, Col, Container} from 'react-grid-system';
+import ClassNames from 'classnames';
 
 
-const NavPanel = ({children, imgSrc, text1, text2, text3, route, onClick, btnText}) => 
-    <Row className="panelStyle">
-    	<Col xs={12}>
-	        <img className="imageStyle" src={imgSrc}/>
-	        <p className="textStyle"><b>{text1}</b></p>
-	        <p className="textStyle"><b>{text2}</b></p>
-	        <p className="textStyle"><b>{text3}</b></p>
-			{children}
-	    </Col>
-    </Row>
+
+class NavPanel extends Component {
+    constructor(props){
+        super(props);
+        this.state = {hovered: false}
+    }
+
+    handleOnMouseOver = () => {
+        this.setState({hovered:true})
+    }
+    handleOnMouseLeave = () => {
+        this.setState({hovered:false})
+    }
+
+    render() {
+		var animationClass = ClassNames({
+		    'animationWrapper': true,
+		    'animationWapperHovered': this.state.hovered
+		});
+		return (
+		    <Row className="panelStyle" onMouseOver={this.handleOnMouseOver} onMouseLeave={this.handleOnMouseLeave}>
+		    	<Col xs={12} className={animationClass}>
+		    		<div className="frame">
+		    			<div className="extra_1"></div>
+		    			<div className="extra_2">
+		    				<div className="extra_2_2"></div>
+		    			</div>
+				    	<div className="textWrapper">
+					        <p className="textStyle"><b>{this.props.text1}</b></p>
+					        <p className="textStyle"><b>{this.props.text2}</b></p>
+					        <p className="textStyle"><b>{this.props.text3}</b></p>
+						</div>
+						<div className="extra_3"></div>
+						<div className="extra_4"></div>
+					</div>
+			    </Col>
+		    </Row>
+	   	)
+    }
+}
 
 export default NavPanel;
