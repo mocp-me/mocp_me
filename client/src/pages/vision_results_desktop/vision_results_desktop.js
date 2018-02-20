@@ -95,13 +95,6 @@ class VisionResultsDesktop extends Component {
                 <Slider { ...settings }>
                     <div>
                         <Row className="rowStyle">
-<<<<<<< HEAD
-                            <Col sm={6} className="imageWrapper">
-                                <div className="imageContainer">
-                                    <img 
-                                        className="imageStyle"
-                                        src={ uploadedImg }/>
-=======
                             <Col sm={6} className="bgWrapper">
                                 <div className="imageWrapper">
                                     <div className="imageContainer">
@@ -111,7 +104,6 @@ class VisionResultsDesktop extends Component {
                                                 src={ uploadedImg }/>
                                         </div>
                                     </div>
->>>>>>> front_end
                                 </div>
                             </Col>
                             <Col sm={6} className="resultContainer">
@@ -128,13 +120,6 @@ class VisionResultsDesktop extends Component {
                     { returnedImg && 
                         <div>
                             <Row className="rowStyle">
-<<<<<<< HEAD
-                                <Col sm={6} className="imageWrapper">
-                                    <div className="imageContainer">
-                                        <img 
-                                            className="imageStyle"
-                                            src={ returnedImg }/>
-=======
                                 <Col sm={6} className="bgWrapper">
                                     <div className="imageWrapper">
                                         <div className="imageContainer">
@@ -144,7 +129,6 @@ class VisionResultsDesktop extends Component {
                                                     src={ returnedImg }/>
                                             </div>
                                         </div>
->>>>>>> front_end
                                     </div>
                                 </Col>
                                 <Col sm={6} className="resultContainer">

@@ -95,21 +95,6 @@ class SearchResultsDesktop extends Component {
                         return (
                             <div key={results.id}>
                                 <Row className="rowStyle">
-<<<<<<< HEAD
-                                    <Col sm={6} className="imageWrapper">
-                                        <div className="imageContainer">
-                                            <img 
-                                                className="imageStyle"
-                                                src={ results.web_path }/>
-                                        </div>
-                                    </Col>
-                                    <Col sm={6}>
-                                        <p>Suggest a new tag: </p>
-                                        <TagSubmit
-                                            inputRef={(input) => { this.inputRef = input; }} 
-                                            handleTagSubmit={this.handleTagSubmit(results.id)}
-                                            btnText="omg thanx!" />
-=======
                                     <Col sm={6} className="bgWrapper">
                                         <div className="imageWrapper">
                                             <div className="imageContainer">
@@ -128,7 +113,6 @@ class SearchResultsDesktop extends Component {
                                         >
                                             <Tags isLink={ true } withHash={ true } tagList={ tags } />
                                         </Info>
->>>>>>> front_end
                                     </Col>
                                 </Row>
                             </div> 
