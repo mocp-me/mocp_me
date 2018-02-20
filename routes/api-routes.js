@@ -30,11 +30,11 @@ const apiRoutes = (() => {
 
 	// API Routes go here
 	router.post('/upload', multer.single('image'), imgUpload.uploadToGcs, (req, res) => {
-		const data = request.body;
-		if (request.file && request.file.cloudStoragePublicUrl) {
-		  data.imageUrl = request.file.cloudStoragePublicUrl;
+		const data = req.body;
+		if (req.file && req.file.cloudStoragePublicUrl) {
+		  data.imageUrl = req.file.cloudStoragePublicUrl;
 		}
-		response.send(data);
+		res.send(data);
 	  })
 
 
