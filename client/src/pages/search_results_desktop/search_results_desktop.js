@@ -72,6 +72,7 @@ class SearchResultsDesktop extends Component {
             speed: 250,
             slidesToShow: 1,
             slidesToScroll: 1,
+            arrows: false,
             dotClass: 'slick-dots'
         }
         
@@ -84,26 +85,36 @@ class SearchResultsDesktop extends Component {
         return(
             <div className="explorePageContainer">
                 <Slider {...settings}>
-                    {this.state.results.map(results => {
+                    {this.state.results.map(result => {
                         let tags = [];
-                        results.Tags.map(tag => {
+                        result.Tags.map(tag => {
                             tags.push(tag.tag_name)
                         })
                         return (
-                            <div key={results.id}>
+                            <div key={result.id}>
                                 <Row className="rowStyle">
-                                    <Col sm={6} className="imageWrapper">
-                                        <div className="imageContainer">
-                                            <img 
-                                                className="imageStyle"
-                                                src={ results.web_path }/>
+                                    <Col sm={6} className="bgWrapper">
+                                        <div className="imageWrapper">
+                                            <div className="imageContainer">
+                                                <div className="imageClip">
+                                                    <img 
+                                                        className="imageStyle"
+                                                        src={ result.web_path }/>
+                                                </div>
+                                            </div>
                                         </div>
                                     </Col>
-                                    <Col sm={6}>
-                                        <p>Suggest a new tag: </p>
-                                        <TagSubmit
-                                            handleTagSubmit={this.handleTagSubmit(results.id)}
+                                    <Col sm={6} className="resultContainer">
+                                        <Info
+                                            title={ result.title }
+                                            artist={ result.artist }
+                                        >
+                                            <Tags isLink={ true } withHash={ true } tagList={ tags } />
+                                            <p>Suggest a new tag: </p>
+                                            <TagSubmit
+                                            handleTagSubmit={this.handleTagSubmit(result.id)}
                                             btnText="omg thanx!" />
+                                        </Info>
                                     </Col>
                                 </Row>
                             </div> 
