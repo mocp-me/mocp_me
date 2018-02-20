@@ -36,13 +36,12 @@ class Phone extends Component {
                     <div className ="aboutWrapper">
                         <p><b>MoCP.me</b> is a web application using computer vision and machine learning as a way to interact with the collection on user-generated terms.</p>
                     </div> }
-                    <div className="line">2018</div>
+                    <div className="line"><b>2018</b></div>
                     <div className="credits"><b>
                         <p>Amanda Yamasaki</p>
                         <p>Lane Anderson</p>
                         <p>Michael Doherty</p>
-                        <p>Dennis Hodges</p>
-                        <p>Jan Tichy</p></b>
+                        <p>Dennis Hodges</p></b>
                     </div>
                 </div>
             </div>
