@@ -2,7 +2,7 @@
 Application for Museum of Contemporary Photography that reverse image searches the museums database and allows users to interact with the museums works
 
 # Database Creation ~ *A History*
-#### Raw Data Prep
+### Raw Data Prep
 Due to the unique nature of this project, the database of images and information that we had access to was greatly limited. We were unable to plug directly in the database that the museum uses for their internal systems. Instead we received a hard drive copy of the files and folders of each image and high definition image. This hard drive contained a seemingly unordered structure of nested folders and database files.
 
 In order to get a database that we could use we first had to sift through the hard drive and pull out all the file paths of all the images. Using *fs* the file-system package for node, we iterated over each folder in the hard drive in and wrote a mySql query to log each folder path.
@@ -45,3 +45,11 @@ The entire premise of this application was to first get people to interact with 
 | ----- | ----------------- | --------- | --------------------- | --------------------- | --------- |
 | 34    | Motion            | 10        | 2018-02-18 15:14:03   | 2018-02-18 16:47:83   | 1         |
 | 97    | Swing             | 10        | 2018-02-20 14:25:33   | 2018-02-20 14:25:33   | 0         |
+
+
+# API Reference
+
+### Public Routes
+### 
+
+### Admin Routes
