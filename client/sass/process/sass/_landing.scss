@@ -109,7 +109,7 @@
 			transition:linear .7s;
 			border-color:$lightGray; 
 			width:90px; 
-			color:$reallyLightGray; 
+			color:$lightGray; 
 			padding-top:10px; 
 			font-size:14px;
 			border-width:1px;
@@ -259,7 +259,7 @@
 				}
 				.extra_1{
 					height:90px !important;
-					width: 5px !important;
+					width: 4px !important;
 					transform: rotate(75deg) !important;
 					background:$darkYellow !important; 
 					margin-left:21px !important;
@@ -267,7 +267,7 @@
 				}
 				.extra_2{
 					height:90px !important;
-					width: 5px !important;
+					width: 3px !important;
 					transform: rotate(-75deg) !important;
 					background:$darkYellow !important; 
 					margin-left:94px !important;
@@ -286,7 +286,7 @@
 					height:75px !important; 
 					background:$lightYellow !important;
 					border: solid $darkYellow;
-					border-width: 5px !important; 
+					border-width: 4px !important; 
 				}
 				.extra_4{
 					top:-340px !important; 
@@ -297,7 +297,7 @@
 					height:100px !important; 
 					background:$lightYellow !important;
 					border: solid $darkYellow;
-					border-width: 5px !important;
+					border-width: 4px !important;
 				}
 			}
 		}
@@ -324,19 +324,71 @@
     		.animationWrapper{
     			margin-top:3vh; 
     			height:30vh;
+    			padding-left:calc(51% - 110px) !important;
 	    		.frame{
-	    			margin-left:8vw; 
-	    			width:25vw;
-    				background:black; 
-    				height:200px; 
+	    			height:160px; 
+	    			width:160px; 
+					background:$darkGray; 
+					border-radius:100px; 
+					padding:7.5px;
+					position:relative; 
 	    			.textWrapper{
+	    				background:$darkYellow;
+	    				height:145px;
+	    				width:145px;
+	    				border-radius:100px;  
+	    				border-left:solid $reallyLightGray; 
+	    				border-width:4px; 
+	    				padding-top:50px; 
+	    				position:relative; 
+	    				margin-top:-80px; 
 						.textStyle{
 							font-family:avenir;
-							line-height:.7;
-							margin:none;
+							line-height:.5;
+							margin-left: -2px; 
 							padding:none;
-							font-size:2.5vh;
+							color:white; 
+							position:relative; 
 			    		}
+		    		}
+		    		.extra_1{
+		    			position:relative; 
+		    			height:30px;
+		    			width:15px; 
+		    			background: $darkGray; 
+		    			transform: rotate(-45deg);
+		    			top:120px; 
+		    			left:130px; 
+		    		}
+		    		.extra_2{
+		    			position:relative; 
+		    			height:50px;
+		    			width:15px; 
+		    			background:$darkGray; 
+		    			transform: rotate(-45deg);
+		    			top:110px;
+		    			left:160px; 
+		    			border-top:solid black;
+		    			border-width:5px;  
+		    			.extra_2_2{
+		    				position:relative; 
+		    				height:45px;
+		    				width:5px; 
+		    				background:$lightGray;  
+		    			}
+		    		}
+		    		.extra_3{
+		    			// position:relative; 
+		    			// height:3px;
+		    			// width:100px; 
+		    			// background:$lightYellow; 
+						// border-radius:3px;
+		    		}
+		    		.extra_4{
+		    			// position:relative; 
+		    			// height:7px;
+		    			// width:100px; 
+		    			// background:orange; 
 		    		}
 				}
 			}
