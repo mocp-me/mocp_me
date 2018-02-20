@@ -39,6 +39,7 @@ class SearchResultsDesktop extends Component {
                 id,
                 tag
             }
+            console.log(data)
             axios
                 .post('/api/submit-tag', data)
                 .then(res => console.log(res))
