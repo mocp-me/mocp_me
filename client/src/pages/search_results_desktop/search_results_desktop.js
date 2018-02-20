@@ -87,13 +87,13 @@ class SearchResultsDesktop extends Component {
         return(
             <div className="explorePageContainer">
                 <Slider {...settings}>
-                    {this.state.results.map(results => {
+                    {this.state.results.map(result => {
                         let tags = [];
-                        results.Tags.map(tag => {
+                        result.Tags.map(tag => {
                             tags.push(tag.tag_name)
                         })
                         return (
-                            <div key={results.id}>
+                            <div key={result.id}>
                                 <Row className="rowStyle">
                                     <Col sm={6} className="bgWrapper">
                                         <div className="imageWrapper">
