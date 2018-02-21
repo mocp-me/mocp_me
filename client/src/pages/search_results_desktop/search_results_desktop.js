@@ -8,17 +8,16 @@ import Tags from '../../components/tag_list/tag_list';
 import TagSubmit from '../../components/tag_submit/tag_submit';
 import NavBtn from '../../components/nav_button';
 
-
 class SearchResultsDesktop extends Component {
     constructor(props) {
         super(props);
 
-        this.handleTagSubmit = this.handleTagSubmit.bind(this)
+        this.handleTagSubmit = this.handleTagSubmit.bind(this);
 
         this.state = { 
             results : [],
             searchFail: false 
-        }
+        };
     }
 
     componentDidMount() {
@@ -27,9 +26,8 @@ class SearchResultsDesktop extends Component {
         .get(`/api/search-tags/${term}/random`)
         .then((res) => {
             const results = res.data;
-            console.log('results: ', results)
             if (results.length === 0) {
-                this.setState({searchFail : true})
+                this.setState({searchFail : true});
             } else {
                 this.setState({ results });
             }
@@ -45,14 +43,12 @@ class SearchResultsDesktop extends Component {
             const data = {
                 id,
                 tag
-            }
-            console.log(data)
+            };
             axios
                 .post('/api/submit-tag', data)
-                .then(res => console.log(res))
+                .then(res => console.log(res));
         }
-
-        event.target.elements.term.value = ""
+        event.target.elements.term.value = "";
     }
 
     render() {
@@ -71,25 +67,25 @@ class SearchResultsDesktop extends Component {
             settings.draggable = false;
             settings.slidesToScroll = 0;
         }
-        
+
         if (this.state.results.length === 0) {
             if(this.state.searchFail) {
                 return (
                     <div>No results, please try again! Avoid typing a valid search and then quickly backspacing and while mashing the enter key.. </div>
 
-                )
+                );
             }
             return (
                 //insert dope loading animation here..
                 <div>Loading...</div>
-            )
+            );
         }
 
         const slides = this.state.results.map(result => {
             let tags = [];
             result.Tags.map(tag => {
                 tags.push(tag.tag_name)
-            })
+            });
             return (
                 <div key={result.id}>
                     <Row className="rowStyle">
