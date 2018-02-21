@@ -110,10 +110,10 @@ class SearchResultsDesktop extends Component {
                                             artist={ result.artist }
                                         >
                                             <Tags isLink={ true } withHash={ true } tagList={ tags } />
-                                            <p>Suggest a new tag: </p>
+                                            <p>add a tag : </p>
                                             <TagSubmit
                                             handleTagSubmit={this.handleTagSubmit(result.id)}
-                                            btnText="omg thanx!" />
+                                            btnText="submit" />
                                         </Info>
                                     </Col>
                                 </Row>
