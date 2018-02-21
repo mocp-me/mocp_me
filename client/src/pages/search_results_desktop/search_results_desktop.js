@@ -126,7 +126,7 @@ class SearchResultsDesktop extends Component {
             <div className="explorePageContainer">
                 <Slider {...settings}>
                     {slides}
-                    {this.state.results.length === 1 && <div></div>}
+                    { this.state.results.length === 1 && <div></div> }
                 </Slider>
             </div>
         );
