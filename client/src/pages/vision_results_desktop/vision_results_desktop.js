@@ -76,8 +76,8 @@ class VisionResultsDesktop extends Component {
                     artist,
                     visionTopTags,
                     returnedTags
-                })
-                sessionStorage.setItem('prevState', JSON.stringify(this.state))
+                });
+                sessionStorage.setItem('prevState', JSON.stringify(this.state));
             })
             .catch(err => console.log(err));
     }
@@ -96,7 +96,7 @@ class VisionResultsDesktop extends Component {
         if(this.state.searchFail) {
             return (
                 <h3>omg your super unique photo didnt match any of the 90,000 tags in our database!</h3>
-            )
+            );
         }
         return (
             <div className="explorePageContainer">
@@ -124,7 +124,7 @@ class VisionResultsDesktop extends Component {
                             </Col>
                         </Row>
                     </div> 
-                    {!returnedImg && <div>Loading...</div>}
+                    { !returnedImg && <div>Loading...</div> }
                     { returnedImg && 
                         <div>
                             <Row className="rowStyle">
@@ -150,7 +150,7 @@ class VisionResultsDesktop extends Component {
                                         {/* {returnedImg && <NavBtn route='/submit' btnText='submit your results to mocp' />} */}
                                         <p>Suggest a new tag: </p>
                                         <TagSubmit
-                                            handleTagSubmit={this.handleTagSubmit}
+                                            handleTagSubmit={ this.handleTagSubmit }
                                             btnText="Send iiiittt!" />
                                     </Info>
                                 </Col>
