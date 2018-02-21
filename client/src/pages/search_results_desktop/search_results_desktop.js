@@ -121,8 +121,43 @@ class SearchResultsDesktop extends Component {
         return(
             <div className="explorePageContainer">
                 <Slider {...settings}>
-                    {slides}
-                    { this.state.results.length === 1 && <div></div> }
+                    {/*{slides}
+                    { this.state.results.length === 1 && <div></div> }*/}
+                    {this.state.results.map(result => {
+                        let tags = [];
+                        result.Tags.map(tag => {
+                            tags.push(tag.tag_name)
+                        })
+                        return (
+                            <div key={result.id}>
+                                <Row className="rowStyle">
+                                    <Col sm={6} className="bgWrapper">
+                                        <div className="imageWrapper">
+                                            <div className="imageContainer">
+                                                <div className="imageClip">
+                                                    <img 
+                                                        className="imageStyle"
+                                                        src={ result.web_path }/>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </Col>
+                                    <Col sm={6} className="resultContainer">
+                                        <Info
+                                            title={ result.title }
+                                            artist={ result.artist }
+                                        >
+                                            <Tags isLink={ true } withHash={ true } tagList={ tags } />
+                                            <p>add a tag : </p>
+                                            <TagSubmit
+                                            handleTagSubmit={this.handleTagSubmit(result.id)}
+                                            btnText="submit" />
+                                        </Info>
+                                    </Col>
+                                </Row>
+                            </div> 
+                        );
+                    })}
                 </Slider>
             </div>
         );
