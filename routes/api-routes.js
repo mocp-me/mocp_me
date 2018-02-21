@@ -1,4 +1,4 @@
-const apiRoutes = (function(){
+const apiRoutes = (() => {
 	// Dependencies
 	const Multer = require('multer');
 	
@@ -7,6 +7,8 @@ const apiRoutes = (function(){
 		fileSize: 5 * 1024 * 1024
 	});
 
+	const Sequelize = require('sequelize');
+	const Op = Sequelize.Op;
 	
 	const imgUpload = require('./imgUpload');
 
@@ -27,12 +29,12 @@ const apiRoutes = (function(){
 	router.use(bodyParser.json());
 
 	// API Routes go here
-	router.post('/upload', multer.single('image'), imgUpload.uploadToGcs, function(request, response, next) {
-		const data = request.body;
-		if (request.file && request.file.cloudStoragePublicUrl) {
-		  data.imageUrl = request.file.cloudStoragePublicUrl;
+	router.post('/upload', multer.single('image'), imgUpload.uploadToGcs, (req, res) => {
+		const data = req.body;
+		if (req.file && req.file.cloudStoragePublicUrl) {
+		  data.imageUrl = req.file.cloudStoragePublicUrl;
 		}
-		response.send(data);
+		res.send(data);
 	  })
 
 
@@ -65,27 +67,46 @@ const apiRoutes = (function(){
 		})
 	});
 
-	router.post('/submit', (req, res) => {
+	router.post('/submit-photo', (req, res) => {
 		console.log('shit to be saved to the new db pending successful save', req.body)
 		let fileName = req.body.uploadedImg;
 		fileName = fileName.split('/');
 		fileName = fileName[fileName.length-1];
 		helpers.submit(fileName);
+	})
 
+	router.post('/submit-tag', (req, res) => {
+		console.log("route hit: ", req.body)
+		const { id, tag } = req.body
+		db.user_tags.findOrCreate({
+			where: {
+				tag_name: tag,
+				photo_id: id
+			}
+		})
+		.then(results => console.log('results', results))
+		
 	})
 
 	// Get the images of a particular keyword
-	router.get("/search-tags/:tag_name", (req, res) => {
-		let arr = [];
-		db.Tags.findAll({
+	router.get("/search-tags/:tag_name/:random?", (req, res) => {
+		const arr = [];
+		const queryParams = {
 			where: {
 				tag_name: req.params.tag_name
 			}
-		}).then(Tags => {
+		};
+
+		if(req.params.random) {
+			queryParams.limit = 5;
+			queryParams.order = [ Sequelize.fn('RAND') ];
+		}
+
+		db.Tags.findAll(queryParams).then(Tags => {
 			Tags.forEach(i => {
 				arr.push(i.photo_id);
 			})
-		}).then(function(){
+		}).then(() => {
 			db.Photos.findAll({
 				where: {
 					id: {
@@ -101,10 +122,20 @@ const apiRoutes = (function(){
 		})
 	});
 
+	router.get('/check-tag/:tag_name', (req, res) => {
+		console.log(req.params.tag_name)
+		db.Tags.findOne({
+			where: {
+				tag_name: req.params.tag_name
+			}
+		}).then(result => {
+			res.json(result);
+		})
+	})
+
 	// Test DB get routes
 	router.get("/all-photos", (req, res) => {
 		db.Photos.findAll({
-			limit: 10,
 			include: [{
 				model: db.Tags
 			}]
@@ -113,21 +144,27 @@ const apiRoutes = (function(){
 		})
 	});
 
-	router.get("/all-tags", (req, res) => {
-		db.Tags.findAll().then(Tags => {
+	router.get("/all-tags/:random?", (req, res) => {
+		const queryParams = {}
+		if(req.params.random) {
+			queryParams.attributes =  [ Sequelize.fn('DISTINCT', Sequelize.col('tag_name')) ,'tag_name' ];
+			queryParams.limit = 10;
+			queryParams.order = [ Sequelize.fn('RAND') ];
+		}
+		db.Tags.findAll(queryParams).then(Tags => {
 			res.json(Tags);
 		})
 	});
 
 	// Test DB Post routes
-	router.post("/add-tag", function (req, res) {
+	router.post("/add-tag", (req, res) => {
 		console.log(req.body);
 		// create takes an argument of an object describing the item we want to insert into our table.
 		db.user_tags.create({
 			tag_name: req.body.tag_name,
 			photo_id: req.body.photo_id
 			//approved: req.body.approved
-		}).then(function (addedTag) {
+		}).then((addedTag) => {
 			// We have access to the new todo as an argument inside of the callback function
 			res.json(addedTag);
 		});

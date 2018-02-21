@@ -63,43 +63,51 @@ const adminRoutes = (function(){
 		});
 	})
 
-	//Update only tags approval
-	router.put("/approval", function (req, res) {
+	//Update only tags approval to true
+	router.put("/approval/:tagId", function (req, res) {
 		db.user_tags.update({ 
-			approved: req.body.approved 
+			approved: true 
 		},{
-			where: { id: req.body.id }
+			where: { id: req.params.tagId }
 		})
 		.then(function (approved) {
+			console.log(approved, " has been approved");
 			res.json(approved)
 		});
 	})
 
 	// Delete from DB
-	router.delete("/delete/:id", function (req, res) {
-		// We just have to specify which todo we want to destroy with "where"
+	router.delete("/delete/:tagId", function (req, res) {
+		console.log("admin/delete call received by backend");
+		console.log(`/delete/${req.params.tagId} called`);
+		// We just have to specify which tag we want to destroy with "where"
 		db.user_tags.destroy({
 			where: {
-				id: req.params.id
+				id: req.params.tagId
 			}
 		}).then(function (deleted) {
+			console.log(deleted, " has been deleted");
 			res.json(deleted);
 		});
 	});
-	
 
-	// Test DB get routes
-	// router.get("/all-photos", (req, res) => {
-	// 	db.Photos.findAll().then(Photos => {
-	// 		res.json(Photos);
-	// 	})
-	// });
-
-	router.get("/all-tags", (req, res) => {
+	router.get("/user-tags", (req, res) => {
 		console.log("admin/all-tags call received by backend");
-		db.Tags.findAll().then(Tags => {
+		db.user_tags.findAll().then(Tags => {
 			res.json(Tags);
-		})
+		});
+	});
+
+	router.get("/pending-tags", (req, res) => {
+		console.log("admin/pending-tags call received by backend");
+		db.user_tags.findAll({
+			where: {
+				approved: false
+			},
+			include: [db.Photos]
+		}).then(Tags => {
+			res.json(Tags);
+		});
 	});
 
 	// Catch-all route

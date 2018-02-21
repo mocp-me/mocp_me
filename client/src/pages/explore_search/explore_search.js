@@ -2,32 +2,63 @@ import React, { Component } from 'react';
 import {Grid, Row, Col, Container} from 'react-grid-system';
 import { withRouter } from 'react-router-dom';
 import Media from "react-media";
+import axios from 'axios';
+import _ from 'lodash';
 
 import Logo from '../../components/logo/logo';
 import TagSubmit from '../../components/tag_submit/tag_submit';
 import Tags from '../../components/tag_list/tag_list';
 import NavBtn from '../../components/nav_button';
+import SearchBar from '../../components/search_bar';
 
 
 class ExploreSearch extends Component {
     constructor(props){
         super(props);
     
-        this.handleFormSubmit = this.handleFormSubmit.bind(this);
+        this.handleTagSubmit = this.handleTagSubmit.bind(this);
 
-        this.state = {tags : ['cat', 'dog']}
+        this.state = {
+            tags : [],
+            disableSearch: true
+        }
+
     }
 
-    componentWillMount () {
-        //ajax call to get trending tags
+    componentDidMount () {
+        axios
+            .get('/api/all-tags/random')
+        
+            .then(res => {
+                const tags = []
+                res.data.map(result => tags.push(result.tag_name))                                    
+                this.setState({ tags });
+            })
     }
 
-    handleFormSubmit(event) {
-        event.preventDefault();
-        const term = event.target.elements.term.value;
-        this.props.history.push(`/search/${term}`)
+    handleTagSubmit(term) {
+        
+        if(!this.state.disableSearch) {
+            this.props.history.push(`/search/${term}`)
+        }
     }
+
+    tagSearch = (term) => {
+        axios
+            .get(`/api/check-tag/${term || null}`)
+            .then((res) => {
+                console.log(res)
+                if(res.data) {
+                    this.setState({ disableSearch: false });
+                } else {
+                    this.setState({ disableSearch: true });
+                }
+            });
+    }
+
     render() {
+        const tagSearch = _.debounce((term) => { this.tagSearch(term) }, 125);
+
         return (
             <Row>
                 <Col sm={7} className="leftColumn">
@@ -35,7 +66,11 @@ class ExploreSearch extends Component {
                         <Logo />
                         <div className="tagSearchStyle">
                             <p><b>Search a tag: </b></p>
-                            <TagSubmit handleFormSubmit ={this.handleFormSubmit}/>
+                            <SearchBar 
+                                handleOnSubmit={this.handleTagSubmit}
+                                onSearchTermChange={ tagSearch } 
+                                isDisabled={this.state.disableSearch}
+                                />
                         </div>
                     </div>
                 </Col>

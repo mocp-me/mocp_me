@@ -21,7 +21,7 @@ class VisionResultsDesktop extends Component {
     constructor(props) {
         super(props)
 
-        this.handleOnClick = this.handleOnClick.bind(this);
+        this.handleTagSubmit = this.handleTagSubmit.bind(this);
 
         this.state = { uploadedImg : JSON.parse(sessionStorage.getItem('uploadedImg')) };
     }
@@ -29,7 +29,6 @@ class VisionResultsDesktop extends Component {
     componentDidMount() {
         let prevState = sessionStorage.getItem('prevState');
         prevState = JSON.parse(prevState);
-        console.log(prevState);
         if(prevState){
             if(this.state.uploadedImg === prevState.uploadedImg) {
                 this.setState(prevState);
@@ -44,8 +43,17 @@ class VisionResultsDesktop extends Component {
         sessionStorage.setItem('prevState', JSON.stringify(this.state))
       }
 
-    handleOnClick() {
-        this.props.history.push('/submit')
+    handleTagSubmit(event) {
+        event.preventDefault();
+        const tag = event.target.elements.term.value;
+        const data = {
+            id: this.state.imgId,
+            tag
+        }
+        //make a post with these!
+        axios
+            .post('/api/submit-tag', data)
+            .then(res => console.log(res))
     }
 
     fetchImage() {
@@ -55,6 +63,7 @@ class VisionResultsDesktop extends Component {
         axios
             .get(`/api/vision/${fileName}`)
             .then((res) => {
+                console.log('vision res', res)
                 const returnedTags = [];
                 res.data.Tags.map(tag => returnedTags.push(tag.tag_name));
                 this.setState({ 
@@ -62,7 +71,8 @@ class VisionResultsDesktop extends Component {
                     artist : res.data.artist,
                     visionTopTags : res.data.visionTopTags,
                     returnedTags,
-                    returnedImg: res.data.web_path
+                    returnedImg: res.data.web_path,
+                    imgId: res.data.id
                 })
                 sessionStorage.setItem('prevState', JSON.stringify(this.state))
             })
@@ -72,62 +82,76 @@ class VisionResultsDesktop extends Component {
         const { title, artist, visionTopTags, uploadedImg, returnedImg, returnedTags } = this.state;
 
         const settings = {
-            fade: true,
             dots: true,
-            infinite: false,
-            speed: 1000,
-            autoplay: true,
-            autoplaySpeed: 1000,
+            infinite: true,
+            speed: 250,
             slidesToShow: 1,
             slidesToScroll: 1,
+            arrows: false,
+            dotClass: 'slick-dots'
         }
         return (
             <div className="explorePageContainer">
                 <Slider { ...settings }>
                     <div>
-                        <Row className="rowStyle" style={{width: '75vw'}}>
-                            <Col sm={6} className="imageWrapper">
-                                <div className="imageContainer">
-                                    <img 
-                                        className="imageStyle"
-                                        src={ uploadedImg }/>
+                        <Row className="rowStyle">
+                            <Col sm={6} className="bgWrapper">
+                                <div className="imageWrapper">
+                                    <div className="imageContainer">
+                                        <div className="imageClip">
+                                            <img 
+                                                className="imageStyle"
+                                                src={ uploadedImg }/>
+                                        </div>
+                                    </div>
                                 </div>
                             </Col>
-                            <Col sm={6}>
+                            <Col sm={6} className="resultContainer">
                                 <Info
                                     image={ me }
                                     headerOne = "Some shit about what we're doing with google vision or whatever"
                                 >
                                     { visionTopTags ? <Tags withHash={ true } tagList={ visionTopTags } /> : <p>fetching tags..</p> }
-                                    <NavBtn route='/explore' btnText='search again!' />
                                 </Info>
                             </Col>
                         </Row>
                     </div> 
                     { returnedImg && 
                         <div>
-                            <Row className="rowStyle" style={{width: '75vw'}}>
-                                <Col sm={6} className="imageWrapper">
-                                    <div className="imageContainer">
-                                        <img 
-                                            className="imageStyle"
-                                            src={ returnedImg }/>
+                            <Row className="rowStyle">
+                                <Col sm={6} className="bgWrapper">
+                                    <div className="imageWrapper">
+                                        <div className="imageContainer">
+                                            <div className="imageClip">
+                                                <img 
+                                                    className="imageStyle"
+                                                    src={ returnedImg }/>
+                                            </div>
+                                        </div>
                                     </div>
                                 </Col>
-                                <Col sm={6}>
+                                <Col sm={6} className="resultContainer">
                                     <Info
                                         image = { mocp }
                                         headerOne={ title }
                                         headerTwo={ artist }
                                     >
                                         <Tags withHash={ true } tagList={ returnedTags } />
-                                        <NavBtn route='/explore' btnText='search again!' />
+                                     
                                     </Info>
                                 </Col>
                             </Row>
                         </div> 
                     }
                 </Slider>
+                <NavBtn route='/explore' btnText='search again!' />
+                {returnedImg && <NavBtn route='/submit' btnText='submit your results to mocp' />}
+                {/* This should be nested inside of the Info component on the returned Img, 
+                    putting it here for now because I cant click on shit in the fucked up, unstlyed version of the carousel */}
+                <p>Suggest a new tag: </p>
+                <TagSubmit
+                    handleTagSubmit={this.handleTagSubmit}
+                    btnText="Send iiiittt!" />
             </div>
         );
     }
