@@ -127,6 +127,7 @@ class VisionResultsDesktop extends Component {
                             </Col>
                         </Row>
                     </div> 
+                    {!returnedImg && <div>Loading...</div>}
                     { returnedImg && 
                         <div>
                             <Row className="rowStyle">
