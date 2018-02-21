@@ -15,7 +15,10 @@ class SearchResultsDesktop extends Component {
 
         this.handleTagSubmit = this.handleTagSubmit.bind(this)
 
-        this.state = { results : [] }
+        this.state = { 
+            results : [],
+            searchFail: false 
+        }
     }
 
     componentDidMount() {
@@ -25,7 +28,11 @@ class SearchResultsDesktop extends Component {
         .then((res) => {
             const results = res.data;
             console.log('results: ', results)
-            this.setState({ results });
+            if (results.length === 0) {
+                this.setState({searchFail : true})
+            } else {
+                this.setState({ results });
+            }
         })
         .catch(err => console.log(err));
     }
@@ -60,6 +67,12 @@ class SearchResultsDesktop extends Component {
         }
         
         if (this.state.results.length === 0) {
+            if(this.state.searchFail) {
+                return (
+                    <div>No results, please try again! Avoid typing a valid search and then quickly backspacing and while mashing the enter key.. </div>
+
+                )
+            }
             return (
                 //insert dope loading animation here..
                 <div>Loading...</div>
@@ -89,14 +102,15 @@ class SearchResultsDesktop extends Component {
                                     </Col>
                                     <Col sm={6} className="resultContainer">
                                         <Info
-                                            title={ result.title }
-                                            artist={ result.artist }
+                                            headerOne={ result.title }
+                                            headerTwo={ result.artist }
                                         >
                                             <Tags isLink={ true } withHash={ true } tagList={ tags } />
                                             <p>Suggest a new tag: </p>
                                             <TagSubmit
                                             handleTagSubmit={this.handleTagSubmit(result.id)}
                                             btnText="omg thanx!" />
+                                            <NavBtn route='/explore' btnText='search again!' />
                                         </Info>
                                     </Col>
                                 </Row>
@@ -104,7 +118,6 @@ class SearchResultsDesktop extends Component {
                         );
                     })}
                 </Slider>
-                <NavBtn route='/explore' btnText='search again!' />
             </div>
         );
     }

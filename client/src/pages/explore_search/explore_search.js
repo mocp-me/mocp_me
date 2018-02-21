@@ -57,7 +57,7 @@ class ExploreSearch extends Component {
     }
 
     render() {
-        const tagSearch = _.debounce((term) => { this.tagSearch(term) }, 125);
+        const tagSearch = _.debounce((term) => { this.tagSearch(term) }, 150);
 
         return (
             <Row>

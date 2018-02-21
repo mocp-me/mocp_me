@@ -60,6 +60,10 @@ const apiRoutes = (() => {
 				}]
 				
 			}).then(results => {
+				if(!results.length) {
+					res.send('no results')
+					return;
+				}
 				const appendedResults = results[0].dataValues;
 				appendedResults.visionTopTags = visionTopTags;
 				res.json(appendedResults)

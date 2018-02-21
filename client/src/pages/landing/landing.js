@@ -17,7 +17,8 @@ class Landing extends Component {
         this.onDragLeave = this.onDragLeave.bind(this);
 
         this.state = {
-            dropzoneActive: false
+            dropzoneActive: false,
+            rejectedFile: false
         }
     }
 
@@ -33,12 +34,18 @@ class Landing extends Component {
         });
     }
 
-    onDrop(file) {
+    onDrop(accepted, rejected) {
+        console.log('accepted: ', accepted)
+        console.log('rejected: ', rejected)
+        if(rejected.length > 0) {
+            this.setState({ rejectedFile: true })
+            return;
+        }
         this.setState(() => {
             return {dropzoneActive: false}
         });
         const image = new FormData();
-        image.append("image", file[0]);
+        image.append("image", accepted[0]);
         axios.post("/api/upload", image)
             .then(res => {
                 sessionStorage.setItem("uploadedImg", JSON.stringify(res.data.imageUrl));
@@ -66,15 +73,16 @@ class Landing extends Component {
                     </Col>
                     <Col xs={12} sm={5} md={5}>
                         <Dropzone
-                            onDrop={this.onDrop}
+                            style={{ position: "relative" }}
                             multiple={false}
-                            style={{
-                            position: "relative"
-                        }}
                             accept="image/*"
-                            onDrop={this.onDrop.bind(this)}
-                            onDragEnter={this.onDragEnter.bind(this)}
-                            onDragLeave={this.onDragLeave.bind(this)}>
+                            maxSize={4000000}
+                            minSize={5000}
+                            onDrop={this.onDrop}
+                            onDragEnter={this.onDragEnter}
+                            onDragLeave={this.onDragLeave}
+                            
+                            >
                                 { dropzoneActive && <div style={overlayStyle}></div> }
                                 <div className="navPanel_1">
                                   <NavPanel
@@ -85,6 +93,7 @@ class Landing extends Component {
                                   <button className="button">
                                     add image
                                   </button>
+                                  {this.state.rejectedFile && <p>File type or size rejected! :(<br/>Upload an image file between 5kb and 4mb in size</p>}
                                 </div>
                         </Dropzone>
                         <div className="navPanel_2">

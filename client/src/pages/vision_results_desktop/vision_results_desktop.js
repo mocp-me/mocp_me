@@ -23,7 +23,10 @@ class VisionResultsDesktop extends Component {
 
         this.handleTagSubmit = this.handleTagSubmit.bind(this);
 
-        this.state = { uploadedImg : JSON.parse(sessionStorage.getItem('uploadedImg')) };
+        this.state = { 
+            uploadedImg : JSON.parse(sessionStorage.getItem('uploadedImg')),
+            searchFail: false
+         };
     }
 
     componentDidMount() {
@@ -64,6 +67,10 @@ class VisionResultsDesktop extends Component {
             .get(`/api/vision/${fileName}`)
             .then((res) => {
                 console.log('vision res', res)
+                if(res.data === 'no results'){
+                    this.setState({searchFail: true})
+                    return;
+                }
                 const returnedTags = [];
                 res.data.Tags.map(tag => returnedTags.push(tag.tag_name));
                 this.setState({ 
@@ -89,6 +96,11 @@ class VisionResultsDesktop extends Component {
             slidesToScroll: 1,
             arrows: false,
             dotClass: 'slick-dots'
+        }
+        if(this.state.searchFail) {
+            return (
+                <h3>omg your super unique photo didnt match any of the 90,000 tags in our database!</h3>
+            )
         }
         return (
             <div className="explorePageContainer">
@@ -137,21 +149,18 @@ class VisionResultsDesktop extends Component {
                                         headerTwo={ artist }
                                     >
                                         <Tags withHash={ true } tagList={ returnedTags } />
-                                     
+                                        <NavBtn route='/explore' btnText='search again!' />
+                                        {returnedImg && <NavBtn route='/submit' btnText='submit your results to mocp' />}
+                                        <p>Suggest a new tag: </p>
+                                        <TagSubmit
+                                            handleTagSubmit={this.handleTagSubmit}
+                                            btnText="Send iiiittt!" />
                                     </Info>
                                 </Col>
                             </Row>
                         </div> 
                     }
                 </Slider>
-                <NavBtn route='/explore' btnText='search again!' />
-                {returnedImg && <NavBtn route='/submit' btnText='submit your results to mocp' />}
-                {/* This should be nested inside of the Info component on the returned Img, 
-                    putting it here for now because I cant click on shit in the fucked up, unstlyed version of the carousel */}
-                <p>Suggest a new tag: </p>
-                <TagSubmit
-                    handleTagSubmit={this.handleTagSubmit}
-                    btnText="Send iiiittt!" />
             </div>
         );
     }
