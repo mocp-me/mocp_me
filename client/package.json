@@ -1,11 +1,7 @@
 {
 	"name": "mocp.me",
 	"version": "2.0.0",
-<<<<<<< HEAD
-	"engines": {
-=======
 	"engine": {
->>>>>>> master
 		"node": "9.4.0"
 	},
 	"private": true,
