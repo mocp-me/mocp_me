@@ -4,7 +4,6 @@ import { Grid, Row, Col, Container } from 'react-grid-system';
 import axios from 'axios';
 import _ from 'lodash';
 
-
 import Logo from '../../components/logo/logo';
 import Info from '../../components/returned_info/returned_info';
 import Tags from '../../components/tag_list/tag_list';
@@ -14,11 +13,9 @@ import NavBtn from '../../components/nav_button';
 import mocp from './mocp.png';
 import me from './me.png';
 
-
-
 class VisionResultsDesktop extends Component {
     constructor(props) {
-        super(props)
+        super(props);
 
         this.handleTagSubmit = this.handleTagSubmit.bind(this);
 
@@ -42,7 +39,7 @@ class VisionResultsDesktop extends Component {
         }
     }
     componentWillUnmount() {
-        sessionStorage.setItem('prevState', JSON.stringify(this.state))
+        sessionStorage.setItem('prevState', JSON.stringify(this.state));
       }
 
     handleTagSubmit(event) {
@@ -51,11 +48,11 @@ class VisionResultsDesktop extends Component {
         const data = {
             id: this.state.imgId,
             tag
-        }
+        };
         //make a post with these!
         axios
             .post('/api/submit-tag', data)
-            .then(res => console.log(res))
+            .then(res => console.log(res));
     }
 
     fetchImage() {
@@ -65,20 +62,20 @@ class VisionResultsDesktop extends Component {
         axios
             .get(`/api/vision/${fileName}`)
             .then((res) => {
-                console.log('vision res', res)
                 if(res.data === 'no results'){
                     this.setState({searchFail: true})
                     return;
                 }
                 const returnedTags = [];
+                const { title, artist, visionTopTags, web_path, id } = res.data;
                 res.data.Tags.map(tag => returnedTags.push(tag.tag_name));
                 this.setState({ 
-                    title : res.data.title,
-                    artist : res.data.artist,
-                    visionTopTags : res.data.visionTopTags,
-                    returnedTags,
-                    returnedImg: res.data.web_path,
-                    imgId: res.data.id
+                    returnedImg : web_path,
+                    imgId: id,
+                    title,
+                    artist,
+                    visionTopTags,
+                    returnedTags
                 })
                 sessionStorage.setItem('prevState', JSON.stringify(this.state))
             })
