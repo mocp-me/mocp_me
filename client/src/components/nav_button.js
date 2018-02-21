@@ -4,7 +4,7 @@ import { Link } from 'react-router-dom';
 const NavBtn = (props) => {
     return (
         <Link to={props.route}>
-            <button>{props.btnText}</button>
+            <button className="backButton">{props.btnText}</button>
         </Link>
     )
 }
