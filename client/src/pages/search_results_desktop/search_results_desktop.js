@@ -63,7 +63,13 @@ class SearchResultsDesktop extends Component {
             slidesToShow: 1,
             slidesToScroll: 1,
             arrows: false,
-            dotClass: 'slick-dots'
+            dotClass: 'slick-dots',
+        }
+
+        if(this.state.results.length === 1) {
+            settings.dots = false;
+            settings.draggable = false;
+            settings.slidesToScroll = 0;
         }
         
         if (this.state.results.length === 0) {
@@ -78,45 +84,49 @@ class SearchResultsDesktop extends Component {
                 <div>Loading...</div>
             )
         }
+
+        const slides = this.state.results.map(result => {
+            let tags = [];
+            result.Tags.map(tag => {
+                tags.push(tag.tag_name)
+            })
+            return (
+                <div key={result.id}>
+                    <Row className="rowStyle">
+                        <Col sm={6} className="bgWrapper">
+                            <div className="imageWrapper">
+                                <div className="imageContainer">
+                                    <div className="imageClip">
+                                        <img 
+                                            className="imageStyle"
+                                            src={ result.web_path }/>
+                                    </div>
+                                </div>
+                            </div>
+                        </Col>
+                        <Col sm={6} className="resultContainer">
+                            <Info
+                                headerOne={ result.title }
+                                headerTwo={ result.artist }
+                            >
+                                <Tags isLink={ true } withHash={ true } tagList={ tags } />
+                                <p>Suggest a new tag: </p>
+                                <TagSubmit
+                                    handleTagSubmit={this.handleTagSubmit(result.id)}
+                                    btnText="omg thanx!" />
+                                <NavBtn route='/explore' btnText='search again!' />
+                            </Info>
+                        </Col>
+                    </Row>
+                </div> 
+            );
+        })
+
         return(
             <div className="explorePageContainer">
                 <Slider {...settings}>
-                    {this.state.results.map(result => {
-                        let tags = [];
-                        result.Tags.map(tag => {
-                            tags.push(tag.tag_name)
-                        })
-                        return (
-                            <div key={result.id}>
-                                <Row className="rowStyle">
-                                    <Col sm={6} className="bgWrapper">
-                                        <div className="imageWrapper">
-                                            <div className="imageContainer">
-                                                <div className="imageClip">
-                                                    <img 
-                                                        className="imageStyle"
-                                                        src={ result.web_path }/>
-                                                </div>
-                                            </div>
-                                        </div>
-                                    </Col>
-                                    <Col sm={6} className="resultContainer">
-                                        <Info
-                                            headerOne={ result.title }
-                                            headerTwo={ result.artist }
-                                        >
-                                            <Tags isLink={ true } withHash={ true } tagList={ tags } />
-                                            <p>Suggest a new tag: </p>
-                                            <TagSubmit
-                                            handleTagSubmit={this.handleTagSubmit(result.id)}
-                                            btnText="omg thanx!" />
-                                            <NavBtn route='/explore' btnText='search again!' />
-                                        </Info>
-                                    </Col>
-                                </Row>
-                            </div> 
-                        );
-                    })}
+                    {slides}
+                    {this.state.results.length === 1 && <div></div>}
                 </Slider>
             </div>
         );
