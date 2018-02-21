@@ -77,7 +77,7 @@ const apiRoutes = (() => {
 		fileName = fileName.split('/');
 		fileName = fileName[fileName.length-1];
 		helpers.submit(fileName);
-	})
+	});
 
 	router.post('/submit-tag', (req, res) => {
 		console.log("route hit: ", req.body)
@@ -87,11 +87,14 @@ const apiRoutes = (() => {
 				tag_name: tag,
 				photo_id: id
 			}
-		})
-		.then(results => console.log('results', results))
-		
-	})
-
+		}).spread((tag, created) => {
+			console.log(tag.get({
+			  plain: true
+			}));
+			console.log("tag created: ", created)
+		  });
+		});
+	
 	// Get the images of a particular keyword
 	router.get("/search-tags/:tag_name/:random?", (req, res) => {
 		const arr = [];
@@ -120,10 +123,10 @@ const apiRoutes = (() => {
 				include: [{
 					model: db.Tags
 				}]
-			}).then( matched => {
+			}).then(matched => {
 				res.json(matched)
-			})
-		})
+			});
+		});
 	});
 
 	router.get('/check-tag/:tag_name', (req, res) => {

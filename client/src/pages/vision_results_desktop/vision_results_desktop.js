@@ -2,7 +2,6 @@ import React, { Component } from 'react';
 import Slider from 'react-slick';
 import { Grid, Row, Col, Container } from 'react-grid-system';
 import axios from 'axios';
-import domtoimage from 'dom-to-image';
 import _ from 'lodash';
 
 
@@ -149,8 +148,8 @@ class VisionResultsDesktop extends Component {
                                         headerTwo={ artist }
                                     >
                                         <Tags withHash={ true } tagList={ returnedTags } />
-                                        <NavBtn route='/explore' btnText='search again!' />
-                                        {returnedImg && <NavBtn route='/submit' btnText='submit your results to mocp' />}
+                                        <NavBtn route='/' btnText='try again' />
+                                        {/* {returnedImg && <NavBtn route='/submit' btnText='submit your results to mocp' />} */}
                                         <p>Suggest a new tag: </p>
                                         <TagSubmit
                                             handleTagSubmit={this.handleTagSubmit}
