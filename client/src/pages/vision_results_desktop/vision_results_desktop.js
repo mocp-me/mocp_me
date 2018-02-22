@@ -2,9 +2,7 @@ import React, { Component } from 'react';
 import Slider from 'react-slick';
 import { Grid, Row, Col, Container } from 'react-grid-system';
 import axios from 'axios';
-import domtoimage from 'dom-to-image';
 import _ from 'lodash';
-
 
 import Logo from '../../components/logo/logo';
 import Info from '../../components/returned_info/returned_info';
@@ -15,15 +13,16 @@ import NavBtn from '../../components/nav_button';
 import mocp from './mocp.png';
 import me from './me.png';
 
-
-
 class VisionResultsDesktop extends Component {
     constructor(props) {
-        super(props)
+        super(props);
 
         this.handleTagSubmit = this.handleTagSubmit.bind(this);
 
-        this.state = { uploadedImg : JSON.parse(sessionStorage.getItem('uploadedImg')) };
+        this.state = { 
+            uploadedImg : JSON.parse(sessionStorage.getItem('uploadedImg')),
+            searchFail: false
+         };
     }
 
     componentDidMount() {
@@ -40,7 +39,7 @@ class VisionResultsDesktop extends Component {
         }
     }
     componentWillUnmount() {
-        sessionStorage.setItem('prevState', JSON.stringify(this.state))
+        sessionStorage.setItem('prevState', JSON.stringify(this.state));
       }
 
     handleTagSubmit(event) {
@@ -49,11 +48,11 @@ class VisionResultsDesktop extends Component {
         const data = {
             id: this.state.imgId,
             tag
-        }
+        };
         //make a post with these!
         axios
             .post('/api/submit-tag', data)
-            .then(res => console.log(res))
+            .then(res => console.log(res));
     }
 
     fetchImage() {
@@ -63,18 +62,22 @@ class VisionResultsDesktop extends Component {
         axios
             .get(`/api/vision/${fileName}`)
             .then((res) => {
-                console.log('vision res', res)
+                if(res.data === 'no results'){
+                    this.setState({searchFail: true})
+                    return;
+                }
                 const returnedTags = [];
+                const { title, artist, visionTopTags, web_path, id } = res.data;
                 res.data.Tags.map(tag => returnedTags.push(tag.tag_name));
                 this.setState({ 
-                    title : res.data.title,
-                    artist : res.data.artist,
-                    visionTopTags : res.data.visionTopTags,
-                    returnedTags,
-                    returnedImg: res.data.web_path,
-                    imgId: res.data.id
-                })
-                sessionStorage.setItem('prevState', JSON.stringify(this.state))
+                    returnedImg : web_path,
+                    imgId: id,
+                    title,
+                    artist,
+                    visionTopTags,
+                    returnedTags
+                });
+                sessionStorage.setItem('prevState', JSON.stringify(this.state));
             })
             .catch(err => console.log(err));
     }
@@ -89,6 +92,11 @@ class VisionResultsDesktop extends Component {
             slidesToScroll: 1,
             arrows: false,
             dotClass: 'slick-dots'
+        }
+        if(this.state.searchFail) {
+            return (
+                <h3>omg your super unique photo didnt match any of the 90,000 tags in our database!</h3>
+            );
         }
         return (
             <div className="explorePageContainer">
@@ -116,6 +124,7 @@ class VisionResultsDesktop extends Component {
                             </Col>
                         </Row>
                     </div> 
+                    { !returnedImg && <div>Loading...</div> }
                     { returnedImg && 
                         <div>
                             <Row className="rowStyle">
@@ -137,21 +146,18 @@ class VisionResultsDesktop extends Component {
                                         headerTwo={ artist }
                                     >
                                         <Tags withHash={ true } tagList={ returnedTags } />
-                                     
+                                        <NavBtn route='/' btnText='try again' />
+                                        {/* {returnedImg && <NavBtn route='/submit' btnText='submit your results to mocp' />} */}
+                                        <p>Suggest a new tag: </p>
+                                        <TagSubmit
+                                            handleTagSubmit={ this.handleTagSubmit }
+                                            btnText="Send iiiittt!" />
                                     </Info>
                                 </Col>
                             </Row>
                         </div> 
                     }
                 </Slider>
-                <NavBtn route='/explore' btnText='search again!' />
-                {returnedImg && <NavBtn route='/submit' btnText='submit your results to mocp' />}
-                {/* This should be nested inside of the Info component on the returned Img, 
-                    putting it here for now because I cant click on shit in the fucked up, unstlyed version of the carousel */}
-                <p>Suggest a new tag: </p>
-                <TagSubmit
-                    handleTagSubmit={this.handleTagSubmit}
-                    btnText="Send iiiittt!" />
             </div>
         );
     }

@@ -1,4 +1,4 @@
-const apiRoutes = (function(){
+const apiRoutes = (() => {
 	// Dependencies
 	const Multer = require('multer');
 	
@@ -29,12 +29,12 @@ const apiRoutes = (function(){
 	router.use(bodyParser.json());
 
 	// API Routes go here
-	router.post('/upload', multer.single('image'), imgUpload.uploadToGcs, function(request, response, next) {
-		const data = request.body;
-		if (request.file && request.file.cloudStoragePublicUrl) {
-		  data.imageUrl = request.file.cloudStoragePublicUrl;
+	router.post('/upload', multer.single('image'), imgUpload.uploadToGcs, (req, res) => {
+		const data = req.body;
+		if (req.file && req.file.cloudStoragePublicUrl) {
+		  data.imageUrl = req.file.cloudStoragePublicUrl;
 		}
-		response.send(data);
+		res.send(data);
 	  })
 
 
@@ -60,6 +60,10 @@ const apiRoutes = (function(){
 				}]
 				
 			}).then(results => {
+				if(!results.length) {
+					res.send('no results')
+					return;
+				}
 				const appendedResults = results[0].dataValues;
 				appendedResults.visionTopTags = visionTopTags;
 				res.json(appendedResults)
@@ -73,7 +77,7 @@ const apiRoutes = (function(){
 		fileName = fileName.split('/');
 		fileName = fileName[fileName.length-1];
 		helpers.submit(fileName);
-	})
+	});
 
 	router.post('/submit-tag', (req, res) => {
 		console.log("route hit: ", req.body)
@@ -83,33 +87,33 @@ const apiRoutes = (function(){
 				tag_name: tag,
 				photo_id: id
 			}
-		})
-		.then(results => console.log('results', results))
-		
-	})
-
-
-
-	/*	the [Op.like] operator isn't working quite how I thought it would.. searching 'cats' returns 'cat' pictures instead of failing..
-		but searching 'cars' fails while 'car' doesnt. weird af! Also, just searching 'c' returns a bunch of shit when it should fail
-		..but now that I set it up so you can only search for tags that strictly exist, maybe we should just stick with that?
-	*/
-
+		}).spread((tag, created) => {
+			console.log(tag.get({
+			  plain: true
+			}));
+			console.log("tag created: ", created)
+		  });
+		});
+	
 	// Get the images of a particular keyword
-	router.get("/search-tags/:tag_name", (req, res) => {
-		let arr = [];
-		db.Tags.findAll({
+	router.get("/search-tags/:tag_name/:random?", (req, res) => {
+		const arr = [];
+		const queryParams = {
 			where: {
 				tag_name: req.params.tag_name
-				// tag_name: {
-				// 	[Op.like] : `%${req.params.tag_name}`
-				// } 
 			}
-		}).then(Tags => {
+		};
+
+		if(req.params.random) {
+			queryParams.limit = 5;
+			queryParams.order = [ Sequelize.fn('RAND') ];
+		}
+
+		db.Tags.findAll(queryParams).then(Tags => {
 			Tags.forEach(i => {
 				arr.push(i.photo_id);
 			})
-		}).then(function(){
+		}).then(() => {
 			db.Photos.findAll({
 				where: {
 					id: {
@@ -119,10 +123,10 @@ const apiRoutes = (function(){
 				include: [{
 					model: db.Tags
 				}]
-			}).then( matched => {
+			}).then(matched => {
 				res.json(matched)
-			})
-		})
+			});
+		});
 	});
 
 	router.get('/check-tag/:tag_name', (req, res) => {
@@ -139,7 +143,6 @@ const apiRoutes = (function(){
 	// Test DB get routes
 	router.get("/all-photos", (req, res) => {
 		db.Photos.findAll({
-			limit: 10,
 			include: [{
 				model: db.Tags
 			}]
@@ -148,21 +151,27 @@ const apiRoutes = (function(){
 		})
 	});
 
-	router.get("/all-tags", (req, res) => {
-		db.Tags.findAll().then(Tags => {
+	router.get("/all-tags/:random?", (req, res) => {
+		const queryParams = {}
+		if(req.params.random) {
+			queryParams.attributes =  [ Sequelize.fn('DISTINCT', Sequelize.col('tag_name')) ,'tag_name' ];
+			queryParams.limit = 10;
+			queryParams.order = [ Sequelize.fn('RAND') ];
+		}
+		db.Tags.findAll(queryParams).then(Tags => {
 			res.json(Tags);
 		})
 	});
 
 	// Test DB Post routes
-	router.post("/add-tag", function (req, res) {
+	router.post("/add-tag", (req, res) => {
 		console.log(req.body);
 		// create takes an argument of an object describing the item we want to insert into our table.
 		db.user_tags.create({
 			tag_name: req.body.tag_name,
 			photo_id: req.body.photo_id
 			//approved: req.body.approved
-		}).then(function (addedTag) {
+		}).then((addedTag) => {
 			// We have access to the new todo as an argument inside of the callback function
 			res.json(addedTag);
 		});

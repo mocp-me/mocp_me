@@ -27,11 +27,11 @@ class ExploreSearch extends Component {
 
     componentDidMount () {
         axios
-            .get('/api/all-tags')
+            .get('/api/all-tags/random')
+        
             .then(res => {
                 const tags = []
-                const results = this.shuffleResults(res.data);
-                results.map(result => tags.push(result.tag_name))                                    
+                res.data.map(result => tags.push(result.tag_name))                                    
                 this.setState({ tags });
             })
     }
@@ -43,26 +43,7 @@ class ExploreSearch extends Component {
         }
     }
 
- // the famous Fisher-Yates shuffle algorithm. thanks google :)
- shuffleResults(array) {
-    let currentIndex = array.length, temporaryValue, randomIndex;
-    // While there remain elements to shuffle...
-    while (0 !== currentIndex) {
-      // Pick a remaining element...
-      randomIndex = Math.floor(Math.random() * currentIndex);
-      currentIndex -= 1;
-      // And swap it with the current element.
-      temporaryValue = array[currentIndex];
-      array[currentIndex] = array[randomIndex];
-      array[randomIndex] = temporaryValue;
-    }
-    const tenResults = array.slice(0,10)
-    return tenResults;
-  }
-
     tagSearch = (term) => {
-        
-
         axios
             .get(`/api/check-tag/${term || null}`)
             .then((res) => {
@@ -76,7 +57,7 @@ class ExploreSearch extends Component {
     }
 
     render() {
-        const tagSearch = _.debounce((term) => { this.tagSearch(term) }, 300);
+        const tagSearch = _.debounce((term) => { this.tagSearch(term) }, 150);
 
         return (
             <Row>
