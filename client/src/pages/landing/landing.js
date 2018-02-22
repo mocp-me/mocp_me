@@ -1,4 +1,4 @@
-import React, { Component } from "react";
+import React, { ReactDOM, Component } from "react";
 import { Link, withRouter } from "react-router-dom";
 import Dropzone from "react-dropzone";
 import axios from "axios";
@@ -15,14 +15,28 @@ class Landing extends Component {
         this.onDrop = this.onDrop.bind(this);
         this.onDragEnter = this.onDragEnter.bind(this);
         this.onDragLeave = this.onDragLeave.bind(this);
+        this.handleScroll = this.handleScroll.bind(this);
+        this.componentDidMount = this.componentDidMount.bind(this);
 
         this.state = {
             dropzoneActive: false,
-            rejectedFile: false
+            rejectedFile: false,
+            pageScroll:0,
+            phonepanel_height: 0,
+            navpanel_1_height:0,
+            navpanel_2_height:0
         }
     }
     componentDidMount() {
-        window.addEventListener('scroll', this.handleScroll);
+        window.addEventListener('scroll', this.handleScroll);   
+        // this.setState({  phonepanel_height: this.divRef_1.clientHeight });
+        // var heightOne = this.div_ref_1.clientHeight;
+        // console.log(heightOne);
+        //============= ignore everything between these =============
+        this.setState(() => {
+            return { phonepanel_height: this.divRef_1.clientHeight };
+        });
+        //============= ============= ============= ============= =============
     }
     componentWillUnmount() {
         window.removeEventListener('scroll', this.handleScroll);
@@ -30,9 +44,16 @@ class Landing extends Component {
 
     handleScroll(event){
         let y_scroll_pos = window.pageYOffset;
-        console.log("scroll pos  " + y_scroll_pos); 
-        let animation1 = event.srcElement.body.height;
-        console.log(animation1); 
+        this.setState(() => {
+            return { pageScroll: y_scroll_pos };
+        });
+
+        // just trying to get it to console.log the height of an element to save in state on mount
+        // this will log the column that im referencing (so the ref works)
+        let calculatedHeight = this.divRef_1;
+        // I tried ``` let calculatedHeight = this.divRef_1.clientHeight ``` per internet documentation, but it would just return undefined. 
+
+        console.log(calculatedHeight);
 
     }
 
@@ -81,7 +102,9 @@ class Landing extends Component {
         return (
             <div className="landingWrapper">
                 <Row>
-                    <Col xs={12} sm={7} md={7} className="phoneStyle">
+                    <Col xs={12} sm={7} md={7} 
+                        className="phoneStyle" 
+                        ref={ (element_one) => this.divRef_1 = element_one}>
                         <Logo />
                         <Phone />
                     </Col>
