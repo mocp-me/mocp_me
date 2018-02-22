@@ -119,7 +119,12 @@ class VisionResultsDesktop extends Component {
                                     image={ me }
                                     headerOne = "Some shit about what we're doing with google vision or whatever"
                                 >
-                                    { visionTopTags ? <Tags withHash={ true } tagList={ visionTopTags } /> : <p>fetching tags..</p> }
+                                    { visionTopTags ? 
+                                    <Tags 
+                                        withHash={ true } 
+                                        tagList={ visionTopTags }
+                                        isLink={ true } /> 
+                                    : <p>fetching tags..</p> }
                                 </Info>
                             </Col>
                         </Row>
@@ -145,7 +150,10 @@ class VisionResultsDesktop extends Component {
                                         headerOne={ title }
                                         headerTwo={ artist }
                                     >
-                                        <Tags withHash={ true } tagList={ returnedTags } />
+                                        <Tags
+                                            isLink={ true } 
+                                            withHash={ true } 
+                                            tagList={ returnedTags } />
                                         <NavBtn route='/' btnText='try again' />
                                         {/* {returnedImg && <NavBtn route='/submit' btnText='submit your results to mocp' />} */}
                                         <p>Suggest a new tag: </p>

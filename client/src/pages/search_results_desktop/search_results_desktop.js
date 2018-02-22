@@ -21,7 +21,17 @@ class SearchResultsDesktop extends Component {
     }
 
     componentDidMount() {
-        const { term } = this.props.match.params
+        const { term } = this.props.match.params;
+        this.fetchImages(term);
+       
+    }
+
+    componentWillReceiveProps() {
+        const { term } = this.props.match.params;
+        this.fetchImages(term);
+    }
+
+    fetchImages(term) {
         axios
         .get(`/api/search-tags/${term}/random`)
         .then((res) => {
