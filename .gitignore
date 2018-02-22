@@ -8,8 +8,6 @@
 
 # production
 /build
-/sass
-/process
 
 # misc
 keys.json
