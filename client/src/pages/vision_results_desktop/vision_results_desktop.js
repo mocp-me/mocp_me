@@ -25,19 +25,30 @@ class VisionResultsDesktop extends Component {
          };
     }
 
+    componentWillMount(){
+        console.log(this.state.uploadedImg)
+        if(!this.state.uploadedImg) {
+            this.props.history.push('/')
+        }
+    }
+
     componentDidMount() {
         let prevState = sessionStorage.getItem('prevState');
-        prevState = JSON.parse(prevState);
-        if(prevState){
-            if(this.state.uploadedImg === prevState.uploadedImg) {
-                this.setState(prevState);
+        //all these nested if statements look gross.. should clean up later
+        if(this.state.uploadedImg){
+            prevState = JSON.parse(prevState);
+            if(prevState){
+                if(this.state.uploadedImg === prevState.uploadedImg) {
+                    this.setState(prevState);
+                } else {
+                    this.fetchImage();
+                }
             } else {
                 this.fetchImage();
             }
-        } else {
-            this.fetchImage();
         }
     }
+    
     componentWillUnmount() {
         sessionStorage.setItem('prevState', JSON.stringify(this.state));
       }

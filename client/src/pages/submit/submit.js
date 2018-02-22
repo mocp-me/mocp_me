@@ -2,6 +2,18 @@ import React, { Component } from 'react';
 import axios from 'axios';
 
 class Submit extends Component {
+    constructor(props) {
+        super(props);
+        
+    }
+
+    componentWillMount() {
+        const check = !sessionStorage.getItem('prevState')
+        if(!check.uploadedImg) {
+            this.props.history.push('/')
+        }
+    }
+
     handleOnClick() {
         const { uploadedImg, returnedImg } = JSON.parse(sessionStorage.getItem('prevState'));
         const toSubmit = {
