@@ -7,6 +7,7 @@ import Info from '../../components/returned_info/returned_info';
 import Tags from '../../components/tag_list/tag_list';
 import TagSubmit from '../../components/tag_submit/tag_submit';
 import NavBtn from '../../components/nav_button';
+import logo from './../../components/logo/logo.png';
 
 class SearchResultsDesktop extends Component {
     constructor(props) {
@@ -89,7 +90,7 @@ class SearchResultsDesktop extends Component {
             return (
                 <div key={result.id}>
                     <Row className="rowStyle">
-                        <Col sm={6} className="bgWrapper">
+                        <Col sm={6} class="bgWrapper">
                             <div className="imageWrapper">
                                 <div className="imageContainer">
                                     <div className="imageClip">
@@ -102,6 +103,7 @@ class SearchResultsDesktop extends Component {
                         </Col>
                         <Col sm={6} className="resultContainer">
                             <Info
+                                image={ logo }
                                 headerOne={ result.title }
                                 headerTwo={ result.artist }
                             >
@@ -109,8 +111,8 @@ class SearchResultsDesktop extends Component {
                                 <p>Suggest a new tag: </p>
                                 <TagSubmit
                                     handleTagSubmit={this.handleTagSubmit(result.id)}
-                                    btnText="omg thanx!" />
-                                <NavBtn route='/explore' btnText='search again!' />
+                                    btnText="submit" />
+                                <NavBtn route='/explore' btnText='search a new tag' />
                             </Info>
                         </Col>
                     </Row>

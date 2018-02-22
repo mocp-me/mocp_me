@@ -21,6 +21,20 @@ class Landing extends Component {
             rejectedFile: false
         }
     }
+    componentDidMount() {
+        window.addEventListener('scroll', this.handleScroll);
+    }
+    componentWillUnmount() {
+        window.removeEventListener('scroll', this.handleScroll);
+    }
+
+    handleScroll(event){
+        let y_scroll_pos = window.pageYOffset;
+        console.log("scroll pos  " + y_scroll_pos); 
+        let animation1 = event.srcElement.body.height;
+        console.log(animation1); 
+
+    }
 
     onDragEnter() {
         this.setState(() => {

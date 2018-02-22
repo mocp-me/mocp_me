@@ -10,8 +10,7 @@ import Tags from '../../components/tag_list/tag_list';
 import TagSubmit from '../../components/tag_submit/tag_submit';
 import NavBtn from '../../components/nav_button';
 
-import mocp from './mocp.png';
-import me from './me.png';
+import logo from './../../components/logo/logo.png';
 
 class VisionResultsDesktop extends Component {
     constructor(props) {
@@ -116,10 +115,16 @@ class VisionResultsDesktop extends Component {
                             </Col>
                             <Col sm={6} className="resultContainer">
                                 <Info
-                                    image={ me }
-                                    headerOne = "Some shit about what we're doing with google vision or whatever"
+                                    image={ logo }
+                                    headerOne = "Swipe left to see your match from the collection."
+                                    headerTwo = "Please enter your email below to submit your pairing for an exhibition at the MoCP."
                                 >
                                     { visionTopTags ? <Tags withHash={ true } tagList={ visionTopTags } /> : <p>fetching tags..</p> }
+                                    {/*Just reused the below component - will be swapped out with something to collect email addresses / contact info?*/}
+                                    <TagSubmit
+                                        handleTagSubmit={ null }
+                                        btnText="submit" />
+                                    <NavBtn route='/' btnText='upload a new photo' />
                                 </Info>
                             </Col>
                         </Row>
@@ -141,17 +146,16 @@ class VisionResultsDesktop extends Component {
                                 </Col>
                                 <Col sm={6} className="resultContainer">
                                     <Info
-                                        image = { mocp }
+                                        image={ logo }
                                         headerOne={ title }
                                         headerTwo={ artist }
                                     >
                                         <Tags withHash={ true } tagList={ returnedTags } />
-                                        <NavBtn route='/' btnText='try again' />
                                         {/* {returnedImg && <NavBtn route='/submit' btnText='submit your results to mocp' />} */}
                                         <p>Suggest a new tag: </p>
                                         <TagSubmit
                                             handleTagSubmit={ this.handleTagSubmit }
-                                            btnText="Send iiiittt!" />
+                                            btnText="submit" />
                                     </Info>
                                 </Col>
                             </Row>
