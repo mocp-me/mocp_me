@@ -21,9 +21,10 @@ let ImgUpload = {};
 ImgUpload.uploadToGcs = (req, res, next) => {
   if(!req.file) return next();
 
-  // Can optionally add a path to the gcsname below by concatenating it before the filename
-  const gcsname = req.file.originalname;
-  const file = bucket.file(gcsname);
+  // file names store in bucket must be unique 
+  const original = req.file.originalname;
+  const uniqueGCSName = original.substring(0, original.lastIndexOf(".")) + Date.now() + original.substring(original.lastIndexOf("."));
+  const file = bucket.file(uniqueGCSName);
 
   const stream = file.createWriteStream({
     metadata: {
@@ -39,8 +40,8 @@ ImgUpload.uploadToGcs = (req, res, next) => {
   });
 
   stream.on('finish', () => {
-    req.file.cloudStorageObject = gcsname;
-    req.file.cloudStoragePublicUrl = getPublicUrl(gcsname);
+    req.file.cloudStorageObject = uniqueGCSName;
+    req.file.cloudStoragePublicUrl = getPublicUrl(uniqueGCSName);
     next();
   });
 

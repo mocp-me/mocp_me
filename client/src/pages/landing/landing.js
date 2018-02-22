@@ -18,32 +18,31 @@ class Landing extends Component {
 
         this.state = {
             dropzoneActive: false,
-            rejectedFile: false
+            fileUploaded: false,
+            fileRejected: false
         }
     }
 
     onDragEnter() {
-        this.setState(() => {
-            return {dropzoneActive: true}
-        });
+        this.setState({ dropzoneActive: true });
     }
 
     onDragLeave() {
-        this.setState(() => {
-            return {dropzoneActive: false}
-        });
+            this.setState({ dropzoneActive: false });
     }
 
     onDrop(accepted, rejected) {
-        console.log('accepted: ', accepted)
-        console.log('rejected: ', rejected)
+
         if(rejected.length > 0) {
-            this.setState({ rejectedFile: true })
+            this.setState({ fileRejected: true })
             return;
+        } else {
+            this.setState({ 
+                dropzoneActive: false,
+                fileUploaded: true,
+             })
         }
-        this.setState(() => {
-            return {dropzoneActive: false}
-        });
+
         const image = new FormData();
         image.append("image", accepted[0]);
         axios.post("/api/upload", image)
@@ -93,7 +92,8 @@ class Landing extends Component {
                                   <button className="button">
                                     add image
                                   </button>
-                                  {this.state.rejectedFile && <p>File type or size rejected! :(<br/>Upload an image file between 5kb and 4mb in size</p>}
+                                  { this.state.fileUploaded === true && <p>Beep boop beep motherfucker!</p> }
+                                  { this.state.fileRejected && <p>File type or size rejected! :(<br/>Upload an image file between 5kb and 4mb in size</p> }
                                 </div>
                         </Dropzone>
                         <div className="navPanel_2">
