@@ -71,7 +71,7 @@ class AdminPanel extends Component {
 		}
 	}
 
-	componentDidMount() {
+	componentWillMount() {
 		axios.get("/pending-tags").then(response => {
 			console.log('response', response);
 			let tagArray = response.data;
@@ -130,7 +130,7 @@ class AdminPanel extends Component {
 
 
 		)
-	})
+	});
 
     return (
       <Container style={ pageStyle }>
