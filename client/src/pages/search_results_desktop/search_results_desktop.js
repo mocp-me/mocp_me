@@ -72,13 +72,26 @@ class SearchResultsDesktop extends Component {
         if (this.state.results.length === 0) {
             if(this.state.searchFail) {
                 return (
-                    <div>No results, please try again! Avoid typing a valid search and then quickly backspacing and while mashing the enter key.. </div>
-
+                    <div className = "searchFail">
+                        <div className = "logoWrapper">
+                                <img   src={ logo } 
+                                    className = "logoStyle"
+                                />
+                        </div>
+                        <div className= "failText">
+                            <p><b>Sorry</b> - we don't have any tags matching yours in our database.</p>
+                        </div>
+                    </div>
                 );
             }
             return (
-                //insert dope loading animation here..
-                <div>Loading...</div>
+                <div className = "loaderWrapper">
+                    <div className = "logoWrapper">
+                            <img   src={ logo } 
+                                className = "logoStyle"
+                            />
+                    </div>
+                </div>
             );
         }
 

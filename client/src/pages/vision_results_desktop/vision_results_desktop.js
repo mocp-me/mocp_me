@@ -95,7 +95,16 @@ class VisionResultsDesktop extends Component {
         }
         if(this.state.searchFail) {
             return (
-                <h3>omg your super unique photo didnt match any of the 90,000 tags in our database!</h3>
+                <div className = "searchFail">
+                    <div className = "logoWrapper">
+                            <img   src={ logo } 
+                                className = "logoStyle"
+                            />
+                    </div>
+                    <div className= "failText">
+                        <p><b>Sorry</b> - we don't have any tags matching yours in our database.</p>
+                    </div>
+                </div>
             );
         }
         return (
@@ -130,7 +139,14 @@ class VisionResultsDesktop extends Component {
                             </Col>
                         </Row>
                     </div> 
-                    { !returnedImg && <div>Loading...</div> }
+                    { !returnedImg && 
+                        <div className = "loaderWrapper">
+                            <div className = "logoWrapper">
+                                <img   src={ logo } 
+                                    className = "logoStyle"
+                                />
+                            </div>
+                        </div> }
                     { returnedImg && 
                         <div>
                             <Row className="rowStyle">
