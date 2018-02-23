@@ -43,7 +43,7 @@ class App extends Component {
 						<Route path="/vision_search" component={ VisionResultsDesktop } />
 						<Route path="/submit" component={ Submit } />
 						<Route path="/explore" component={ExploreSearch} />
-						<Route path="/admin" render={(props) => <Admin auth={this.auth} {...props} />} />
+						<Route exact path="/admin" render={(props) => <Admin auth={this.auth} {...props} />} />
 						<Route path="/callback" render={(props) => {
 							this.handleAuthentication(props);
 							return <Callback {...props} /> 
