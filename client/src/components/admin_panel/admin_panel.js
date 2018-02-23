@@ -66,7 +66,9 @@ class AdminPanel extends Component {
 	constructor(props) {
 		super(props);
 
-		this.state = {}
+		this.state = {
+			tags: []
+		}
 	}
 
 	componentWillMount() {
