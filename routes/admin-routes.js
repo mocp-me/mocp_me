@@ -24,7 +24,7 @@ const adminRoutes = (function(){
 	        jwksRequestsPerMinute: 5,
 	        jwksUri: "https://mocp-me.auth0.com/.well-known/jwks.json"
 	    }),
-	    audience: "mocp-me.herokuapp.com/admin",
+	    audience: "https://mocp-me.herokuapp.com/admin",
 	    issuer: "https://mocp-me.auth0.com/",
 	    algorithms: ['RS256']
 	});
