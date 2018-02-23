@@ -38,12 +38,13 @@ class NavPanel extends Component {
     }
 
     handleScroll(event){
-        if (this.state.trigger !== this.props){
-            this.setState({trigger:this.props});
+        if (this.state.trigger !== this.props.trigger){
+            this.setState({trigger:this.props.trigger});
             console.log(this.state.trigger);
             if (this.state.trigger){
                 this.setState({hovered:true});
-            } else {
+            } 
+            if (!this.state.trigger) {
                 this.setState({hovered:false});
             }
         }

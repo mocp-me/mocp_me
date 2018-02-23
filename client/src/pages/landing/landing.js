@@ -121,7 +121,7 @@ class Landing extends Component {
                                     onEnter={this.handleTriggerOneEnter} 
                                     scrollableAncestor={window} 
                                     fireOnRapidScroll={ true } 
-                                    topOffset="50%"
+                                    topOffset="60%"
                         />
                         <Logo />
                         <Phone 
@@ -142,9 +142,9 @@ class Landing extends Component {
                             <div className="navPanel_1">
                             <Waypoint   onEnter={this.handleTriggerTwoEnter} 
                                         scrollableAncestor={window} 
-                                        topOffset="50%" 
+                                        topOffset="70%" 
                                         // bottomOffset="60%" 
-                                        fireOnRapidScroll={ false }
+                                        fireOnRapidScroll={ true }
                             />
                                 <NavPanel
                                     text1="Upload your image"
@@ -158,7 +158,10 @@ class Landing extends Component {
                             </div>
                         </Dropzone>
                         <div className="navPanel_2">
-                        <Waypoint onEnter={this.handleTriggerThreeEnter} scrollableAncestor={window} topOffset="49%" bottomOffset="49%" fireOnRapidScroll={ true }/>
+                        <Waypoint   onEnter={this.handleTriggerThreeEnter} 
+                                    scrollableAncestor={window} 
+                                    topOffset="80%"
+                                    fireOnRapidScroll={ true }/>
                           <NavPanel
                             text1="Search our tags"
                             text2="& add some more"
