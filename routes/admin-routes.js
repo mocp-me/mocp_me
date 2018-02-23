@@ -111,6 +111,8 @@ const adminRoutes = (function(){
 	});
 
 	// Catch-all route
+	router.get("/420", (req, res) => res.json({answer: 420}));
+
 	router.get("*", (req, res) => res.json({answer: 42}));
 
 	return router;
