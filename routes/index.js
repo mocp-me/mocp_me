@@ -17,13 +17,17 @@ const routes = (function(){
 	router.use(/admin.+/, adminRoutes);
 	router.use("/api", apiRoutes);
 
-	router.use("/admin", function (req, res){
+	// All other paths return React app, including /admin
+	router.get("/admin", function (req, res){
 		console.log("solamente ADMIN");
 		res.sendFile(path.join(__dirname, "../client/build/index.html"));
 	});
 
-	// All other paths return React app, including /admin
-	router.use("*", function (req, res){
+	router.get("/stuff", function (req, res){
+		res.json("ssstuff route!!");
+	});
+
+	router.get("*", function (req, res){
 		res.sendFile(path.join(__dirname, "../client/build/index.html"));
 	});
 
