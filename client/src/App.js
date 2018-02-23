@@ -46,7 +46,7 @@ class App extends Component {
 						<Route path="/admin" render={(props) => <Admin auth={this.auth} {...props} />} />
 						<Route path="/callback" render={(props) => {
 							this.handleAuthentication(props);
-							return <Callback {...props} /> 
+							return <Admin {...props} /> 
 							}}/>
 						<Route path="/" component={Landing} />
 					</Switch>
