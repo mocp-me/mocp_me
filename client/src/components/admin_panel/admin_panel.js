@@ -106,6 +106,7 @@ class AdminPanel extends Component {
 
 
   render() {
+  	console.log("this.state.tags", this.state.tags);
 	const tagList = this.state.tags && this.state.tags.map((tag, i) => {
 		return (
 
