@@ -14,19 +14,10 @@ const routes = (function(){
 	router.use(bodyParser.json());
 
 	// API calls are directed here
-	router.use(/admin.+/, adminRoutes);
+	router.use(/admin-api/, adminRoutes);
 	router.use("/api", apiRoutes);
 
 	// All other paths return React app, including /admin
-	router.get("/admin", function (req, res){
-		console.log("solamente ADMIN");
-		res.sendFile(path.join(__dirname, "../client/build/index.html"));
-	});
-
-	router.get("/stuff", function (req, res){
-		res.json("ssstuff route!!");
-	});
-
 	router.get("*", function (req, res){
 		res.sendFile(path.join(__dirname, "../client/build/index.html"));
 	});
