@@ -3,8 +3,7 @@ const adminRoutes = (function(){
 	process.stdout.write('\033c');
 	console.log("\n\n\nadmin-routes.js loaded\n\n\n");
 	// Dependencies
-	const jwt = require('express-jwt');
-	const jwks = require('jwks-rsa');
+	const jwtCheck = require("./jwtCheck.js");
 	const path = require("path");
 	const bodyParser = require("body-parser");
 	// Passes the db object to the routes
@@ -16,23 +15,29 @@ const adminRoutes = (function(){
 	// Middleware
 	router.use(bodyParser.urlencoded({extended: false}));
 	router.use(bodyParser.json());
-
-	var jwtCheck = jwt({
-	    secret: jwks.expressJwtSecret({
-	        cache: true,
-	        rateLimit: true,
-	        jwksRequestsPerMinute: 5,
-	        jwksUri: "https://mocp-me.auth0.com/.well-known/jwks.json"
-	    }),
-	    audience: 'https://localhost:3000/admin',
-	    issuer: "https://mocp-me.auth0.com/",
-	    algorithms: ['RS256']
-	});
-
 	router.use(jwtCheck);
 
 
 	// API Routes go here
+	router.get("/user-tags", (req, res) => {
+		console.log("admin/all-tags call received by backend");
+		db.user_tags.findAll().then(Tags => {
+			res.json(Tags);
+		});
+	});
+
+	router.get("/pending-tags", (req, res) => {
+		console.log("admin/pending-tags call received by backend");
+		db.user_tags.findAll({
+			where: {
+				approved: false
+			},
+			include: [db.Photos]
+		}).then(Tags => {
+			res.json(Tags);
+		});
+	});
+	
 	// Post Update Delete and Approve Admin Routes
 	router.post("/add-tag", function (req, res) {
 		console.log(req.body);
@@ -91,26 +96,9 @@ const adminRoutes = (function(){
 		});
 	});
 
-	router.get("/user-tags", (req, res) => {
-		console.log("admin/all-tags call received by backend");
-		db.user_tags.findAll().then(Tags => {
-			res.json(Tags);
-		});
-	});
-
-	router.get("/pending-tags", (req, res) => {
-		console.log("admin/pending-tags call received by backend");
-		db.user_tags.findAll({
-			where: {
-				approved: false
-			},
-			include: [db.Photos]
-		}).then(Tags => {
-			res.json(Tags);
-		});
-	});
-
 	// Catch-all route
+	router.get("/420", (req, res) => res.json({answer: 420}));
+
 	router.get("*", (req, res) => res.json({answer: 42}));
 
 	return router;

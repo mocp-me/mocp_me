@@ -53,7 +53,7 @@ const token = `Bearer ${localStorage.getItem("access_token")}`;
 
 // instantiate and configure axios
 let axios = Axios.create({
-	baseURL: "/admin",
+	baseURL: "/admin-api/",
 	timeout: 5000,
 	headers: {
 		"Authorization": token,
@@ -66,7 +66,9 @@ class AdminPanel extends Component {
 	constructor(props) {
 		super(props);
 
-		this.state = {}
+		this.state = {
+			tags: []
+		}
 	}
 
 	componentWillMount() {
@@ -74,7 +76,7 @@ class AdminPanel extends Component {
 			console.log('response', response);
 			let tagArray = response.data;
 			this.setState({tags: tagArray})
-			console.log(this.state);
+			console.log("this.state", this.state);
 		});
 	}
 
@@ -104,6 +106,7 @@ class AdminPanel extends Component {
 
 
   render() {
+  	console.log("this.state.tags", this.state.tags);
 	const tagList = this.state.tags && this.state.tags.map((tag, i) => {
 		return (
 
@@ -127,7 +130,7 @@ class AdminPanel extends Component {
 
 
 		)
-	})
+	});
 
     return (
       <Container style={ pageStyle }>
