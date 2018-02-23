@@ -19,6 +19,11 @@ const routes = (function(){
 	
 
 	// All other paths return React app
+	router.use("/admin", function (req, res){
+		console.log("solamente /admin");
+		res.sendFile(path.join(__dirname, "../client/build/index.html"));
+	});
+
 	router.use("*", function (req, res){
 		res.sendFile(path.join(__dirname, "../client/build/index.html"));
 	});
