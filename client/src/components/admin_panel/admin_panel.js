@@ -76,7 +76,7 @@ class AdminPanel extends Component {
 			console.log('response', response);
 			let tagArray = response.data;
 			this.setState({tags: tagArray})
-			console.log(this.state);
+			console.log("this.state", this.state);
 		});
 	}
 
