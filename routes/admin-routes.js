@@ -19,6 +19,25 @@ const adminRoutes = (function(){
 
 
 	// API Routes go here
+	router.get("/user-tags", (req, res) => {
+		console.log("admin/all-tags call received by backend");
+		db.user_tags.findAll().then(Tags => {
+			res.json(Tags);
+		});
+	});
+
+	router.get("/pending-tags", (req, res) => {
+		console.log("admin/pending-tags call received by backend");
+		db.user_tags.findAll({
+			where: {
+				approved: false
+			},
+			include: [db.Photos]
+		}).then(Tags => {
+			res.json(Tags);
+		});
+	});
+	
 	// Post Update Delete and Approve Admin Routes
 	router.post("/add-tag", function (req, res) {
 		console.log(req.body);
@@ -74,25 +93,6 @@ const adminRoutes = (function(){
 		}).then(function (deleted) {
 			console.log(deleted, " has been deleted");
 			res.json(deleted);
-		});
-	});
-
-	router.get("/user-tags", (req, res) => {
-		console.log("admin/all-tags call received by backend");
-		db.user_tags.findAll().then(Tags => {
-			res.json(Tags);
-		});
-	});
-
-	router.get("/pending-tags", (req, res) => {
-		console.log("admin/pending-tags call received by backend");
-		db.user_tags.findAll({
-			where: {
-				approved: false
-			},
-			include: [db.Photos]
-		}).then(Tags => {
-			res.json(Tags);
 		});
 	});
 

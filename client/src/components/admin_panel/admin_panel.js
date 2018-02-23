@@ -53,7 +53,7 @@ const token = `Bearer ${localStorage.getItem("access_token")}`;
 
 // instantiate and configure axios
 let axios = Axios.create({
-	baseURL: "/",
+	baseURL: "/admin/",
 	timeout: 5000,
 	headers: {
 		"Authorization": token,
