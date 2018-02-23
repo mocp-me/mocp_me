@@ -32,13 +32,13 @@ class Landing extends Component {
 
     onDragEnter() {
         this.setState(() => {
-            return {dropzoneActive: true}
+            return { dropzoneActive: true }
         });
     }
 
     onDragLeave() {
         this.setState(() => {
-            return {dropzoneActive: false}
+            return { dropzoneActive: false }
         });
     }
 
@@ -61,6 +61,7 @@ class Landing extends Component {
     }
 
     handleTriggerOneEnter(obj) {
+        console.log(obj)
         console.log('hit trigger one enter')
     }
     handleTriggerOneLeave(obj) {
@@ -99,7 +100,7 @@ class Landing extends Component {
                     <Col
                         xs={12} sm={7} md={7} 
                         className="phoneStyle">
-                        <Waypoint onLeave={this.handleTriggerOneLeave} scrollableAncestor={window} />
+                        <Waypoint onLeave={this.handleTriggerOneLeave} onEnter={this.handleTriggerOneEnter} scrollableAncestor={window} fireOnRapidScroll={ false } />
                         <Logo />
                         <Phone />
                     </Col>
@@ -115,7 +116,7 @@ class Landing extends Component {
                             onDragLeave={this.onDragLeave}>
                             { dropzoneActive && <div style={overlayStyle}></div> }
                             <div className="navPanel_1">
-                            <Waypoint onEnter={this.handleTriggerTwoEnter} scrollableAncestor={window} topOffset="49%" bottomOffset="49%"/>
+                            <Waypoint onEnter={this.handleTriggerTwoEnter} scrollableAncestor={window} topOffset="49%" bottomOffset="49%" fireOnRapidScroll={ false }/>
                                 <NavPanel
                                   text1="Upload your image"
                                   text2="to connect to"
@@ -127,7 +128,7 @@ class Landing extends Component {
                             </div>
                         </Dropzone>
                         <div className="navPanel_2">
-                        <Waypoint onEnter={this.handleTriggerThreeEnter} scrollableAncestor={window} topOffset="49%" bottomOffset="49%"/>
+                        <Waypoint onEnter={this.handleTriggerThreeEnter} scrollableAncestor={window} topOffset="49%" bottomOffset="49%" fireOnRapidScroll={ false }/>
                           <NavPanel
                             text1="Search our tags"
                             text2="& add some more"
