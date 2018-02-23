@@ -3,6 +3,7 @@ import Slider from 'react-slick';
 import { Grid, Row, Col, Container } from 'react-grid-system';
 import axios from 'axios';
 import _ from 'lodash';
+import ClassNames from 'classnames';
 
 import Logo from '../../components/logo/logo';
 import Info from '../../components/returned_info/returned_info';

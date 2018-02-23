@@ -22,12 +22,22 @@ class Landing extends Component {
         this.handleTriggerTwoLeave = this.handleTriggerTwoLeave.bind(this);
         this.handleTriggerThreeEnter = this.handleTriggerThreeEnter.bind(this);
         this.handleTriggerThreeLeave = this.handleTriggerThreeLeave.bind(this);
-
+        this.handleScroll = this.handleScroll.bind(this);
 
         this.state = {
             dropzoneActive: false,
             rejectedFile: false,
+            triggerOne: false,
+            triggerTwo: false,
+            triggerThree: false 
         }
+    }
+    componentDidMount() {
+        window.addEventListener('scroll', this.handleScroll);
+    }
+
+    handleScroll(event){
+        // console.log("outside phone " + this.state.triggerOne);
     }
 
     onDragEnter() {
@@ -61,25 +71,35 @@ class Landing extends Component {
     }
 
     handleTriggerOneEnter(obj) {
-        console.log(obj)
-        console.log('hit trigger one enter')
+        // console.log(obj)
+        // console.log('hit trigger one enter');
+        this.setState({triggerOne: true});
     }
     handleTriggerOneLeave(obj) {
-        console.log('hit trigger one leave')
+        // console.log('hit trigger one leave');
+        this.setState({triggerOne: false});
     }
 
     handleTriggerTwoEnter(obj) {
-        console.log('hit trigger two enter')
+        console.log('hit trigger two enter');
+        this.setState({triggerTwo: true});
     }
     handleTriggerTwoLeave(obj) {
-        console.log('hit trigger two leave')
+        console.log('hit trigger two leave');
+        this.setState({triggerTwo: false});
     }
 
     handleTriggerThreeEnter(obj) {
-        console.log('hit trigger three enter')
+        console.log('hit trigger three enter');
+        // this.setState(() => {
+        //     return { triggerThree: true }
+        // });
     }
     handleTriggerThreeLeave(obj) {
-        console.log('hit trigger three leave')
+        console.log('hit trigger three leave');
+        // this.setState(() => {
+        //     return { triggerThree: false }
+        // });
     }
 
     render() {
@@ -100,9 +120,16 @@ class Landing extends Component {
                     <Col
                         xs={12} sm={7} md={7} 
                         className="phoneStyle">
-                        <Waypoint onLeave={this.handleTriggerOneLeave} onEnter={this.handleTriggerOneEnter} scrollableAncestor={window} fireOnRapidScroll={ false } />
+                        <Waypoint onLeave={this.handleTriggerOneLeave} 
+                                    onEnter={this.handleTriggerOneEnter} 
+                                    scrollableAncestor={window} 
+                                    fireOnRapidScroll={ true } 
+                                    topOffset="50%"
+                        />
                         <Logo />
-                        <Phone />
+                        <Phone 
+                            triggerOne={this.state.triggerOne}
+                        />
                     </Col>
                     <Col xs={12} sm={5} md={5}>
                         <Dropzone
@@ -128,7 +155,7 @@ class Landing extends Component {
                             </div>
                         </Dropzone>
                         <div className="navPanel_2">
-                        <Waypoint onEnter={this.handleTriggerThreeEnter} scrollableAncestor={window} topOffset="49%" bottomOffset="49%" fireOnRapidScroll={ false }/>
+                        <Waypoint onEnter={this.handleTriggerThreeEnter} scrollableAncestor={window} topOffset="49%" bottomOffset="49%" fireOnRapidScroll={ true }/>
                           <NavPanel
                             text1="Search our tags"
                             text2="& add some more"

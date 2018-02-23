@@ -7,11 +7,56 @@ import ClassNames from 'classnames';
 class Phone extends Component {
     constructor(props){
         super(props);
-        this.state = {hovered: false}
+
+        // console.log(this.props);
+        this.state = {
+            hovered: false,
+            phone:false,
+            // trigger:this.props
+            trigger:false
+        }
+        this.updateWindowDimensions = this.updateWindowDimensions.bind(this);
+        this.handleScroll = this.handleScroll.bind(this);
+    }
+
+    componentDidMount() {
+      this.updateWindowDimensions();
+      window.addEventListener('resize', this.updateWindowDimensions);
+      window.addEventListener('scroll', this.handleScroll);
+      // this.setState({triggerOne:props.triggerOne});
+    }
+
+    componentWillUnmount() {
+      window.removeEventListener('resize', this.updateWindowDimensions);
+      window.removeEventListener('scroll', this.handleScroll);
+    }
+
+    updateWindowDimensions() {
+        if (window.innerWidth < 450){
+            this.setState({phone:true});
+        } else {
+            this.setState({phone:false});
+        }
+    }
+
+    handleScroll(event){
+        if (this.state.trigger !== this.props){
+            this.setState({trigger:this.props});
+            console.log(this.state.trigger);
+            if (this.state.trigger){
+                this.setState({hovered:true});
+            } else {
+                this.setState({hovered:false});
+            }
+        }
     }
 
     handleOnMouseOver = () => {
-        this.setState({hovered:true})
+        if (this.state.phone){
+            this.setState({hovered:false})
+        } else {
+            this.setState({hovered:true});
+        }
     }
     handleOnMouseLeave = () => {
         this.setState({hovered:false})
