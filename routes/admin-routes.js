@@ -34,7 +34,7 @@ const adminRoutes = (function(){
 
 	// API Routes go here
 	// Post Update Delete and Approve Admin Routes
-	router.post("/add-tag", function (req, res) {
+	router.post("add-tag", function (req, res) {
 		console.log(req.body);
 		// create takes an argument of an object describing the item we want to insert into our table.
 		db.user_tags.create({
@@ -48,7 +48,7 @@ const adminRoutes = (function(){
 	});
 
 	//Update all tag content including approval
-	router.put("/update", function (req, res) {
+	router.put("update", function (req, res) {
 		db.user_tags.update({
 			tag_name: req.body.tag_name,
 			photo_id: req.body.photo_id,
@@ -64,7 +64,7 @@ const adminRoutes = (function(){
 	})
 
 	//Update only tags approval to true
-	router.put("/approval/:tagId", function (req, res) {
+	router.put("approval/:tagId", function (req, res) {
 		db.user_tags.update({ 
 			approved: true 
 		},{
@@ -77,7 +77,7 @@ const adminRoutes = (function(){
 	})
 
 	// Delete from DB
-	router.delete("/delete/:tagId", function (req, res) {
+	router.delete("delete/:tagId", function (req, res) {
 		console.log("admin/delete call received by backend");
 		console.log(`/delete/${req.params.tagId} called`);
 		// We just have to specify which tag we want to destroy with "where"
@@ -91,14 +91,14 @@ const adminRoutes = (function(){
 		});
 	});
 
-	router.get("/user-tags", (req, res) => {
+	router.get("user-tags", (req, res) => {
 		console.log("admin/all-tags call received by backend");
 		db.user_tags.findAll().then(Tags => {
 			res.json(Tags);
 		});
 	});
 
-	router.get("/pending-tags", (req, res) => {
+	router.get("pending-tags", (req, res) => {
 		console.log("admin/pending-tags call received by backend");
 		db.user_tags.findAll({
 			where: {
