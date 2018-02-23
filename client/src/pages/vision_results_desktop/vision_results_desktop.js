@@ -59,6 +59,7 @@ class VisionResultsDesktop extends Component {
             id: this.state.imgId,
             tag
         };
+        console.log('data for tag submit: ', data)
         axios
             .post('/api/submit-tag', data)
             .then(res => console.log(res));
@@ -87,6 +88,7 @@ class VisionResultsDesktop extends Component {
                     returnedTags
                 });
                 sessionStorage.setItem('prevState', JSON.stringify(this.state));
+                console.log('new state: ', this.state)
             })
             .catch(err => console.log(err));
     }
@@ -138,7 +140,6 @@ class VisionResultsDesktop extends Component {
                                     headerOne = "Swipe left to see your match from the collection."
                                     headerTwo = "Please enter your email below to submit your pairing for an exhibition at the MoCP.">
                                     { visionTopTags ? <Tags withHash={ true } tagList={ visionTopTags } /> : <p>fetching tags..</p> }
-                                    {/*Just reused the below component - will be swapped out with something to collect email addresses / contact info?*/}
                                     <TagSubmit
                                         handleTagSubmit={ null }
                                         btnText="submit" />

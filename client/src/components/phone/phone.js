@@ -1,29 +1,26 @@
 import React, { Component } from 'react';
-import {Grid, Row, Col, Container} from 'react-grid-system';
+import { Grid, Row, Col, Container } from 'react-grid-system';
 import ClassNames from 'classnames';
-// import './phone.css';
-
 
 class Phone extends Component {
     constructor(props){
         super(props);
 
-        // console.log(this.props);
         this.state = {
             hovered: false,
             phone:false,
-            // trigger:this.props
             trigger:false
         }
+
         this.updateWindowDimensions = this.updateWindowDimensions.bind(this);
         this.handleScroll = this.handleScroll.bind(this);
+
     }
 
     componentDidMount() {
       this.updateWindowDimensions();
       window.addEventListener('resize', this.updateWindowDimensions);
       window.addEventListener('scroll', this.handleScroll);
-      // this.setState({triggerOne:props.triggerOne});
     }
 
     componentWillUnmount() {
@@ -40,13 +37,12 @@ class Phone extends Component {
     }
 
     handleScroll(event){
-        if (this.state.trigger !== this.props){
-            this.setState({trigger:this.props});
-            console.log(this.state.trigger);
-            if (this.state.trigger){
-                this.setState({hovered:true});
+        if (this.state.trigger !== this.props) {
+            this.setState({ trigger:this.props });
+            if (this.state.trigger) {
+                this.setState({ hovered:true });
             } else {
-                this.setState({hovered:false});
+                this.setState({ hovered:false });
             }
         }
     }

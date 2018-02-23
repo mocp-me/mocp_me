@@ -1,9 +1,7 @@
 import React, { Component } from 'react';
-import {Link} from 'react-router-dom'
-import {Grid, Row, Col, Container} from 'react-grid-system';
+import { Link } from 'react-router-dom'
+import { Grid, Row, Col, Container } from 'react-grid-system';
 import ClassNames from 'classnames';
-
-
 
 class NavPanel extends Component {
     constructor(props){
@@ -21,7 +19,6 @@ class NavPanel extends Component {
       this.updateWindowDimensions();
       window.addEventListener('resize', this.updateWindowDimensions);
       window.addEventListener('scroll', this.handleScroll);
-      // this.setState({triggerOne:props.triggerOne});
     }
 
     componentWillUnmount() {
@@ -40,7 +37,6 @@ class NavPanel extends Component {
     handleScroll(event){
         if (this.state.trigger !== this.props.trigger){
             this.setState({trigger:this.props.trigger});
-            console.log(this.state.trigger);
             if (this.state.trigger){
                 this.setState({hovered:true});
             } 
