@@ -10,6 +10,7 @@ class NavPanel extends Component {
         super(props);
         this.state = {
         	hovered: false,
+        	phone:false,
         	trigger:false
         }
         this.updateWindowDimensions = this.updateWindowDimensions.bind(this);

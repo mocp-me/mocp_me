@@ -38,7 +38,7 @@ class Landing extends Component {
 
     handleScroll(event){
         // console.log("outside phone " + this.state.triggerOne);
-        console.log(this.state.triggerTwo); 
+        // console.log(this.state.triggerTwo); 
     }
 
     onDragEnter() {
@@ -92,27 +92,23 @@ class Landing extends Component {
 
     handleTriggerThreeEnter(obj) {
         console.log('hit trigger three enter');
-        // this.setState(() => {
-        //     return { triggerThree: true }
-        // });
+        this.setState({triggerThree: true});
     }
     handleTriggerThreeLeave(obj) {
         console.log('hit trigger three leave');
-        // this.setState(() => {
-        //     return { triggerThree: false }
-        // });
+        this.setState({triggerThree: false});
     }
 
     render() {
 
         const {dropzoneActive} = this.state;
         const overlayStyle = {
-            position: "absolute",
+            position: "fixed",
             top: 0,
-            right: 0,
-            bottom: 0,
             left: 0,
-            background: "rgba(0,0,0,0.1)"
+            height:"100vh",
+            width:"100vw",
+            background: "rgba(100,100,100,0.1)"
         };
 
         return (
@@ -156,9 +152,9 @@ class Landing extends Component {
                                     text3="the collection."
                                     trigger={this.state.triggerTwo}/>
                                 <button className="button">
-                                  add image
+                                  
                                 </button>
-                                {this.state.rejectedFile && <p>File type or size rejected! :(<br/>Upload an image file between 5kb and 4mb in size</p>}
+                                {this.state.rejectedFile && <p><b>Please upload an image file between 5kb and 4mb in size</b></p>}
                             </div>
                         </Dropzone>
                         <div className="navPanel_2">
@@ -166,7 +162,8 @@ class Landing extends Component {
                           <NavPanel
                             text1="Search our tags"
                             text2="& add some more"
-                            text3="on the go!"/>
+                            text3="on the go!"
+                            trigger={this.state.triggerThree}/>
                             <Link to="/explore">
                               <button className="button">
                                   explore
