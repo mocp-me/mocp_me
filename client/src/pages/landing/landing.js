@@ -1,12 +1,13 @@
 import React, { ReactDOM, Component } from "react";
 import { Link, withRouter } from "react-router-dom";
 import Dropzone from "react-dropzone";
+import Waypoint from 'react-waypoint';
+import {Grid, Row, Col, Container, Clearfix} from "react-grid-system"
 import axios from "axios";
+
 import Logo from "../../components/logo/logo";
 import Phone from "../../components/phone/phone";
 import NavPanel from "../../components/nav_panel/nav_panel";
-
-import {Grid, Row, Col, Container, Clearfix} from "react-grid-system"
 
 class Landing extends Component {
     constructor(props) {
@@ -15,46 +16,18 @@ class Landing extends Component {
         this.onDrop = this.onDrop.bind(this);
         this.onDragEnter = this.onDragEnter.bind(this);
         this.onDragLeave = this.onDragLeave.bind(this);
-        this.handleScroll = this.handleScroll.bind(this);
-        this.componentDidMount = this.componentDidMount.bind(this);
+        this.handleTriggerOneEnter = this.handleTriggerOneEnter.bind(this);
+        this.handleTriggerOneLeave = this.handleTriggerOneLeave.bind(this);  
+        this.handleTriggerTwoEnter = this.handleTriggerTwoEnter.bind(this);
+        this.handleTriggerTwoLeave = this.handleTriggerTwoLeave.bind(this);
+        this.handleTriggerThreeEnter = this.handleTriggerThreeEnter.bind(this);
+        this.handleTriggerThreeLeave = this.handleTriggerThreeLeave.bind(this);
+
 
         this.state = {
             dropzoneActive: false,
             rejectedFile: false,
-            pageScroll:0,
-            phonepanel_height: 0,
-            navpanel_1_height:0,
-            navpanel_2_height:0
         }
-    }
-    componentDidMount() {
-        window.addEventListener('scroll', this.handleScroll);   
-        // this.setState({  phonepanel_height: this.divRef_1.clientHeight });
-        // var heightOne = this.div_ref_1.clientHeight;
-        // console.log(heightOne);
-        //============= ignore everything between these =============
-        this.setState(() => {
-            return { phonepanel_height: this.divRef_1.clientHeight };
-        });
-        //============= ============= ============= ============= =============
-    }
-    componentWillUnmount() {
-        window.removeEventListener('scroll', this.handleScroll);
-    }
-
-    handleScroll(event){
-        let y_scroll_pos = window.pageYOffset;
-        this.setState(() => {
-            return { pageScroll: y_scroll_pos };
-        });
-
-        // just trying to get it to console.log the height of an element to save in state on mount
-        // this will log the column that im referencing (so the ref works)
-        let calculatedHeight = this.divRef_1;
-        // I tried ``` let calculatedHeight = this.divRef_1.clientHeight ``` per internet documentation, but it would just return undefined. 
-
-        console.log(calculatedHeight);
-
     }
 
     onDragEnter() {
@@ -70,8 +43,6 @@ class Landing extends Component {
     }
 
     onDrop(accepted, rejected) {
-        console.log('accepted: ', accepted)
-        console.log('rejected: ', rejected)
         if(rejected.length > 0) {
             this.setState({ rejectedFile: true })
             return;
@@ -89,7 +60,29 @@ class Landing extends Component {
             .catch(err => console.log(err));
     }
 
+    handleTriggerOneEnter(obj) {
+        console.log('hit trigger one enter')
+    }
+    handleTriggerOneLeave(obj) {
+        console.log('hit trigger one leave')
+    }
+
+    handleTriggerTwoEnter(obj) {
+        console.log('hit trigger two enter')
+    }
+    handleTriggerTwoLeave(obj) {
+        console.log('hit trigger two leave')
+    }
+
+    handleTriggerThreeEnter(obj) {
+        console.log('hit trigger three enter')
+    }
+    handleTriggerThreeLeave(obj) {
+        console.log('hit trigger three leave')
+    }
+
     render() {
+
         const {dropzoneActive} = this.state;
         const overlayStyle = {
             position: "absolute",
@@ -99,12 +92,14 @@ class Landing extends Component {
             left: 0,
             background: "rgba(0,0,0,0.1)"
         };
+
         return (
             <div className="landingWrapper">
                 <Row>
-                    <Col xs={12} sm={7} md={7} 
-                        className="phoneStyle" 
-                        ref={ (element_one) => this.divRef_1 = element_one}>
+                    <Col
+                        xs={12} sm={7} md={7} 
+                        className="phoneStyle">
+                        <Waypoint onLeave={this.handleTriggerOneLeave} scrollableAncestor={window} />
                         <Logo />
                         <Phone />
                     </Col>
@@ -117,28 +112,26 @@ class Landing extends Component {
                             minSize={5000}
                             onDrop={this.onDrop}
                             onDragEnter={this.onDragEnter}
-                            onDragLeave={this.onDragLeave}
-                            
-                            >
-                                { dropzoneActive && <div style={overlayStyle}></div> }
-                                <div className="navPanel_1">
-                                  <NavPanel
-                                    text1="Upload your image"
-                                    text2="to connect to"
-                                    text3="the collection."
-                                  />
-                                  <button className="button">
-                                    add image
-                                  </button>
-                                  {this.state.rejectedFile && <p>File type or size rejected! :(<br/>Upload an image file between 5kb and 4mb in size</p>}
-                                </div>
+                            onDragLeave={this.onDragLeave}>
+                            { dropzoneActive && <div style={overlayStyle}></div> }
+                            <div className="navPanel_1">
+                            <Waypoint onEnter={this.handleTriggerTwoEnter} scrollableAncestor={window} topOffset="49%" bottomOffset="49%"/>
+                                <NavPanel
+                                  text1="Upload your image"
+                                  text2="to connect to"
+                                  text3="the collection."/>
+                                <button className="button">
+                                  add image
+                                </button>
+                                {this.state.rejectedFile && <p>File type or size rejected! :(<br/>Upload an image file between 5kb and 4mb in size</p>}
+                            </div>
                         </Dropzone>
                         <div className="navPanel_2">
+                        <Waypoint onEnter={this.handleTriggerThreeEnter} scrollableAncestor={window} topOffset="49%" bottomOffset="49%"/>
                           <NavPanel
                             text1="Search our tags"
                             text2="& add some more"
-                            text3="on the go!"
-                            />
+                            text3="on the go!"/>
                             <Link to="/explore">
                               <button className="button">
                                   explore
