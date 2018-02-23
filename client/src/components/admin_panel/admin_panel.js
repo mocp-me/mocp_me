@@ -71,7 +71,7 @@ class AdminPanel extends Component {
 		}
 	}
 
-	componentWillMount() {
+	componentDidMount() {
 		axios.get("/pending-tags").then(response => {
 			console.log('response', response);
 			let tagArray = response.data;
