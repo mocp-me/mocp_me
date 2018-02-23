@@ -14,7 +14,7 @@ const routes = (function(){
 	router.use(bodyParser.json());
 
 	// API calls are directed here
-	router.use(/admin\/.+/, adminRoutes);
+	router.use(/\/admin\/.+/, adminRoutes);
 	router.use("/api", apiRoutes);
 	
 
