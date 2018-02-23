@@ -3,6 +3,7 @@ import Slider from 'react-slick';
 import { Grid, Row, Col, Container } from 'react-grid-system';
 import axios from 'axios';
 import _ from 'lodash';
+import ClassNames from 'classnames';
 
 import Logo from '../../components/logo/logo';
 import Info from '../../components/returned_info/returned_info';
@@ -10,8 +11,7 @@ import Tags from '../../components/tag_list/tag_list';
 import TagSubmit from '../../components/tag_submit/tag_submit';
 import NavBtn from '../../components/nav_button';
 
-import mocp from './mocp.png';
-import me from './me.png';
+import logo from './../../components/logo/logo.png';
 
 class VisionResultsDesktop extends Component {
     constructor(props) {
@@ -26,9 +26,8 @@ class VisionResultsDesktop extends Component {
     }
 
     componentWillMount(){
-        console.log(this.state.uploadedImg)
         if(!this.state.uploadedImg) {
-            this.props.history.push('/')
+            this.props.history.push('/');
         }
     }
 
@@ -60,7 +59,6 @@ class VisionResultsDesktop extends Component {
             id: this.state.imgId,
             tag
         };
-        //make a post with these!
         axios
             .post('/api/submit-tag', data)
             .then(res => console.log(res));
@@ -72,9 +70,9 @@ class VisionResultsDesktop extends Component {
         fileName = fileName[fileName.length-1];
         axios
             .get(`/api/vision/${fileName}`)
-            .then((res) => {
-                if(res.data === 'no results'){
-                    this.setState({searchFail: true})
+            .then(res => {
+                if(res.data === 'no results') {
+                    this.setState({ searchFail: true });
                     return;
                 }
                 const returnedTags = [];
@@ -106,7 +104,16 @@ class VisionResultsDesktop extends Component {
         }
         if(this.state.searchFail) {
             return (
-                <h3>omg your super unique photo didnt match any of the 90,000 tags in our database!</h3>
+                <div className = "searchFail">
+                    <div className = "logoWrapper">
+                        <img   
+                            src={ logo } 
+                            className = "logoStyle" />
+                    </div>
+                    <div className= "failText">
+                        <p><b>Sorry</b> - we don't have any tags matching yours in our database.</p>
+                    </div>
+                </div>
             );
         }
         return (
@@ -127,20 +134,26 @@ class VisionResultsDesktop extends Component {
                             </Col>
                             <Col sm={6} className="resultContainer">
                                 <Info
-                                    image={ me }
-                                    headerOne = "Some shit about what we're doing with google vision or whatever"
-                                >
-                                    { visionTopTags ? 
-                                    <Tags 
-                                        withHash={ true } 
-                                        tagList={ visionTopTags }
-                                        isLink={ true } /> 
-                                    : <p>fetching tags..</p> }
+                                    image={ logo }
+                                    headerOne = "Swipe left to see your match from the collection."
+                                    headerTwo = "Please enter your email below to submit your pairing for an exhibition at the MoCP.">
+                                    { visionTopTags ? <Tags withHash={ true } tagList={ visionTopTags } /> : <p>fetching tags..</p> }
+                                    {/*Just reused the below component - will be swapped out with something to collect email addresses / contact info?*/}
+                                    <TagSubmit
+                                        handleTagSubmit={ null }
+                                        btnText="submit" />
+                                    <NavBtn route='/' btnText='upload a new photo' />
                                 </Info>
                             </Col>
                         </Row>
                     </div> 
-                    { !returnedImg && <div>Loading...</div> }
+                    { !returnedImg && 
+                        <div className = "loaderWrapper">
+                            <div className = "logoWrapper">
+                                <img   src={ logo } 
+                                    className = "logoStyle" />
+                            </div>
+                        </div> }
                     { returnedImg && 
                         <div>
                             <Row className="rowStyle">
@@ -157,20 +170,15 @@ class VisionResultsDesktop extends Component {
                                 </Col>
                                 <Col sm={6} className="resultContainer">
                                     <Info
-                                        image = { mocp }
+                                        image={ logo }
                                         headerOne={ title }
-                                        headerTwo={ artist }
-                                    >
-                                        <Tags
-                                            isLink={ true } 
-                                            withHash={ true } 
-                                            tagList={ returnedTags } />
-                                        <NavBtn route='/' btnText='try again' />
+                                        headerTwo={ artist }>
+                                        <Tags withHash={ true } tagList={ returnedTags } />
                                         {/* {returnedImg && <NavBtn route='/submit' btnText='submit your results to mocp' />} */}
                                         <p>Suggest a new tag: </p>
                                         <TagSubmit
                                             handleTagSubmit={ this.handleTagSubmit }
-                                            btnText="Send iiiittt!" />
+                                            btnText="submit" />
                                     </Info>
                                 </Col>
                             </Row>

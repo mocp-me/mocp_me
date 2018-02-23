@@ -1,12 +1,13 @@
-import React, { Component } from "react";
+import React, { ReactDOM, Component } from "react";
 import { Link, withRouter } from "react-router-dom";
 import Dropzone from "react-dropzone";
+import Waypoint from 'react-waypoint';
+import {Grid, Row, Col, Container, Clearfix} from "react-grid-system"
 import axios from "axios";
+
 import Logo from "../../components/logo/logo";
 import Phone from "../../components/phone/phone";
 import NavPanel from "../../components/nav_panel/nav_panel";
-
-import {Grid, Row, Col, Container, Clearfix} from "react-grid-system"
 
 class Landing extends Component {
     constructor(props) {
@@ -15,15 +16,38 @@ class Landing extends Component {
         this.onDrop = this.onDrop.bind(this);
         this.onDragEnter = this.onDragEnter.bind(this);
         this.onDragLeave = this.onDragLeave.bind(this);
+        this.handleTriggerOneEnter = this.handleTriggerOneEnter.bind(this);
+        this.handleTriggerOneLeave = this.handleTriggerOneLeave.bind(this);  
+        this.handleTriggerTwoEnter = this.handleTriggerTwoEnter.bind(this);
+        this.handleTriggerTwoLeave = this.handleTriggerTwoLeave.bind(this);
+        this.handleTriggerThreeEnter = this.handleTriggerThreeEnter.bind(this);
+        this.handleTriggerThreeLeave = this.handleTriggerThreeLeave.bind(this);
+        this.handleScroll = this.handleScroll.bind(this);
 
         this.state = {
             dropzoneActive: false,
+<<<<<<< HEAD
             fileUploaded: false,
             fileRejected: false
+=======
+            rejectedFile: false,
+            triggerOne: false,
+            triggerTwo: false,
+            triggerThree: false 
+>>>>>>> front_end
         }
+    }
+    componentDidMount() {
+        window.addEventListener('scroll', this.handleScroll);
+    }
+
+    handleScroll(event){
+        // console.log("outside phone " + this.state.triggerOne);
+        // console.log(this.state.triggerTwo); 
     }
 
     onDragEnter() {
+<<<<<<< HEAD
         this.setState({ dropzoneActive: true });
     }
 
@@ -33,6 +57,20 @@ class Landing extends Component {
 
     onDrop(accepted, rejected) {
 
+=======
+        this.setState(() => {
+            return { dropzoneActive: true }
+        });
+    }
+
+    onDragLeave() {
+        this.setState(() => {
+            return { dropzoneActive: false }
+        });
+    }
+
+    onDrop(accepted, rejected) {
+>>>>>>> front_end
         if(rejected.length > 0) {
             this.setState({ fileRejected: true })
             return;
@@ -53,22 +91,62 @@ class Landing extends Component {
             .catch(err => console.log(err));
     }
 
+    handleTriggerOneEnter(obj) {
+        // console.log(obj)
+        // console.log('hit trigger one enter');
+        this.setState({triggerOne: true});
+    }
+    handleTriggerOneLeave(obj) {
+        // console.log('hit trigger one leave');
+        this.setState({triggerOne: false});
+    }
+
+    handleTriggerTwoEnter(obj) {
+        console.log('hit trigger two enter');
+        this.setState({triggerTwo: true});
+    }
+    handleTriggerTwoLeave(obj) {
+        console.log('hit trigger two leave');
+        this.setState({triggerTwo: false});
+    }
+
+    handleTriggerThreeEnter(obj) {
+        console.log('hit trigger three enter');
+        this.setState({triggerThree: true});
+    }
+    handleTriggerThreeLeave(obj) {
+        console.log('hit trigger three leave');
+        this.setState({triggerThree: false});
+    }
+
     render() {
+
         const {dropzoneActive} = this.state;
         const overlayStyle = {
-            position: "absolute",
+            position: "fixed",
             top: 0,
-            right: 0,
-            bottom: 0,
             left: 0,
-            background: "rgba(0,0,0,0.1)"
+            height:"100vh",
+            width:"100vw",
+            background: "rgba(100,100,100,0.1)"
         };
+
         return (
             <div className="landingWrapper">
                 <Row>
-                    <Col xs={12} sm={7} md={7} className="phoneStyle">
+                    <Col
+                        xs={12} sm={7} md={7} 
+                        className="phoneStyle">
+                        <Waypoint onLeave={this.handleTriggerOneLeave} 
+                                    onEnter={this.handleTriggerOneEnter} 
+                                    scrollableAncestor={window} 
+                                    fireOnRapidScroll={ true } 
+                                    topOffset="60%"
+                        />
                         <Logo />
-                        <Phone />
+                        <Phone 
+                            trigger={this.state.triggerOne}
+                        />
                     </Col>
                     <Col xs={12} sm={5} md={5}>
                         <Dropzone
@@ -79,15 +157,20 @@ class Landing extends Component {
                             minSize={5000}
                             onDrop={this.onDrop}
                             onDragEnter={this.onDragEnter}
-                            onDragLeave={this.onDragLeave}
-                            
-                            >
-                                { dropzoneActive && <div style={overlayStyle}></div> }
-                                <div className="navPanel_1">
-                                  <NavPanel
+                            onDragLeave={this.onDragLeave}>
+                            { dropzoneActive && <div style={overlayStyle}></div> }
+                            <div className="navPanel_1">
+                            <Waypoint   onEnter={this.handleTriggerTwoEnter} 
+                                        scrollableAncestor={window} 
+                                        topOffset="70%" 
+                                        // bottomOffset="60%" 
+                                        fireOnRapidScroll={ true }
+                            />
+                                <NavPanel
                                     text1="Upload your image"
                                     text2="to connect to"
                                     text3="the collection."
+<<<<<<< HEAD
                                   />
                                   <button className="button">
                                     add image
@@ -95,13 +178,25 @@ class Landing extends Component {
                                   { this.state.fileUploaded === true && <p>Beep boop beep motherfucker!</p> }
                                   { this.state.fileRejected && <p>File type or size rejected! :(<br/>Upload an image file between 5kb and 4mb in size</p> }
                                 </div>
+=======
+                                    trigger={this.state.triggerTwo}/>
+                                <button className="button">
+                                  
+                                </button>
+                                {this.state.rejectedFile && <p><b>Please upload an image file between 5kb and 4mb in size</b></p>}
+                            </div>
+>>>>>>> front_end
                         </Dropzone>
                         <div className="navPanel_2">
+                        <Waypoint   onEnter={this.handleTriggerThreeEnter} 
+                                    scrollableAncestor={window} 
+                                    topOffset="80%"
+                                    fireOnRapidScroll={ true }/>
                           <NavPanel
                             text1="Search our tags"
                             text2="& add some more"
                             text3="on the go!"
-                            />
+                            trigger={this.state.triggerThree}/>
                             <Link to="/explore">
                               <button className="button">
                                   explore

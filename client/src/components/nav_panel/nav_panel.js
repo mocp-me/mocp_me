@@ -8,7 +8,46 @@ import ClassNames from 'classnames';
 class NavPanel extends Component {
     constructor(props){
         super(props);
-        this.state = {hovered: false}
+        this.state = {
+        	hovered: false,
+        	phone:false,
+        	trigger:false
+        }
+        this.updateWindowDimensions = this.updateWindowDimensions.bind(this);
+        this.handleScroll = this.handleScroll.bind(this);
+    }
+
+    componentDidMount() {
+      this.updateWindowDimensions();
+      window.addEventListener('resize', this.updateWindowDimensions);
+      window.addEventListener('scroll', this.handleScroll);
+      // this.setState({triggerOne:props.triggerOne});
+    }
+
+    componentWillUnmount() {
+      window.removeEventListener('resize', this.updateWindowDimensions);
+      window.removeEventListener('scroll', this.handleScroll);
+    }
+
+    updateWindowDimensions() {
+        if (window.innerWidth < 450){
+            this.setState({phone:true});
+        } else {
+            this.setState({phone:false});
+        }
+    }
+
+    handleScroll(event){
+        if (this.state.trigger !== this.props.trigger){
+            this.setState({trigger:this.props.trigger});
+            console.log(this.state.trigger);
+            if (this.state.trigger){
+                this.setState({hovered:true});
+            } 
+            if (!this.state.trigger) {
+                this.setState({hovered:false});
+            }
+        }
     }
 
     handleOnMouseOver = () => {
