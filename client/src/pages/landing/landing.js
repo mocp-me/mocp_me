@@ -38,6 +38,7 @@ class Landing extends Component {
 
     handleScroll(event){
         // console.log("outside phone " + this.state.triggerOne);
+        console.log(this.state.triggerTwo); 
     }
 
     onDragEnter() {
@@ -128,7 +129,7 @@ class Landing extends Component {
                         />
                         <Logo />
                         <Phone 
-                            triggerOne={this.state.triggerOne}
+                            trigger={this.state.triggerOne}
                         />
                     </Col>
                     <Col xs={12} sm={5} md={5}>
@@ -143,11 +144,17 @@ class Landing extends Component {
                             onDragLeave={this.onDragLeave}>
                             { dropzoneActive && <div style={overlayStyle}></div> }
                             <div className="navPanel_1">
-                            <Waypoint onEnter={this.handleTriggerTwoEnter} scrollableAncestor={window} topOffset="49%" bottomOffset="49%" fireOnRapidScroll={ false }/>
+                            <Waypoint   onEnter={this.handleTriggerTwoEnter} 
+                                        scrollableAncestor={window} 
+                                        topOffset="50%" 
+                                        // bottomOffset="60%" 
+                                        fireOnRapidScroll={ false }
+                            />
                                 <NavPanel
-                                  text1="Upload your image"
-                                  text2="to connect to"
-                                  text3="the collection."/>
+                                    text1="Upload your image"
+                                    text2="to connect to"
+                                    text3="the collection."
+                                    trigger={this.state.triggerTwo}/>
                                 <button className="button">
                                   add image
                                 </button>
