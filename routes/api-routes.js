@@ -82,7 +82,7 @@ const apiRoutes = (() => {
 	router.post('/submit-tag', (req, res) => {
 		console.log("route hit: ", req.body)
 		const { id, tag } = req.body
-		db.user_tags.findOrCreate({
+		db.UserTags.findOrCreate({
 			where: {
 				tag_name: tag,
 				photo_id: id
