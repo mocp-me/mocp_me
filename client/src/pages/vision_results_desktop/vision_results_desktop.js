@@ -139,7 +139,7 @@ class VisionResultsDesktop extends Component {
                                     image={ logo }
                                     headerOne = "Swipe left to see your match from the collection."
                                     headerTwo = "Please enter your email below to submit your pairing for an exhibition at the MoCP.">
-                                    { visionTopTags ? <Tags withHash={ true } tagList={ visionTopTags } /> : <p>fetching tags..</p> }
+                                    { visionTopTags ? <Tags isLink={ true } withHash={ true } tagList={ visionTopTags } /> : <p>fetching tags..</p> }
                                     <TagSubmit
                                         handleTagSubmit={ null }
                                         btnText="submit" />
@@ -174,7 +174,7 @@ class VisionResultsDesktop extends Component {
                                         image={ logo }
                                         headerOne={ title }
                                         headerTwo={ artist }>
-                                        <Tags withHash={ true } tagList={ returnedTags } />
+                                        <Tags isLink={ true } withHash={ true } tagList={ returnedTags } />
                                         {/* {returnedImg && <NavBtn route='/submit' btnText='submit your results to mocp' />} */}
                                         <p>Suggest a new tag: </p>
                                         <TagSubmit
