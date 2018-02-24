@@ -101,7 +101,7 @@ class AdminPanel extends Component {
 		console.log('req to be used: ', req)
 
 		console.log('data to be sent: ', data)
-		axios.put(req)
+		axios(req)
 			.then(response => console.log(response))
 			.catch(err => console.log(err));
 		this.removeTheThing(tagId);
