@@ -115,7 +115,7 @@ const apiRoutes = (() => {
 		}).then(() => {
 			db.Photos.findAll({
 				where: {
-					id: {
+					photo_id: {
 						$in: arr
 					}
 				},
