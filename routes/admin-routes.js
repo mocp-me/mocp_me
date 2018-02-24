@@ -75,7 +75,7 @@ const adminRoutes = (function(){
 		db.user_tags.update({ 
 			approved: true 
 		},{
-			where: { id: this.req.params.tagId }
+			where: { id: req.params.tagId }
 		})
 		.then((approved) => {
 			console.log(approved, " has been approved");
