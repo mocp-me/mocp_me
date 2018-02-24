@@ -28,7 +28,7 @@ const adminRoutes = (function(){
 
 	router.get("/pending-tags", (req, res) => {
 		console.log("admin/pending-tags call received by backend");
-		db.user_tags.findAll({
+		db.UserTags.findAll({
 			where: {
 				approved: false
 			},
