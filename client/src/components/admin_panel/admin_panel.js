@@ -72,12 +72,13 @@ class AdminPanel extends Component {
 	}
 
 	componentWillMount() {
-		axios.get("/pending-tags").then(response => {
-			console.log('response', response);
-			let tagArray = response.data;
-			this.setState({tags: tagArray})
-			console.log("this.state", this.state);
-		});
+		axios.get("/pending-tags")
+			.then(response => {
+				console.log('response', response);
+				let tagArray = response.data;
+				this.setState({tags: tagArray})
+				console.log("this.state", this.state);
+			});
 	}
 
 	removeTheThing(tagId) {
@@ -87,26 +88,33 @@ class AdminPanel extends Component {
 		})
 	}
 
-	approveTag(tagId, tagName, photoId) {
-		const data = {
-			tagName,
-			photoId
-		};
-		const url = `/approval/${tagId}`;
-		const req = {
-			url,
-			method: 'PUT',
-			data
-		}
-		console.log('req to be used: ', req)
+	// approveTag(tagId, tagName, photoId) {
+	// 	const data = {
+	// 		tagName,
+	// 		photoId
+	// 	};
+	// 	const url = `/approval/${tagId}`;
+	// 	const req = {
+	// 		url,
+	// 		method: 'PUT',
+	// 		data
+	// 	}
+	// 	console.log('req to be used: ', req)
 
-		console.log('data to be sent: ', data)
-		axios(req)
+	// 	console.log('data to be sent: ', data)
+	// 	axios(req)
+	// 		.then(response => console.log(response))
+	// 		.catch(err => console.log(err));
+	// 	this.removeTheThing(tagId);
+	// 	return console.log(`approveTag(${tagId}, ${tagName}, ${photoId}) called.`);
+
+	// }
+	approveTag(tagId) {
+		axios.put(`/approval/${tagId}`)
 			.then(response => console.log(response))
 			.catch(err => console.log(err));
 		this.removeTheThing(tagId);
-		return console.log(`approveTag(${tagId}, ${tagName}, ${photoId}) called.`);
-
+		return console.log(`approveTag(${tagId}) called.`);
 	}
 
 	rejectTag(tagId) {
