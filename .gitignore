@@ -12,10 +12,6 @@
 /process
 
 # misc
-<<<<<<< HEAD
-=======
-
->>>>>>> master
 .sass-cache
 .DS_Store
 .vscode/database.json

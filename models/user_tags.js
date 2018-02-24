@@ -7,10 +7,10 @@ const db = require("../models/");
 module.exports = function (db, DataTypes) {
     const User_tags = db.define("user_tags", {
         // the tag's id gets saved as an integer
-        // id: {
-        //     type: Sequelize.INTEGER,
-        //     primaryKey: true
-        // },
+        id: {
+            type: Sequelize.INTEGER,
+            primaryKey: true
+        },
         // the name of the tag (a string)
         tag_name: { type: Sequelize.STRING, allowNull: false },
         // and the photo id (an integer)
