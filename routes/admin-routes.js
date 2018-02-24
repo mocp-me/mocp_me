@@ -70,14 +70,23 @@ const adminRoutes = (function(){
 
 	//Update only tags approval to true
 	router.put("/approval/:tagId", function (req, res) {
+		console.log("approval route hit with req.data", req.data)
+		const { tagId, tagName, photoId } = req.data
 		db.user_tags.update({ 
 			approved: true 
 		},{
 			where: { id: req.params.tagId }
 		})
-		.then(function (approved) {
+		.then((approved) => {
 			console.log(approved, " has been approved");
-			res.json(approved)
+			db.Tags.create({
+				tag_name: tagName,
+				photo_id: photoId
+			})
+			.then((added) => {
+				console.log(added, " had been added");
+				res.json(added)
+			});
 		});
 	})
 

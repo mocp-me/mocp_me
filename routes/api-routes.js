@@ -82,7 +82,7 @@ const apiRoutes = (() => {
 	router.post('/submit-tag', (req, res) => {
 		console.log("route hit: ", req.body)
 		const { id, tag } = req.body
-		db.user_tags.findOrCreate({
+		db.UserTags.findOrCreate({
 			where: {
 				tag_name: tag,
 				photo_id: id
@@ -165,7 +165,7 @@ const apiRoutes = (() => {
 	// Test DB Post routes
 	router.post("/add-tag", (req, res) => {
 		// create takes an argument of an object describing the item we want to insert into our table.
-		db.user_tags.create({
+		db.UserTags.create({
 			tag_name: req.body.tag_name,
 			photo_id: req.body.photo_id
 			//approved: req.body.approved
