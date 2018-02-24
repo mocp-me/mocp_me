@@ -76,6 +76,20 @@ The entire premise of this application was to first get people to interact with 
 # API Reference
 
 ### Public Routes
-### 
+####  Upload image
+####  Get image based on Google Vision
+####  Submit Photo
+####  Submit Tag
+####  Search Tags using a keyword and randomize the results
+####  Check if search term is a valid tag
+####  Get all photos in the db
+####  Get random tags
+####  Add a tag
 
 ### Admin Routes
+####  Get all user tags
+####  Get all user tags that are pending
+####  Add a tag with approval status
+####  Update a user tag
+####  Approve a tag
+####  Delete a tag
