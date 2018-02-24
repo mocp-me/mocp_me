@@ -1,8 +1,8 @@
 # MoCP.me
 
-###Application for Museum of Contemporary Photography that reverse image searches the museums database and allows the public to interact with the museums works on user-generated terms.
+### Application for Museum of Contemporary Photography that reverse image searches the museums database and allows the public to interact with the museums works on user-generated terms.
 
-![alt text](/readme_ref/mocp_data_flow.jpg?raw=true "The App") 
+![alt text](/readme_ref/mocp_visual.jpg?raw=true "The App") 
 
 ### The Tagging Project
 In 1980, the Museum of Contemporary Photography established a permanent collection and it is through this collection that the museum has been able to provide an invaluable research and educational resource to the general public and thousands of students. In 2009, the growing collection was digitized and made available online for free to the general public. To extend the reach of the Museum of Contemporary Photography’s vast resources from the collection and enhance connections between the institution and the community, artist Jan Tichy has developed a project and exhibition utilizing the museum’s collection of over 12,000 photographs.
@@ -23,7 +23,7 @@ Users can submit tags for their returned MoCP collection photograph, or while se
 
 ---
 
-![alt text](/readme_ref/mocp_me_visual.jpg?raw=true "The App") 
+![alt text](/readme_ref/mocp_data_flow.jpg?raw=true "The App") 
 
 ---
 
