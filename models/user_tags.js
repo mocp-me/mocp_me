@@ -14,7 +14,6 @@ module.exports = function (db, DataTypes) {
         // the name of the tag (a string)
         tag_name: { type: Sequelize.STRING, allowNull: false },
         // and the photo id (an integer)
-        photo_id: Sequelize.INTEGER,
         approved: { type: Sequelize.BOOLEAN, allowNull: false, defaultValue: false }
     },
         {

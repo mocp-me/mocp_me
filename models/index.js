@@ -53,7 +53,7 @@ db.Sequelize = Sequelize;
 
 db.Tags.belongsTo(db.Photos, { foreignKey: 'id' });
 db.Photos.hasMany(db.Tags, { foreignKey: 'photo_id' });
-db.user_tags.belongsTo(db.Photos, { foreignKey: 'id' });
+db.user_tags.belongsTo(db.Photos);
 db.Photos.hasMany(db.user_tags, { foreignKey: 'photo_id' });
 
 
