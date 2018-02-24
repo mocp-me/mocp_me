@@ -32,7 +32,9 @@ const adminRoutes = (function(){
 			where: {
 				approved: false
 			},
-			include: [db.Photo]
+			include: [{
+				model: Photo
+			}]
 		}).then(Tags => {
 			res.json(Tags);
 		});
