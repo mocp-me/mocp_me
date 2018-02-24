@@ -36,8 +36,7 @@ const adminRoutes = (function(){
 				model: db.Photos,
 				where: {
 					id: db.user_tags.photo_id
-				},
-				required: false
+				}
 			}]
 		}).then(Tags => {
 			res.json(Tags);
