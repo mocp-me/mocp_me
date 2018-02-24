@@ -1,6 +1,6 @@
 # mocp_me
 
-![alt text](../readme_ref/mocp_me_visual.jpg?raw=true "The App")
+![alt text](/readme_ref/mocp_me_visual.jpg?raw=true "The App")
 
 Application for Museum of Contemporary Photography that reverse image searches the museums database and allows users to interact with the museums works
 
