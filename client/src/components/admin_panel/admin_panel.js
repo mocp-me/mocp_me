@@ -89,12 +89,11 @@ class AdminPanel extends Component {
 
 	approveTag(tagId, tagName, photoId) {
 		const data = {
-			tagId,
 			tagName,
 			photoId
 		}
 		console.log('data to be sent: ', data)
-		axios.put('/approval', data)
+		axios.put(`/approval/${tagId}`, data)
 			.then(response => console.log(response))
 			.catch(err => console.log(err));
 		this.removeTheThing(tagId);
