@@ -51,10 +51,10 @@ db.Sequelize = Sequelize;
 // db.Photos = require('./photos')(sequelize, Sequelize);
 // db.Tags = require('./tags')(sequelize, Sequelize);
 
-db.Tags.belongsTo(db.Photos, { foreignKey: 'photo_id' });
-db.Photos.hasMany(db.Tags);
-db.user_tags.belongsTo(db.Photos, { foreignKey: 'photo_id' });
-db.Photos.hasMany(db.user_tags);
+db.Tags.belongsTo(db.Photos, { foreignKey: 'id' });
+db.Photos.hasMany(db.Tags, { foreignKey: 'photo_id' });
+db.user_tags.belongsTo(db.Photos, { foreignKey: 'id' });
+db.Photos.hasMany(db.user_tags, { foreignKey: 'photo_id' });
 
 
 module.exports = db;
