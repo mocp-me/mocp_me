@@ -98,6 +98,7 @@ class AdminPanel extends Component {
 			method: 'PUT',
 			data
 		}
+		console.log('req to be used: ', req)
 
 		console.log('data to be sent: ', data)
 		axios.put(req)
