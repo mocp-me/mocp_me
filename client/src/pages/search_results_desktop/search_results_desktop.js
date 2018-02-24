@@ -46,9 +46,7 @@ class SearchResultsDesktop extends Component {
         .catch(err => console.log(err));
     }
 
-    handleTagSubmit = (id, event) => {
-        console.log("(id) =>", id);
-        console.log("(event) =>", event);
+    handleTagSubmit = (id) => (event) => {
         event.preventDefault();
         const tag = event.target.elements.term.value;
         //there are way more sophisticated ways to handle form submittal, but this shit isn't very important, so fuck it.
