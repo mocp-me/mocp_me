@@ -5,12 +5,12 @@ const Sequelize = require("sequelize");
 const db = require("../models/");
 // Creates a "Photo" model that matches up with DB
 module.exports = function (db, DataTypes) {
-    const UserTags = db.define("UserTags", {
+    const User_tags = db.define("user_tags", {
         // the tag's id gets saved as an integer
-        id: {
-            type: Sequelize.INTEGER,
-            primaryKey: true
-        },
+        // id: {
+        //     type: Sequelize.INTEGER,
+        //     primaryKey: true
+        // },
         // the name of the tag (a string)
         tag_name: { type: Sequelize.STRING, allowNull: false },
         // and the photo id (an integer)
@@ -21,5 +21,5 @@ module.exports = function (db, DataTypes) {
             timestamps: true
         });
 
-    return UserTags;
+    return User_tags;
 }
