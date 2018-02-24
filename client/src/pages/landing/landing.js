@@ -31,6 +31,13 @@ class Landing extends Component {
             triggerThree: false 
         }
     }
+    componentDidMount() {
+        window.addEventListener('scroll', this.handleScroll);
+    }
+    
+    componentWillUnmount() {
+        window.removeEventListener('scroll', this.handleScroll);
+    }
 
     onDragEnter() {
         this.setState({ dropzoneActive: true });
@@ -63,23 +70,29 @@ class Landing extends Component {
     }
 
     handleTriggerOneEnter() {
+        console.log('hi')
         this.setState({ triggerOne: true });
     }
     handleTriggerOneLeave() {
+        console.log('hi')
         this.setState({ triggerOne: false });
     }
 
     handleTriggerTwoEnter() {
+        console.log('hi')
         this.setState({ triggerTwo: true });
     }
     handleTriggerTwoLeave() {
+        console.log('bye')
         this.setState({ triggerTwo: false });
     }
 
     handleTriggerThreeEnter() {
+        console.log('hi')
         this.setState({ triggerThree: true });
     }
     handleTriggerThreeLeave() {
+        console.log('hi')
         this.setState({ triggerThree: false });
     }
 
