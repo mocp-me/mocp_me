@@ -28,10 +28,7 @@ class SearchResultsDesktop extends Component {
     }
 
     componentWillReceiveProps(newProps) {
-        // console.log('next props', nextProps);
-        console.log(newProps)
         let term = newProps.match.params.term;
-        console.log(term)
         this.fetchImages(term);
     }
 
@@ -40,7 +37,6 @@ class SearchResultsDesktop extends Component {
         .get(`/api/search-tags/${term}/random`)
         .then((res) => {
             const results = res.data;
-            console.log('fetch image results: ', results)
             if (results.length === 0) {
                 this.setState({searchFail : true});
             } else {
@@ -59,7 +55,6 @@ class SearchResultsDesktop extends Component {
                 id,
                 tag
             };
-            console.log('data to be submitted: ', data)
             axios
                 .post('/api/submit-tag', data)
                 .then(res => console.log(res));

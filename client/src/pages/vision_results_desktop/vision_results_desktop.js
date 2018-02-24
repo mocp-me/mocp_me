@@ -59,7 +59,6 @@ class VisionResultsDesktop extends Component {
             id: this.state.imgId,
             tag
         };
-        console.log('data for tag submit: ', data)
         axios
             .post('/api/submit-tag', data)
             .then(res => console.log(res));
@@ -88,7 +87,6 @@ class VisionResultsDesktop extends Component {
                     returnedTags
                 });
                 sessionStorage.setItem('prevState', JSON.stringify(this.state));
-                console.log('new state: ', this.state)
             })
             .catch(err => console.log(err));
     }
