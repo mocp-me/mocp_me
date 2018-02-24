@@ -93,6 +93,7 @@ class AdminPanel extends Component {
 			tagName,
 			photoId
 		}
+		console.log('data to be sent: ', data)
 		axios.put('/approval', data)
 			.then(response => console.log(response))
 			.catch(err => console.log(err));
