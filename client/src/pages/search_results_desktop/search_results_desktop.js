@@ -37,6 +37,7 @@ class SearchResultsDesktop extends Component {
         .get(`/api/search-tags/${term}/random`)
         .then((res) => {
             const results = res.data;
+            console.log('fetch image results: ', results)
             if (results.length === 0) {
                 this.setState({searchFail : true});
             } else {
@@ -55,6 +56,7 @@ class SearchResultsDesktop extends Component {
                 id,
                 tag
             };
+            console.log('data to be submitted: ', data)
             axios
                 .post('/api/submit-tag', data)
                 .then(res => console.log(res));
