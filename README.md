@@ -1,6 +1,6 @@
 # MoCP.me
 
-###Application for Museum of Contemporary Photography that reverse image searches the museums database and allows the public to interact with the museums works on user-generated terms.
+### Application for Museum of Contemporary Photography that reverse image searches the museums database and allows the public to interact with the museums works on user-generated terms.
 
 ![alt text](/readme_ref/mocp_me_visual.jpg?raw=true "The App") 
 
