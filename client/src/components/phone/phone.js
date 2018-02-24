@@ -1,17 +1,58 @@
 import React, { Component } from 'react';
-import {Grid, Row, Col, Container} from 'react-grid-system';
+import { Grid, Row, Col, Container } from 'react-grid-system';
 import ClassNames from 'classnames';
-// import './phone.css';
-
 
 class Phone extends Component {
     constructor(props){
         super(props);
-        this.state = {hovered: false}
+
+        this.state = {
+            hovered: false,
+            phone:false,
+            trigger:false
+        }
+
+        this.updateWindowDimensions = this.updateWindowDimensions.bind(this);
+        this.handleScroll = this.handleScroll.bind(this);
+
+    }
+
+    componentDidMount() {
+      this.updateWindowDimensions();
+      window.addEventListener('resize', this.updateWindowDimensions);
+      window.addEventListener('scroll', this.handleScroll);
+    }
+
+    componentWillUnmount() {
+      window.removeEventListener('resize', this.updateWindowDimensions);
+      window.removeEventListener('scroll', this.handleScroll);
+    }
+
+    updateWindowDimensions() {
+        if (window.innerWidth < 450){
+            this.setState({phone:true});
+        } else {
+            this.setState({phone:false});
+        }
+    }
+
+    handleScroll(event){
+        if (this.state.trigger !== this.props) {
+            this.setState({ trigger:this.props });
+            if (this.state.trigger) {
+                this.setState({ hovered:true });
+            } else {
+                this.setState({ hovered:false });
+            }
+        }
     }
 
     handleOnMouseOver = () => {
-        this.setState({hovered:true})
+        if (this.state.phone){
+            this.setState({hovered:false})
+        } else {
+            this.setState({hovered:true});
+        }
     }
     handleOnMouseLeave = () => {
         this.setState({hovered:false})

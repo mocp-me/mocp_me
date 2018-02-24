@@ -34,7 +34,7 @@ const apiRoutes = (() => {
 		if (req.file && req.file.cloudStoragePublicUrl) {
 		  data.imageUrl = req.file.cloudStoragePublicUrl;
 		}
-		res.send(data);
+		res.json(data);
 	  })
 
 
@@ -60,6 +60,10 @@ const apiRoutes = (() => {
 				}]
 				
 			}).then(results => {
+				if(!results.length) {
+					res.send('no results')
+					return;
+				}
 				const appendedResults = results[0].dataValues;
 				appendedResults.visionTopTags = visionTopTags;
 				res.json(appendedResults)
@@ -68,12 +72,12 @@ const apiRoutes = (() => {
 	});
 
 	router.post('/submit-photo', (req, res) => {
-		console.log('shit to be saved to the new db pending successful save', req.body)
+		console.log('stuff to be saved to the new db pending successful save', req.body)
 		let fileName = req.body.uploadedImg;
 		fileName = fileName.split('/');
 		fileName = fileName[fileName.length-1];
 		helpers.submit(fileName);
-	})
+	});
 
 	router.post('/submit-tag', (req, res) => {
 		console.log("route hit: ", req.body)
@@ -83,11 +87,14 @@ const apiRoutes = (() => {
 				tag_name: tag,
 				photo_id: id
 			}
-		})
-		.then(results => console.log('results', results))
-		
-	})
-
+		}).spread((tag, created) => {
+			console.log(tag.get({
+			  plain: true
+			}));
+			console.log("tag created: ", created)
+		  });
+		});
+	
 	// Get the images of a particular keyword
 	router.get("/search-tags/:tag_name/:random?", (req, res) => {
 		const arr = [];
@@ -116,14 +123,13 @@ const apiRoutes = (() => {
 				include: [{
 					model: db.Tags
 				}]
-			}).then( matched => {
+			}).then(matched => {
 				res.json(matched)
-			})
-		})
+			});
+		});
 	});
 
 	router.get('/check-tag/:tag_name', (req, res) => {
-		console.log(req.params.tag_name)
 		db.Tags.findOne({
 			where: {
 				tag_name: req.params.tag_name
@@ -158,7 +164,6 @@ const apiRoutes = (() => {
 
 	// Test DB Post routes
 	router.post("/add-tag", (req, res) => {
-		console.log(req.body);
 		// create takes an argument of an object describing the item we want to insert into our table.
 		db.user_tags.create({
 			tag_name: req.body.tag_name,

@@ -57,11 +57,12 @@ class ExploreSearch extends Component {
     }
 
     render() {
-        const tagSearch = _.debounce((term) => { this.tagSearch(term) }, 125);
+        const tagSearch = _.debounce((term) => { this.tagSearch(term) }, 225);
 
         return (
             <Row>
                 <Col sm={7} className="leftColumn">
+                    <NavBtn route='/' btnText='&larr;' />
                     <div className="wrapper">
                         <Logo />
                         <div className="tagSearchStyle">
@@ -83,7 +84,6 @@ class ExploreSearch extends Component {
                     >
                         <h3>Trending Tags:</h3>
                     </Tags>
-                    <NavBtn route='/' btnText='back' />
                     </div>
                 </Col>
             </Row>

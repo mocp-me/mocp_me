@@ -7,25 +7,41 @@ import Info from '../../components/returned_info/returned_info';
 import Tags from '../../components/tag_list/tag_list';
 import TagSubmit from '../../components/tag_submit/tag_submit';
 import NavBtn from '../../components/nav_button';
-
+import logo from './../../components/logo/logo.png';
 
 class SearchResultsDesktop extends Component {
     constructor(props) {
         super(props);
 
-        this.handleTagSubmit = this.handleTagSubmit.bind(this)
+        this.handleTagSubmit = this.handleTagSubmit.bind(this);
 
-        this.state = { results : [] }
+        this.state = { 
+            results : [],
+            searchFail: false 
+        };
     }
 
     componentDidMount() {
-        const { term } = this.props.match.params
+        const { term } = this.props.match.params;
+        this.fetchImages(term);
+       
+    }
+
+    componentWillReceiveProps() {
+        const { term } = this.props.match.params;
+        this.fetchImages(term);
+    }
+
+    fetchImages(term) {
         axios
         .get(`/api/search-tags/${term}/random`)
         .then((res) => {
             const results = res.data;
-            console.log('results: ', results)
-            this.setState({ results });
+            if (results.length === 0) {
+                this.setState({searchFail : true});
+            } else {
+                this.setState({ results });
+            }
         })
         .catch(err => console.log(err));
     }
@@ -38,14 +54,12 @@ class SearchResultsDesktop extends Component {
             const data = {
                 id,
                 tag
-            }
-            console.log(data)
+            };
             axios
                 .post('/api/submit-tag', data)
-                .then(res => console.log(res))
+                .then(res => console.log(res));
         }
-
-        event.target.elements.term.value = ""
+        event.target.elements.term.value = "";
     }
 
     render() {
@@ -56,55 +70,85 @@ class SearchResultsDesktop extends Component {
             slidesToShow: 1,
             slidesToScroll: 1,
             arrows: false,
-            dotClass: 'slick-dots'
+            dotClass: 'slick-dots',
         }
-        
+
+        if(this.state.results.length === 1) {
+            settings.dots = false;
+            settings.draggable = false;
+            settings.slidesToScroll = 0;
+        }
+
         if (this.state.results.length === 0) {
+            if(this.state.searchFail) {
+                return (
+                    <div className = "searchFail">
+                        <div className = "logoWrapper">
+                                <img   src={ logo } 
+                                    className = "logoStyle"
+                                />
+                        </div>
+                        <div className= "failText">
+                            <p><b>Sorry</b> - we don't have any tags matching yours in our database.</p>
+                        </div>
+                    </div>
+                );
+            }
             return (
-                //insert dope loading animation here..
-                <div>Loading...</div>
-            )
+                <div className = "loaderWrapper">
+                    <div className = "logoWrapper">
+                            <img   src={ logo } 
+                                className = "logoStyle"
+                            />
+                    </div>
+                </div>
+            );
         }
+
+        const slides = this.state.results.map(result => {
+            let tags = [];
+            result.Tags.map(tag => {
+                tags.push(tag.tag_name)
+            });
+            return (
+                <div key={result.id}>
+                    <Row className="rowStyle">
+                        <Col sm={6} class="bgWrapper">
+                            <div className="imageWrapper">
+                                <div className="imageContainer">
+                                    <div className="imageClip">
+                                        <img 
+                                            className="imageStyle"
+                                            src={ result.web_path }/>
+                                    </div>
+                                </div>
+                            </div>
+                        </Col>
+                        <Col sm={6} className="resultContainer">
+                            <Info
+                                image={ logo }
+                                headerOne={ result.title }
+                                headerTwo={ result.artist }
+                            >
+                                <Tags isLink={ true } withHash={ true } tagList={ tags } />
+                                <p>Suggest a new tag: </p>
+                                <TagSubmit
+                                    handleTagSubmit={this.handleTagSubmit(result.id)}
+                                    btnText="submit" />
+                                <NavBtn route='/explore' btnText='search a new tag' />
+                            </Info>
+                        </Col>
+                    </Row>
+                </div> 
+            );
+        })
+
         return(
             <div className="explorePageContainer">
                 <Slider {...settings}>
-                    {this.state.results.map(result => {
-                        let tags = [];
-                        result.Tags.map(tag => {
-                            tags.push(tag.tag_name)
-                        })
-                        return (
-                            <div key={result.id}>
-                                <Row className="rowStyle">
-                                    <Col sm={6} className="bgWrapper">
-                                        <div className="imageWrapper">
-                                            <div className="imageContainer">
-                                                <div className="imageClip">
-                                                    <img 
-                                                        className="imageStyle"
-                                                        src={ result.web_path }/>
-                                                </div>
-                                            </div>
-                                        </div>
-                                    </Col>
-                                    <Col sm={6} className="resultContainer">
-                                        <Info
-                                            title={ result.title }
-                                            artist={ result.artist }
-                                        >
-                                            <Tags isLink={ true } withHash={ true } tagList={ tags } />
-                                            <p>Suggest a new tag: </p>
-                                            <TagSubmit
-                                            handleTagSubmit={this.handleTagSubmit(result.id)}
-                                            btnText="omg thanx!" />
-                                        </Info>
-                                    </Col>
-                                </Row>
-                            </div> 
-                        );
-                    })}
+                    {slides}
+                    { this.state.results.length === 1 && <div></div> }
                 </Slider>
-                <NavBtn route='/explore' btnText='search again!' />
             </div>
         );
     }
