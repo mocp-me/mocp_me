@@ -46,7 +46,7 @@ class SearchResultsDesktop extends Component {
         .catch(err => console.log(err));
     }
 
-    handleTagSubmit = (id) => (event) => {
+    handleTagSubmit = (id, event) => {
         console.log("(id) =>", id);
         console.log("(event) =>", event);
         event.preventDefault();
