@@ -28,16 +28,34 @@ const adminRoutes = (function(){
 
 	router.get("/pending-tags", (req, res) => {
 		console.log("admin/pending-tags call received by backend");
+		let photos;
 		db.user_tags.findAll({
 			where: {
 				approved: false
-			},
-			include: [{
-				model: db.Photos
-			}]
-		}).then(Tags => {
-			res.json(Tags);
+			}
+		})
+		.then(Tags => {
+			const pics = Tags.map(tag => tag.photo_id);
+			db.Photos.findAll({
+				where: {
+					id: {
+						$in: pics
+					}
+				},
+				include: [{
+					model: db.user_tags
+				}]
+			})
+			.then(Photos => {
+			res.json(Photos);
 		});
+
+
+		})
+
+		// .then(Tags => {
+		// 	res.json(Tags);
+		// });
 	});
 	
 	// Post Update Delete and Approve Admin Routes
