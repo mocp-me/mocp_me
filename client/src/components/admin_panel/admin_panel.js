@@ -91,9 +91,16 @@ class AdminPanel extends Component {
 		const data = {
 			tagName,
 			photoId
+		};
+		const url = `/approval/${tagId}`;
+		const req = {
+			url,
+			method: 'PUT',
+			data
 		}
+
 		console.log('data to be sent: ', data)
-		axios.put(`/approval/${tagId}`, data)
+		axios.put(req)
 			.then(response => console.log(response))
 			.catch(err => console.log(err));
 		this.removeTheThing(tagId);
