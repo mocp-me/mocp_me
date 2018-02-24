@@ -87,8 +87,12 @@ class AdminPanel extends Component {
 		})
 	}
 
-	approveTag(tagId) {
-		axios.put(`/approval/${tagId}`)
+	approveTag(tagId, tagName) {
+		const data = {
+			tagID,
+			tagName
+		}
+		axios.put(`/approval/${tagId}`, data)
 			.then(response => console.log(response))
 			.catch(err => console.log(err));
 		this.removeTheThing(tagId);
@@ -109,8 +113,6 @@ class AdminPanel extends Component {
   	console.log("this.state.tags", this.state.tags);
 	const tagList = this.state.tags && this.state.tags.map((tag, i) => {
 		return (
-
-
 			<div>
 				<a href={`#accordion-content-${i}`} data-toggle="collapse">
 					<AdminContent
@@ -118,7 +120,7 @@ class AdminPanel extends Component {
 						tagName={tag.tag_name}
 						datePosted={moment(tag.createdAt).format("LLL")}
 						onApprove={() => {
-							this.approveTag(tag.id)}}
+							this.approveTag(tag.id, tag.tag_name)}}
 						onReject={() => {
 							this.rejectTag(tag.id)}}
 					/>
