@@ -35,8 +35,9 @@ const adminRoutes = (function(){
 			include: [{
 				model: db.Photos,
 				where: {
-					id: photo_id
-				}
+					id: db.user_tags.photo_id
+				},
+				required: false
 			}]
 		}).then(Tags => {
 			res.json(Tags);
