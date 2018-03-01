@@ -1,7 +1,7 @@
 {
 	"development": {
 		"username": "root",
-		"password": "SC3r3v151a3",
+		"password": "abc123",
 		"database": "mocp_db",
 		"host": "localhost",
 		"dialect": "mysql"
