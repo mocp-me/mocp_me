@@ -1,6 +1,4 @@
 import React from 'react';
-import Link from 'react-router-dom';
-
 import Tag from '../tag_list_item/tag_list_item';
 
 const Tags = (props) => {

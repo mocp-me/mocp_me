@@ -31,6 +31,13 @@ class Landing extends Component {
             triggerThree: false 
         }
     }
+    componentDidMount() {
+        window.addEventListener('scroll', this.handleScroll);
+    }
+    
+    componentWillUnmount() {
+        window.removeEventListener('scroll', this.handleScroll);
+    }
 
     onDragEnter() {
         this.setState({ dropzoneActive: true });

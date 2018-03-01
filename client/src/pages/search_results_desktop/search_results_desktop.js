@@ -27,8 +27,8 @@ class SearchResultsDesktop extends Component {
        
     }
 
-    componentWillReceiveProps() {
-        const { term } = this.props.match.params;
+    componentWillReceiveProps(newProps) {
+        let term = newProps.match.params.term;
         this.fetchImages(term);
     }
 
@@ -115,7 +115,7 @@ class SearchResultsDesktop extends Component {
             return (
                 <div key={result.id}>
                     <Row className="rowStyle">
-                        <Col sm={6} class="bgWrapper">
+                        <Col sm={6} className="bgWrapper">
                             <div className="imageWrapper">
                                 <div className="imageContainer">
                                     <div className="imageClip">

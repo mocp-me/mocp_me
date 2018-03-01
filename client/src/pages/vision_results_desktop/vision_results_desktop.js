@@ -55,14 +55,18 @@ class VisionResultsDesktop extends Component {
     handleTagSubmit(event) {
         event.preventDefault();
         const tag = event.target.elements.term.value;
-        const data = {
-            id: this.state.imgId,
-            tag
-        };
-        console.log('data for tag submit: ', data)
-        axios
-            .post('/api/submit-tag', data)
-            .then(res => console.log(res));
+
+        if(tag.length > 1 && tag.length<12) {
+            const data = {
+                id: this.state.imgId,
+                tag
+            }
+            axios
+                .post('/api/submit-tag', data)
+                .then(res => console.log(res));
+            event.target.elements.term.value = "";
+        }
+        
     }
 
     fetchImage() {
@@ -88,7 +92,6 @@ class VisionResultsDesktop extends Component {
                     returnedTags
                 });
                 sessionStorage.setItem('prevState', JSON.stringify(this.state));
-                console.log('new state: ', this.state)
             })
             .catch(err => console.log(err));
     }
@@ -139,7 +142,7 @@ class VisionResultsDesktop extends Component {
                                     image={ logo }
                                     headerOne = "Swipe left to see your match from the collection."
                                     headerTwo = "Please enter your email below to submit your pairing for an exhibition at the MoCP.">
-                                    { visionTopTags ? <Tags withHash={ true } tagList={ visionTopTags } /> : <p>fetching tags..</p> }
+                                    { visionTopTags ? <Tags isLink={ true } withHash={ true } tagList={ visionTopTags } /> : <p>fetching tags..</p> }
                                     <TagSubmit
                                         handleTagSubmit={ null }
                                         btnText="submit" />
@@ -174,7 +177,7 @@ class VisionResultsDesktop extends Component {
                                         image={ logo }
                                         headerOne={ title }
                                         headerTwo={ artist }>
-                                        <Tags withHash={ true } tagList={ returnedTags } />
+                                        <Tags isLink={ true } withHash={ true } tagList={ returnedTags } />
                                         {/* {returnedImg && <NavBtn route='/submit' btnText='submit your results to mocp' />} */}
                                         <p>Suggest a new tag: </p>
                                         <TagSubmit

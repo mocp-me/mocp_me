@@ -2,7 +2,6 @@ import React, { Component } from "react";
 import { Grid, Row, Col, Container } from "react-grid-system";
 import ReactCSSTransitionGroup from "react-addons-css-transition-group"; 
 
-
 import logo from "../logo/logo.png";
 import AdminContent from "./admin_content/admin_content";
 import moment from "moment";
@@ -52,7 +51,7 @@ const imgStyle = {
 const token = `Bearer ${localStorage.getItem("access_token")}`;
 
 // instantiate and configure axios
-let axios = Axios.create({
+const axios = Axios.create({
 	baseURL: "/admin-api/",
 	timeout: 5000,
 	headers: {
@@ -60,7 +59,6 @@ let axios = Axios.create({
 		"crossDomain": true
 	}
 });
-
 
 class AdminPanel extends Component {
 	constructor(props) {
@@ -72,12 +70,13 @@ class AdminPanel extends Component {
 	}
 
 	componentWillMount() {
-		axios.get("/pending-tags").then(response => {
-			console.log('response', response);
-			let tagArray = response.data;
-			this.setState({tags: tagArray})
-			console.log("this.state", this.state);
-		});
+		axios.get("/pending-tags")
+			.then(response => {
+				console.log('response', response);
+				let tagArray = response.data;
+				this.setState({tags: tagArray})
+				console.log("this.state", this.state);
+			});
 	}
 
 	removeTheThing(tagId) {
@@ -87,26 +86,12 @@ class AdminPanel extends Component {
 		})
 	}
 
-	approveTag(tagId, tagName, photoId) {
-		const data = {
-			tagName,
-			photoId
-		};
-		const url = `/approval/${tagId}`;
-		const req = {
-			url,
-			method: 'PUT',
-			data
-		}
-		console.log('req to be used: ', req)
-
-		console.log('data to be sent: ', data)
-		axios(req)
+	approveTag(tagId) {
+		axios.put(`/approval/${tagId}`)
 			.then(response => console.log(response))
 			.catch(err => console.log(err));
 		this.removeTheThing(tagId);
-		return console.log(`approveTag(${tagId}, ${tagName}, ${photoId}) called.`);
-
+		return console.log(`approveTag(${tagId}) called.`);
 	}
 
 	rejectTag(tagId) {
@@ -116,7 +101,6 @@ class AdminPanel extends Component {
 		this.removeTheThing(tagId);
 		return console.log(`rejectTag(${tagId}) called.`);
 	}
-
 
   render() {
   	console.log("this.state.tags", this.state.tags);
@@ -138,8 +122,6 @@ class AdminPanel extends Component {
 					<img src={tag.Photo ? tag.Photo.web_path : null} style={imgStyle }/>
 				</div>
 			</div>
-
-
 		)
 	});
 

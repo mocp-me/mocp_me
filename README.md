@@ -1,7 +1,33 @@
-# mocp_me
-Application for Museum of Contemporary Photography that reverse image searches the museums database and allows users to interact with the museums works
+# MoCP.me
 
-# Database Creation ~ *A History*
+### Application for Museum of Contemporary Photography that reverse image searches the museums database and allows the public to interact with the museums works on user-generated terms.
+
+![alt text](/readme_ref/mocp_visual.jpg?raw=true "The App") 
+
+### The Tagging Project
+In 1980, the Museum of Contemporary Photography established a permanent collection and it is through this collection that the museum has been able to provide an invaluable research and educational resource to the general public and thousands of students. In 2009, the growing collection was digitized and made available online for free to the general public. To extend the reach of the Museum of Contemporary Photography’s vast resources from the collection and enhance connections between the institution and the community, artist Jan Tichy has developed a project and exhibition utilizing the museum’s collection of over 12,000 photographs.
+
+<b>MoCP.me</b> was created by developers, Amanda Yamasaki, Lane Anderson, Michael Doherty, and Dennis Hodges.  The goal of <b>MoCP.me</b> is to utilize relevant technologies like machine learning and computer vision to futher engage the public with the collection on user-generated terms.
+
+---
+
+# How It Works
+### Add Image
+Users can upload a photograph that will be analyzed by Google Vision to return relevant tags. These tags will then be used to query our database of photographs from the MoCP collection, returning a complimentary collection photograph to the user uploaded photograph.  <b>The user can then decide to submit the pairing to the collection where the pairings will be exhibited.</b>
+
+### Search
+Users can search for tags to view images tagged similarly by either other users or Google Vision. 
+
+### Tag Submit
+Users can submit tags for their returned MoCP collection photograph, or while searching for other tags.  
+
+---
+
+![alt text](/readme_ref/mocp_data_flow.jpg?raw=true "The App") 
+
+---
+
+# Database Creation
 ### Raw Data Prep
 Due to the unique nature of this project, the database of images and information that we had access to was greatly limited. We were unable to plug directly in the database that the museum uses for their internal systems. Instead we received a hard drive copy of the files and folders of each image and high definition image. This hard drive contained a seemingly unordered structure of nested folders and database files.
 
@@ -50,6 +76,20 @@ The entire premise of this application was to first get people to interact with 
 # API Reference
 
 ### Public Routes
-### 
+####  Upload image
+####  Get image based on Google Vision
+####  Submit Photo
+####  Submit Tag
+####  Search Tags using a keyword and randomize the results
+####  Check if search term is a valid tag
+####  Get all photos in the db
+####  Get random tags
+####  Add a tag
 
 ### Admin Routes
+####  Get all user tags
+####  Get all user tags that are pending
+####  Add a tag with approval status
+####  Update a user tag
+####  Approve a tag
+####  Delete a tag
