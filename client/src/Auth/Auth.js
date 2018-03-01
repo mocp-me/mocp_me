@@ -2,11 +2,12 @@ import history from "../history";
 import auth0 from "auth0-js";
 
 class Auth {
+	e = process.env.NODE_ENV || "development";
 	auth0 = new auth0.WebAuth({
 			domain: process.env.REACT_APP_AUTH0_CLIENT_DOMAIN,
 			clientID: process.env.REACT_APP_AUTH0_CLIENT_ID,
-			redirectUri: process.env.REACT_APP_AUTH0_REDIRECT_URL,
-			audience: process.env.REACT_APP_AUTH0_AUDIENCE,
+			redirectUri: (this.e === "development" ? "http://localhost:3000/callback" : process.env.REACT_APP_AUTH0_REDIRECT_URL),
+			audience: (this.e === "development" ? "https://mocp-me.auth0.com/userinfo" : process.env.REACT_APP_AUTH0_AUDIENCE),
 			responseType: "token id_token",
 			scope: "openid"
 		});

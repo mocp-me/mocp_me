@@ -56,16 +56,17 @@ class VisionResultsDesktop extends Component {
         event.preventDefault();
         const tag = event.target.elements.term.value;
 
-        };
         if(tag.length > 1 && tag.length<12) {
             const data = {
                 id: this.state.imgId,
                 tag
+            }
             axios
                 .post('/api/submit-tag', data)
                 .then(res => console.log(res));
             event.target.elements.term.value = "";
         }
+        
     }
 
     fetchImage() {

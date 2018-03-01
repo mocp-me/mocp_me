@@ -1,5 +1,8 @@
 const routes = (function(){
-	
+
+	// Determine environment
+	const env = process.env.NODE_ENV || "development";
+
 	// Dependencies
 	const adminRoutes = require("./admin-routes");
 	const apiRoutes = require("./api-routes");
@@ -19,7 +22,13 @@ const routes = (function(){
 
 	// All other paths return React app, including /admin
 	router.get("*", function (req, res){
-		res.sendFile(path.join(__dirname, "../client/build/index.html"));
+		let filePath;
+		if (env === "development"){
+			filePath = "../client/public/index.html";
+		} else {
+			filePath = "../client/build/index.html";
+		}
+		res.sendFile(path.join(__dirname, filePath));
 	});
 
 	return router;
