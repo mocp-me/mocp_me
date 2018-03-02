@@ -1,63 +1,36 @@
 import React, { Component } from 'react';
-import { Link } from 'react-router-dom'
-import { Grid, Row, Col, Container } from 'react-grid-system';
+import { Row, Col } from 'react-grid-system';
 import ClassNames from 'classnames';
+import autoBind from 'auto-bind';
 
 class NavPanel extends Component {
     constructor(props){
         super(props);
+
+        autoBind(this);
+
         this.state = {
-        	hovered: false,
-        	phone:false,
-        	trigger:false
-        }
-        this.updateWindowDimensions = this.updateWindowDimensions.bind(this);
-        this.handleScroll = this.handleScroll.bind(this);
+        	animate: this.props.animate
+        };
     }
 
-    componentDidMount() {
-      this.updateWindowDimensions();
-      window.addEventListener('resize', this.updateWindowDimensions);
-      window.addEventListener('scroll', this.handleScroll);
+    componentWillReceiveProps(props){
+        this.setState({animate : props.animate});
     }
 
-    componentWillUnmount() {
-      window.removeEventListener('resize', this.updateWindowDimensions);
-      window.removeEventListener('scroll', this.handleScroll);
+    handleOnMouseOver() {
+        this.setState({ animate:true });
     }
-
-    updateWindowDimensions() {
-        if (window.innerWidth < 450){
-            this.setState({phone:true});
-        } else {
-            this.setState({phone:false});
-        }
-    }
-
-    handleScroll(event){
-        if (this.state.trigger !== this.props.trigger){
-            this.setState({trigger:this.props.trigger});
-            if (this.state.trigger){
-                this.setState({hovered:true});
-            } 
-            if (!this.state.trigger) {
-                this.setState({hovered:false});
-            }
-        }
-    }
-
-    handleOnMouseOver = () => {
-        this.setState({hovered:true})
-    }
-    handleOnMouseLeave = () => {
-        this.setState({hovered:false})
+    handleOnMouseLeave() {
+        this.setState({ animate:false });
     }
 
     render() {
-		var animationClass = ClassNames({
+		const animationClass = ClassNames({
 		    'animationWrapper': true,
-		    'animationWapperHovered': this.state.hovered
-		});
+		    'animationWapperHovered': this.state.animate
+        });
+        
 		return (
 		    <Row className="panelStyle" onMouseOver={this.handleOnMouseOver} onMouseLeave={this.handleOnMouseLeave}>
 		    	<Col xs={12} className={animationClass}>
@@ -76,7 +49,7 @@ class NavPanel extends Component {
 					</div>
 			    </Col>
 		    </Row>
-	   	)
+	   	);
     }
 }
 

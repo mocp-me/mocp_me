@@ -1,9 +1,10 @@
-import React, { ReactDOM, Component } from "react";
+import React, { Component } from "react";
 import { Link, withRouter } from "react-router-dom";
 import Dropzone from "react-dropzone";
 import Waypoint from 'react-waypoint';
-import { Grid, Row, Col, Container, Clearfix } from "react-grid-system"
+import { Row, Col } from "react-grid-system"
 import axios from "axios";
+import autoBind from 'auto-bind';
 
 import Logo from "../../components/logo/logo";
 import Phone from "../../components/phone/phone";
@@ -13,30 +14,16 @@ class Landing extends Component {
     constructor(props) {
         super(props);
 
-        this.onDrop = this.onDrop.bind(this);
-        this.onDragEnter = this.onDragEnter.bind(this);
-        this.onDragLeave = this.onDragLeave.bind(this);
-        this.handleTriggerOneEnter = this.handleTriggerOneEnter.bind(this);
-        this.handleTriggerOneLeave = this.handleTriggerOneLeave.bind(this);  
-        this.handleTriggerTwoEnter = this.handleTriggerTwoEnter.bind(this);
-        this.handleTriggerTwoLeave = this.handleTriggerTwoLeave.bind(this);
-        this.handleTriggerThreeEnter = this.handleTriggerThreeEnter.bind(this);
-        this.handleTriggerThreeLeave = this.handleTriggerThreeLeave.bind(this);
+        autoBind(this);
 
         this.state = {
             dropzoneActive: false,
-            rejectedFile: false,
-            triggerOne: false,
-            triggerTwo: false,
-            triggerThree: false 
+            fileRejected: false,
+            processingUpload: false,
+            animationTriggerOne: false,
+            animationTriggerTwo: false,
+            animationTriggerThree: false 
         }
-    }
-    componentDidMount() {
-        window.addEventListener('scroll', this.handleScroll);
-    }
-    
-    componentWillUnmount() {
-        window.removeEventListener('scroll', this.handleScroll);
     }
 
     onDragEnter() {
@@ -47,8 +34,9 @@ class Landing extends Component {
             this.setState({ dropzoneActive: false });
     }
 
-    onDrop(accepted, rejected) {
+    handleOnDrop(accepted, rejected) {
         if(rejected.length > 0) {
+            console.log(rejected)
             this.setState({ fileRejected: true });
             return;
         } else {
@@ -69,25 +57,10 @@ class Landing extends Component {
             .catch(err => console.log(err));
     }
 
-    handleTriggerOneEnter() {
-        this.setState({ triggerOne: true });
-    }
-    handleTriggerOneLeave() {
-        this.setState({ triggerOne: false });
-    }
-
-    handleTriggerTwoEnter() {
-        this.setState({ triggerTwo: true });
-    }
-    handleTriggerTwoLeave() {
-        this.setState({ triggerTwo: false });
-    }
-
-    handleTriggerThreeEnter() {
-        this.setState({ triggerThree: true });
-    }
-    handleTriggerThreeLeave() {
-        this.setState({ triggerThree: false });
+    handleTrigger(trigger) {
+        if (window.innerWidth < 450 && !this.state[trigger]) {
+            this.setState({ [trigger] : true });
+        }
     }
 
     render() {
@@ -107,14 +80,11 @@ class Landing extends Component {
             <div className="landingWrapper">
                 <Row>
                     <Col xs={12} sm={7} md={7} className="phoneStyle">
-                        <Waypoint 
-                            onLeave={ this.handleTriggerOneLeave } 
-                            onEnter={ this.handleTriggerOneEnter } 
-                            scrollableAncestor={ window } 
-                            fireOnRapidScroll={ true } 
-                            topOffset="60%"/>
+                        <Waypoint   
+                        onLeave={ () => this.handleTrigger('animationTriggerOne') }
+                       />
                         <Logo />
-                        <Phone trigger={ this.state.triggerOne } />
+                        <Phone  animate={this.state.animationTriggerOne}/>
                     </Col>
                     <Col xs={ 12 } sm={ 5 } md={ 5 }>
                         <Dropzone
@@ -123,36 +93,34 @@ class Landing extends Component {
                             accept="image/*"
                             maxSize={ 4000000 }
                             minSize={ 5000 }
-                            onDrop={ this.onDrop }
+                            onDrop={ this.handleOnDrop }
                             onDragEnter={ this.onDragEnter }
                             onDragLeave={ this.onDragLeave }>
                             { dropzoneActive && <div style={ overlayStyle }></div> }
                             <div className="navPanel_1">
                                 <Waypoint   
-                                    onEnter={ this.handleTriggerTwoEnter }  
-                                    scrollableAncestor={ window } 
-                                    topOffset="70%" 
-                                    fireOnRapidScroll={ true }/>
+                                    onEnter={ () => this.handleTrigger('animationTriggerTwo') }
+                                    bottomOffset="55%" />
                                 <NavPanel
                                     text1="Upload your image"
                                     text2="to connect to"
                                     text3="the collection."
-                                    trigger={ this.state.triggerTwo }/>
-                                <button className="button"></button>
-                                {this.state.rejectedFile && <p><b>Please upload an image file between 5kb and 4mb in size</b></p>}
+                                    animate={ this.state.animationTriggerTwo } />
+                                <button className="button">
+                                    {this.state.fileUploaded ? 'processing...' : 'add image'}
+                                </button>
+                                {this.state.fileRejected && <p><b>Please upload an image file between 5kb and 4mb in size</b></p>}
                             </div>
                         </Dropzone>
                         <div className="navPanel_2">
                             <Waypoint   
-                                onEnter={ this.handleTriggerThreeEnter } 
-                                scrollableAncestor={ window } 
-                                topOffset="80%"
-                                fireOnRapidScroll={ true }/>
+                                onEnter={ () => this.handleTrigger('animationTriggerThree') } 
+                                bottomOffset="55%" />
                             <NavPanel
                                 text1="Search our tags"
                                 text2="& add some more"
                                 text3="on the go!"
-                                trigger={ this.state.triggerThree }/>
+                                animate={ this.state.animationTriggerThree } />
                             <Link to="/explore">
                                 <button className="button">
                                     explore

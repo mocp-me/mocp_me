@@ -1,76 +1,43 @@
 import React, { Component } from 'react';
-import { Grid, Row, Col, Container } from 'react-grid-system';
 import ClassNames from 'classnames';
+import autoBind from 'auto-bind';
 
 class Phone extends Component {
     constructor(props){
         super(props);
 
+        autoBind(this);
+
         this.state = {
-            hovered: false,
-            phone:false,
-            trigger:false
-        }
-
-        this.updateWindowDimensions = this.updateWindowDimensions.bind(this);
-        this.handleScroll = this.handleScroll.bind(this);
-
-    }
-
-    componentDidMount() {
-      this.updateWindowDimensions();
-      window.addEventListener('resize', this.updateWindowDimensions);
-      window.addEventListener('scroll', this.handleScroll);
-    }
-
-    componentWillUnmount() {
-      window.removeEventListener('resize', this.updateWindowDimensions);
-      window.removeEventListener('scroll', this.handleScroll);
-    }
-
-    updateWindowDimensions() {
-        if (window.innerWidth < 450){
-            this.setState({phone:true});
-        } else {
-            this.setState({phone:false});
+            animate: this.props.animate
         }
     }
 
-    handleScroll(event){
-        if (this.state.trigger !== this.props) {
-            this.setState({ trigger:this.props });
-            if (this.state.trigger) {
-                this.setState({ hovered:true });
-            } else {
-                this.setState({ hovered:false });
-            }
-        }
+    componentWillReceiveProps(props){
+        this.setState({animate : props.animate});
     }
 
-    handleOnMouseOver = () => {
-        if (this.state.phone){
-            this.setState({hovered:false})
-        } else {
-            this.setState({hovered:true});
-        }
+    handleOnMouseOver() {
+        this.setState({ animate:true });
     }
-    handleOnMouseLeave = () => {
-        this.setState({hovered:false})
+
+    handleOnMouseLeave() {
+        this.setState({ animate:false });
     }
 
     render() {
-        var phoneClass = ClassNames({
+        const phoneClass = ClassNames({
             'phoneWrapper': true,
-            'phoneWrapperHover': this.state.hovered
+            'phoneWrapperHover': this.state.animate
         });
         return (
-            <div className="transformContainer" onMouseOver={this.handleOnMouseOver} onMouseLeave={this.handleOnMouseLeave}>
-                <div className={phoneClass}> 
+            <div className="transformContainer" onMouseOver={ this.handleOnMouseOver } onMouseLeave={ this.handleOnMouseLeave }>
+                <div className={ phoneClass }> 
                     <div className="speakerCircle"></div>
                     <div className="speaker">
                         <div className="cameraCircle"></div>
                     </div>                
-                    {!this.state.hovered ? 
+                    { !this.state.animate ? 
                     <div className="phone">
                         Let's tag the collection with machine learning & computer vision.
                     </div> : 
@@ -86,7 +53,7 @@ class Phone extends Component {
                     </div>
                 </div>
             </div>
-        )
+        );
     }
 }
 

@@ -736,10 +736,7 @@ th {
   border-width: 3px !important;
   width: 200px;
 }
-.landingWrapper .navPanel_1 .button:after {
-  content: "add image";
-  transition: linear .2s !important;
-}
+
 .landingWrapper .navPanel_2 {
   background-color: #E5B616 !important;
   color: #FFDC65;
@@ -938,11 +935,9 @@ th {
     border-width: 3px !important;
   }
   .landingWrapper .navPanel_1 .button:after {
-    content: "add image";
     transition: linear .2s !important;
   }
   .landingWrapper .navPanel_1 .button:hover:after {
-    content: "processing...";
   }
   .landingWrapper .navPanel_2 {
     height: 110vh !important;
