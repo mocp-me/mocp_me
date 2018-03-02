@@ -14,6 +14,7 @@ class Phone extends Component {
     }
 
     componentWillReceiveProps(props){
+        console.log('got some props!', props)
         this.setState({animate : props.animate});
     }
 

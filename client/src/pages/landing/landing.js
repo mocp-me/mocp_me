@@ -1,5 +1,5 @@
 import React, { Component } from "react";
-import { Link, withRouter } from "react-router-dom";
+import { Link } from "react-router-dom";
 import Dropzone from "react-dropzone";
 import Waypoint from 'react-waypoint';
 import { Row, Col } from "react-grid-system"
@@ -19,11 +19,26 @@ class Landing extends Component {
         this.state = {
             dropzoneActive: false,
             fileRejected: false,
-            processingUpload: false,
             animationTriggerOne: false,
             animationTriggerTwo: false,
             animationTriggerThree: false 
         }
+    }
+    componentDidMount() {
+        window.addEventListener('resize', this.handleWindowResize)
+    }
+
+    componentWillUnmount() {
+        window.removeEventListener('resize', this.handleWindowResize)
+    }
+
+    //reset animations when user changes browser window size, especially useful when switching between the media breakpoint
+    handleWindowResize() {
+        this.setState({
+            animationTriggerOne: false, 
+            animationTriggerTwo: false, 
+            animationTriggerThree: false
+        }) 
     }
 
     onDragEnter() {
@@ -57,8 +72,8 @@ class Landing extends Component {
             .catch(err => console.log(err));
     }
 
-    handleTrigger(trigger) {
-        if (window.innerWidth < 450 && !this.state[trigger]) {
+    handleAnimationTrigger(trigger) {
+        if (window.innerWidth < 576 && !this.state[trigger]) {
             this.setState({ [trigger] : true });
         }
     }
@@ -81,7 +96,7 @@ class Landing extends Component {
                 <Row>
                     <Col xs={12} sm={7} md={7} className="phoneStyle">
                         <Waypoint   
-                        onLeave={ () => this.handleTrigger('animationTriggerOne') }
+                        onLeave={ () => this.handleAnimationTrigger('animationTriggerOne') }
                        />
                         <Logo />
                         <Phone  animate={this.state.animationTriggerOne}/>
@@ -99,7 +114,7 @@ class Landing extends Component {
                             { dropzoneActive && <div style={ overlayStyle }></div> }
                             <div className="navPanel_1">
                                 <Waypoint   
-                                    onEnter={ () => this.handleTrigger('animationTriggerTwo') }
+                                    onEnter={ () => this.handleAnimationTrigger('animationTriggerTwo') }
                                     bottomOffset="55%" />
                                 <NavPanel
                                     text1="Upload your image"
@@ -114,7 +129,7 @@ class Landing extends Component {
                         </Dropzone>
                         <div className="navPanel_2">
                             <Waypoint   
-                                onEnter={ () => this.handleTrigger('animationTriggerThree') } 
+                                onEnter={ () => this.handleAnimationTrigger('animationTriggerThree') } 
                                 bottomOffset="55%" />
                             <NavPanel
                                 text1="Search our tags"
@@ -134,4 +149,4 @@ class Landing extends Component {
     }
 }
 
-export default withRouter(Landing);
+export default Landing;
